@@ -187,9 +187,9 @@ Gibeira will be a self-hosted, open-source replacement for paid personal-finance
 | SCAF-01 | P1: Structured solution | Design | In Design |
 | SCAF-02 | P1: Structured solution | Design | In Design |
 | SCAF-03 | P1: Structured solution | Design | In Design |
-| SCAF-04 | P1: Structured solution | Design | In Design |
+| SCAF-04 | P1: Structured solution | Execute | T3 done |
 | SCAF-05 | P1: Structured solution | Design | In Design |
-| SCAF-06 | P1: Structured solution | Design | In Design |
+| SCAF-06 | P1: Structured solution | Execute | T3 done |
 | SCAF-07 | P1: Structured solution | Execute | T1 done; test in T9 |
 | SCAF-08 | P1: Structured solution | Execute | T1 done; test in T9 |
 | ARCH-01 | P1: Architecture rules | Design | In Design |

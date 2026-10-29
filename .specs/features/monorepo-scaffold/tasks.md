@@ -123,15 +123,17 @@ T13 → T14
 
 **Done when**:
 
-- [ ] `WebHomePageReturnsGibeira` and `WebEndpointsAreLoopbackOnly` pass
-- [ ] `--filter-method` with a name that matches nothing exits non-zero (confirms the MTP zero-test guard the proofs rely on)
-- [ ] Gate check passes: `dotnet test --solution Gibeira.slnx`
-- [ ] Test count: 2 tests pass
+- [x] `WebHomePageReturnsGibeira` and `WebEndpointsAreLoopbackOnly` pass
+- [x] `--filter-method` with a name that matches nothing exits non-zero (confirms the MTP zero-test guard the proofs rely on)
+- [x] Gate check passes: `dotnet test --solution Gibeira.slnx`
+- [x] Test count: 2 tests pass
 
 **Tests**: integration
 **Gate**: full
 
 **Commit**: `feat(host): add Blazor web host and Aspire AppHost`
+
+**Status**: ✅ Complete
 
 ---
 
@@ -477,7 +479,7 @@ Proof: `dotnet test --project tests/Gibeira.RepositoryTests/Gibeira.RepositoryTe
 
 ## Handoff
 
-**Settled mid-build:** user approved tasks without choosing inline vs sub-agents; executing inline (agent recommendation). T1: the solution build gate cannot pass on an empty `Gibeira.slnx` (NuGet restore: no project to restore), so T1's config was proven by a throwaway classlib under the root inheriting every property and building with 0 warnings; the solution gate starts at T2. User: "Commit T1, note gate (Recommended)" T2: build and format gates pass; `dotnet test --solution` exits 1 with "no test project found" until T3 adds the first test project.
+**Settled mid-build:** user approved tasks without choosing inline vs sub-agents; executing inline (agent recommendation). T1: the solution build gate cannot pass on an empty `Gibeira.slnx` (NuGet restore: no project to restore), so T1's config was proven by a throwaway classlib under the root inheriting every property and building with 0 warnings; the solution gate starts at T2. User: "Commit T1, note gate (Recommended)" T2: build and format gates pass; `dotnet test --solution` exits 1 with "no test project found" until T3 adds the first test project. T3: (a) the template layout links `Gibeira.Web.styles.css`, so every page body contains "Gibeira"; SCAF-04's "contains Gibeira" is too loose to prove anything, so `WebHomePageReturnsGibeira` asserts `<h1>Gibeira</h1>` (spec-precision gap). (b) Tests start the AppHost with `DOTNET_LAUNCH_PROFILE=http`: under the default `https` profile `web` redirects http to https and the untrusted dev certificate fails the call. (c) `Gibeira.AppHost` suppresses ASPIRE010 and keeps DCP and the dashboard from NuGet, so a clone needs no Aspire CLI. (d) Zero-match `--filter-method` exits 8. Mutation check: Web `http` profile on `0.0.0.0` fails `WebEndpointsAreLoopbackOnly`.
 **Dispatched:** none
 **Walked:** none
 
