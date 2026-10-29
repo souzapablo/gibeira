@@ -5,6 +5,7 @@
     <Project Path="src/Host/Gibeira.Web/Gibeira.Web.csproj" />
   </Folder>
   <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/Gibeira.ServiceDefaults/Gibeira.ServiceDefaults.csproj" />
     <Project Path="src/Shared/Gibeira.SharedKernel/Gibeira.SharedKernel.csproj" />
   </Folder>
   <Folder Name="/tests/">

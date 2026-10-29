@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Gibeira.ServiceDefaults\Gibeira.ServiceDefaults.csproj" />
     <ProjectReference Include="..\..\Shared\Gibeira.SharedKernel\Gibeira.SharedKernel.csproj" />
   </ItemGroup>
 
