@@ -193,14 +193,16 @@ T13 → T14
 
 **Done when**:
 
-- [ ] Each fixture test asserts the offending type's full name in the failure
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.ArchitectureTests/Gibeira.ArchitectureTests.csproj`
-- [ ] Test count: 6 tests pass
+- [x] Each fixture test asserts the offending type's full name in the failure
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.ArchitectureTests/Gibeira.ArchitectureTests.csproj`
+- [x] Test count: 6 tests pass
 
 **Tests**: unit
 **Gate**: quick
 
 **Commit**: `test(arch): add layer dependency rules`
+
+**Status**: ✅ Complete
 
 ---
 
