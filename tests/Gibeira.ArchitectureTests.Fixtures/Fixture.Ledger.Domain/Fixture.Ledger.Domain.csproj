@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fixture.Budgets.Domain\Fixture.Budgets.Domain.csproj" />
+    <ProjectReference Include="..\Fixture.Fakes\Fixture.Fakes.csproj" />
+    <ProjectReference Include="..\Fixture.Ledger.Application\Fixture.Ledger.Application.csproj" />
+  </ItemGroup>
+
+</Project>

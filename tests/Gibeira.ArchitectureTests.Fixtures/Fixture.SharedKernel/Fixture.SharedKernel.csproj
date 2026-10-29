@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fixture.Budgets.Domain\Fixture.Budgets.Domain.csproj" />
+    <ProjectReference Include="..\Fixture.Web\Fixture.Web.csproj" />
+  </ItemGroup>
+
+</Project>
