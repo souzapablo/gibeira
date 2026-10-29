@@ -216,6 +216,8 @@ PublishScripts/
 
 # Microsoft Azure Build Output
 csx/
+# Husky.Net C# hook scripts are source, not Azure build output
+!.husky/csx/
 *.build.csdef
 
 # Microsoft Azure Emulator
