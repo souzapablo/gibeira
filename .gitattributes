@@ -1,0 +1,4 @@
+* text=auto
+
+# Git hooks run under sh and must keep LF line endings
+.husky/* text eol=lf
