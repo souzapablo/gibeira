@@ -185,8 +185,8 @@ Gibeira will be a self-hosted, open-source replacement for paid personal-finance
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
 | SCAF-01 | P1: Structured solution | Execute | T9 done |
-| SCAF-02 | P1: Structured solution | Design | In Design |
-| SCAF-03 | P1: Structured solution | Design | In Design |
+| SCAF-02 | P1: Structured solution | Execute | build gate, T1-T14 |
+| SCAF-03 | P1: Structured solution | Execute | build gate, T1-T14 |
 | SCAF-04 | P1: Structured solution | Execute | T3 done |
 | SCAF-05 | P1: Structured solution | Execute | T4 done |
 | SCAF-06 | P1: Structured solution | Execute | T3 done |
@@ -212,12 +212,12 @@ Gibeira will be a self-hosted, open-source replacement for paid personal-finance
 | TMPL-01 | P2: Module template | Execute | T13 done |
 | TMPL-02 | P2: Module template | Execute | T13 done |
 | TMPL-03 | P2: Module template | Execute | T13 done |
-| DOCS-01 | P2: Documentation | Design | In Design |
-| DOCS-02 | P2: Documentation | Design | In Design |
-| DOCS-03 | P2: Documentation | Design | In Design |
-| DOCS-04 | P2: Documentation | Design | In Design |
+| DOCS-01 | P2: Documentation | Execute | T14 done |
+| DOCS-02 | P2: Documentation | Execute | T14 done |
+| DOCS-03 | P2: Documentation | Execute | T14 done |
+| DOCS-04 | P2: Documentation | Execute | T14 done |
 
-**Coverage:** 32 total, 0 mapped to tasks, 32 unmapped (tasks not written yet)
+**Coverage:** 32 total, 32 mapped to tasks, 0 unmapped
 
 ## Sources
 
