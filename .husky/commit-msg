@@ -5,3 +5,5 @@ if ! command -v dotnet >/dev/null 2>&1; then
   echo "dotnet SDK not found: install .NET 10 to commit"
   exit 1
 fi
+
+dotnet husky run --name commit-message-linter --args "$1"
