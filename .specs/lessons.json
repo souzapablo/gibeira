@@ -13,7 +13,7 @@
       "scope": "hooks",
       "status": "candidate",
       "features": [
-        "monorepo-scaffold"
+        "001-monorepo-scaffold"
       ],
       "recurrence": 1,
       "harmful": 0,
@@ -31,7 +31,7 @@
       "scope": "architecture-tests",
       "status": "candidate",
       "features": [
-        "monorepo-scaffold"
+        "001-monorepo-scaffold"
       ],
       "recurrence": 1,
       "harmful": 0,
@@ -49,7 +49,7 @@
       "scope": "architecture-tests",
       "status": "candidate",
       "features": [
-        "monorepo-scaffold"
+        "001-monorepo-scaffold"
       ],
       "recurrence": 1,
       "harmful": 0,
@@ -67,7 +67,7 @@
       "scope": "architecture-tests",
       "status": "candidate",
       "features": [
-        "monorepo-scaffold"
+        "001-monorepo-scaffold"
       ],
       "recurrence": 1,
       "harmful": 0,
@@ -85,7 +85,7 @@
       "scope": "hooks",
       "status": "candidate",
       "features": [
-        "monorepo-scaffold"
+        "001-monorepo-scaffold"
       ],
       "recurrence": 1,
       "harmful": 0,

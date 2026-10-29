@@ -8,7 +8,7 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 
 ---
 
-**Design**: `.specs/features/monorepo-scaffold/design.md`
+**Design**: `.specs/features/001-monorepo-scaffold/design.md`
 **Status**: Approved
 **Approved**: 2026-10-29 - user: "approved"
 **Mutations**: 3

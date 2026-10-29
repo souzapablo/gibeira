@@ -1,5 +1,5 @@
 # Specs
 
-Specs are listed from the oldest to the newest.
+Specs live in `.specs/features/<NNN>-<feature>/spec.md`.
 
-1. [Monorepo Scaffold](.specs/features/monorepo-scaffold/spec.md) - solution structure, architecture tests, Git hooks, module template and docs.
+Rule: the `.specs/features` folder lists specs from the oldest to the newest. Prefix every feature folder with a three-digit sequence number (`001-`, `002-`, ...). A new spec takes the next number after the highest existing one. Never renumber an existing folder.

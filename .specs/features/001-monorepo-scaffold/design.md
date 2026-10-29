@@ -1,6 +1,6 @@
 # Monorepo Scaffold Design
 
-**Spec**: `.specs/features/monorepo-scaffold/spec.md`
+**Spec**: `.specs/features/001-monorepo-scaffold/spec.md`
 **Status**: Approved
 
 ---
