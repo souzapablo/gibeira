@@ -101,13 +101,15 @@ T13 → T14
 
 **Done when**:
 
-- [ ] Project has no `TargetFramework`, `Nullable` or package `Version` of its own (inherited)
-- [ ] Gate check passes: `dotnet build Gibeira.slnx -warnaserror`
+- [x] Project has no `TargetFramework`, `Nullable` or package `Version` of its own (inherited)
+- [x] Gate check passes: `dotnet build Gibeira.slnx -warnaserror`
 
 **Tests**: none
 **Gate**: build
 
 **Commit**: `build(shared): add SharedKernel project`
+
+**Status**: ✅ Complete
 
 ---
 
@@ -475,7 +477,7 @@ Proof: `dotnet test --project tests/Gibeira.RepositoryTests/Gibeira.RepositoryTe
 
 ## Handoff
 
-**Settled mid-build:** user approved tasks without choosing inline vs sub-agents; executing inline (agent recommendation). T1: the solution build gate cannot pass on an empty `Gibeira.slnx` (NuGet restore: no project to restore), so T1's config was proven by a throwaway classlib under the root inheriting every property and building with 0 warnings; the solution gate starts at T2. User: "Commit T1, note gate (Recommended)"
+**Settled mid-build:** user approved tasks without choosing inline vs sub-agents; executing inline (agent recommendation). T1: the solution build gate cannot pass on an empty `Gibeira.slnx` (NuGet restore: no project to restore), so T1's config was proven by a throwaway classlib under the root inheriting every property and building with 0 warnings; the solution gate starts at T2. User: "Commit T1, note gate (Recommended)" T2: build and format gates pass; `dotnet test --solution` exits 1 with "no test project found" until T3 adds the first test project.
 **Dispatched:** none
 **Walked:** none
 
