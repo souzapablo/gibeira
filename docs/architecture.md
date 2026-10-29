@@ -25,6 +25,7 @@ Gibeira is a modular monolith: one Blazor host, and one folder per finance modul
 | ARCH-07 | Every project under `src/Modules/<Module>/` is named `Gibeira.<Module>.Domain`, `Gibeira.<Module>.Application` or `Gibeira.<Module>.Infrastructure`. The failure names the project. | `MisnamedModuleProjectIsReported`, `NamingRuleHoldsOnSolution` |
 | ARCH-08 | A module added under `src/Modules/` is checked by every rule with no change to the test project: the test project references `src/Modules/**/*.csproj`. | `NewModuleIsCoveredByArchitectureTests` (in `tests/Gibeira.RepositoryTests`) |
 | ARCH-09 | Every rule holds on the solution. | every `*HoldsOnSolution` test |
+| ARCH-10 | A module name is one segment of letters and digits: `Gibeira.A.B.Domain` is reported, not skipped by every other rule. The failure names the assembly. | `MultiSegmentModuleNameIsReported`, `ModuleNameRuleHoldsOnSolution` |
 
 ## How the rules work
 

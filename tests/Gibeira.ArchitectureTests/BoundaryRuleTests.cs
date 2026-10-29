@@ -24,9 +24,10 @@ public sealed class BoundaryRuleTests
     {
         var violations = BoundaryRules.SharedKernelDependingOnModulesOrHosts(Load(FixturePrefix), FixturePrefix);
 
-        Assert.Equal(2, violations.Count);
+        Assert.Equal(3, violations.Count);
         Assert.Contains(violations, v => v.StartsWith("Fixture.SharedKernel.Money", StringComparison.Ordinal) && v.Contains("Fixture.Budgets.Domain.Budget", StringComparison.Ordinal));
         Assert.Contains(violations, v => v.StartsWith("Fixture.SharedKernel.Money", StringComparison.Ordinal) && v.Contains("Fixture.Web.HomePage", StringComparison.Ordinal));
+        Assert.Contains(violations, v => v.StartsWith("Fixture.SharedKernel.Money", StringComparison.Ordinal) && v.Contains("Fixture.AppHost.Orchestrator", StringComparison.Ordinal));
     }
 
     [Fact]

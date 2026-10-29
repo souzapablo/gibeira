@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <ProjectReference Include="..\Fixture.Fakes\Fixture.Fakes.csproj" />
     <ProjectReference Include="..\Fixture.Ledger.Infrastructure\Fixture.Ledger.Infrastructure.csproj" />
   </ItemGroup>
 

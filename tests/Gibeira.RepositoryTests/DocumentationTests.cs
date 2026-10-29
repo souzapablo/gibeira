@@ -39,7 +39,7 @@ public sealed partial class DocumentationTests
     public void ArchitectureDocListsEveryRule()
     {
         var architecture = Read("docs/architecture.md");
-        var specRules = Enumerable.Range(1, 9).Select(n => $"ARCH-{n:00}");
+        var specRules = Enumerable.Range(1, 10).Select(n => $"ARCH-{n:00}");
         var testedRules = Directory.GetFiles(Path.Combine(Root, "tests", "Gibeira.ArchitectureTests"), "*.cs")
             .SelectMany(file => RuleId().Matches(File.ReadAllText(file)).Select(match => match.Value));
 

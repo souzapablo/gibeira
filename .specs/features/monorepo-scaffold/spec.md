@@ -99,6 +99,7 @@ Gibeira will be a self-hosted, open-source replacement for paid personal-finance
 7. IF a project under `src/Modules/<Module>/` is not named `Gibeira.<Module>.Domain`, `Gibeira.<Module>.Application` or `Gibeira.<Module>.Infrastructure` THEN the architecture tests SHALL fail naming the project.
 8. WHEN a module is added under `src/Modules/` THEN the architecture tests SHALL apply every rule to it without changes to the test project.
 9. The architecture tests SHALL pass on the scaffolded solution.
+10. IF an assembly named `Gibeira.<Module>.<Layer>` has a module name that is not one segment of letters and digits THEN the architecture tests SHALL fail naming the assembly. (Added after verification, 2026-10-29 - user: "Reject them (Recommended)")
 
 **Independent Test**: Run `dotnet test tests/Gibeira.ArchitectureTests`: each rule passes on the solution and fails on its fixture violation.
 
@@ -201,6 +202,7 @@ Gibeira will be a self-hosted, open-source replacement for paid personal-finance
 | ARCH-07 | P1: Architecture rules | Execute | T8 done |
 | ARCH-08 | P1: Architecture rules | Execute | T13 done |
 | ARCH-09 | P1: Architecture rules | Execute | T6-T8 done |
+| ARCH-10 | P1: Architecture rules | Execute | verification fix |
 | CONV-01 | P1: Conventions on commit | Execute | T10 done |
 | CONV-02 | P1: Conventions on commit | Execute | T11 done |
 | CONV-03 | P1: Conventions on commit | Execute | T11 done |
@@ -217,7 +219,7 @@ Gibeira will be a self-hosted, open-source replacement for paid personal-finance
 | DOCS-03 | P2: Documentation | Execute | T14 done |
 | DOCS-04 | P2: Documentation | Execute | T14 done |
 
-**Coverage:** 32 total, 32 mapped to tasks, 0 unmapped
+**Coverage:** 33 total, 33 mapped to tasks, 0 unmapped
 
 ## Sources
 

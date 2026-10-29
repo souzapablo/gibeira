@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <ProjectReference Include="..\Fixture.AppHost\Fixture.AppHost.csproj" />
     <ProjectReference Include="..\Fixture.Budgets.Domain\Fixture.Budgets.Domain.csproj" />
     <ProjectReference Include="..\Fixture.Web\Fixture.Web.csproj" />
   </ItemGroup>
