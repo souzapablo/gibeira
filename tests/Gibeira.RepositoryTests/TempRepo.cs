@@ -3,6 +3,8 @@ namespace Gibeira.RepositoryTests;
 // A fresh git repository holding a copy of the files a clone of this repository would hold.
 public sealed class TempRepo : IAsyncDisposable
 {
+    private static readonly SemaphoreSlim InstallLock = new(1, 1);
+
     private TempRepo(string root) => Root = root;
 
     public string Root { get; }
@@ -34,7 +36,25 @@ public sealed class TempRepo : IAsyncDisposable
 
     // HUSKY=0 in the developer's environment would skip the install under test.
     public Task<ProcessResult> RestoreAsync() =>
-        RunAsync("dotnet", ["restore", "Gibeira.slnx"], new Dictionary<string, string?> { ["HUSKY"] = null });
+        InstallingAsync(() => RunAsync("dotnet", ["restore", "Gibeira.slnx"], new Dictionary<string, string?> { ["HUSKY"] = null }));
+
+    public Task<ProcessResult> HuskyInstallAsync() =>
+        InstallingAsync(() => RunAsync("dotnet", ["husky", "install"]));
+
+    // Concurrent `husky install` runs, even in different repositories, all report success while only one
+    // sets core.hooksPath, so test classes running in parallel take turns installing.
+    private static async Task<ProcessResult> InstallingAsync(Func<Task<ProcessResult>> install)
+    {
+        await InstallLock.WaitAsync(TestContext.Current.CancellationToken);
+        try
+        {
+            return await install();
+        }
+        finally
+        {
+            InstallLock.Release();
+        }
+    }
 
     public string PathOf(string relativePath) => Path.Combine(Root, relativePath);
 

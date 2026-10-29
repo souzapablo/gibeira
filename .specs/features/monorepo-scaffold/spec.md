@@ -206,8 +206,8 @@ Gibeira will be a self-hosted, open-source replacement for paid personal-finance
 | CONV-03 | P1: Conventions on commit | Execute | T11 done |
 | CONV-04 | P1: Conventions on commit | Execute | T11 done |
 | CONV-05 | P1: Conventions on commit | Execute | T11 done |
-| CONV-06 | P1: Conventions on commit | Design | In Design |
-| CONV-07 | P1: Conventions on commit | Design | In Design |
+| CONV-06 | P1: Conventions on commit | Execute | T12 done |
+| CONV-07 | P1: Conventions on commit | Execute | T12 done |
 | CONV-08 | P1: Conventions on commit | Execute | T1, T9 done |
 | TMPL-01 | P2: Module template | Design | In Design |
 | TMPL-02 | P2: Module template | Design | In Design |
