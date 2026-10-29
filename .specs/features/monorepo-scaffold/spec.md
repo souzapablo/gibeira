@@ -195,9 +195,9 @@ Gibeira will be a self-hosted, open-source replacement for paid personal-finance
 | ARCH-01 | P1: Architecture rules | Execute | T6 done |
 | ARCH-02 | P1: Architecture rules | Execute | T6 done |
 | ARCH-03 | P1: Architecture rules | Execute | T6 done |
-| ARCH-04 | P1: Architecture rules | Design | In Design |
-| ARCH-05 | P1: Architecture rules | Design | In Design |
-| ARCH-06 | P1: Architecture rules | Design | In Design |
+| ARCH-04 | P1: Architecture rules | Execute | T7 done |
+| ARCH-05 | P1: Architecture rules | Execute | T7 done |
+| ARCH-06 | P1: Architecture rules | Execute | T7 done |
 | ARCH-07 | P1: Architecture rules | Design | In Design |
 | ARCH-08 | P1: Architecture rules | Design | In Design |
 | ARCH-09 | P1: Architecture rules | Design | In Design |

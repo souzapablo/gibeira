@@ -216,14 +216,16 @@ T13 → T14
 
 **Done when**:
 
-- [ ] ARCH-04 failure names both modules
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.ArchitectureTests/Gibeira.ArchitectureTests.csproj`
-- [ ] Test count: 12 tests pass
+- [x] ARCH-04 failure names both modules
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.ArchitectureTests/Gibeira.ArchitectureTests.csproj`
+- [x] Test count: 12 tests pass
 
 **Tests**: unit
 **Gate**: quick
 
 **Commit**: `test(arch): add module and host boundary rules`
+
+**Status**: ✅ Complete
 
 ---
 
