@@ -184,14 +184,14 @@ Gibeira will be a self-hosted, open-source replacement for paid personal-finance
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
-| SCAF-01 | P1: Structured solution | Design | In Design |
+| SCAF-01 | P1: Structured solution | Execute | T9 done |
 | SCAF-02 | P1: Structured solution | Design | In Design |
 | SCAF-03 | P1: Structured solution | Design | In Design |
 | SCAF-04 | P1: Structured solution | Execute | T3 done |
 | SCAF-05 | P1: Structured solution | Execute | T4 done |
 | SCAF-06 | P1: Structured solution | Execute | T3 done |
-| SCAF-07 | P1: Structured solution | Execute | T1 done; test in T9 |
-| SCAF-08 | P1: Structured solution | Execute | T1 done; test in T9 |
+| SCAF-07 | P1: Structured solution | Execute | T1, T9 done |
+| SCAF-08 | P1: Structured solution | Execute | T1, T9 done |
 | ARCH-01 | P1: Architecture rules | Execute | T6 done |
 | ARCH-02 | P1: Architecture rules | Execute | T6 done |
 | ARCH-03 | P1: Architecture rules | Execute | T6 done |
@@ -208,7 +208,7 @@ Gibeira will be a self-hosted, open-source replacement for paid personal-finance
 | CONV-05 | P1: Conventions on commit | Design | In Design |
 | CONV-06 | P1: Conventions on commit | Design | In Design |
 | CONV-07 | P1: Conventions on commit | Design | In Design |
-| CONV-08 | P1: Conventions on commit | Execute | T1 done; test in T9 |
+| CONV-08 | P1: Conventions on commit | Execute | T1, T9 done |
 | TMPL-01 | P2: Module template | Design | In Design |
 | TMPL-02 | P2: Module template | Design | In Design |
 | TMPL-03 | P2: Module template | Design | In Design |

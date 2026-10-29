@@ -262,14 +262,16 @@ T13 → T14
 
 **Done when**:
 
-- [ ] Each test fails when its file or setting is removed (checked once by hand, then restored)
-- [ ] Gate check passes: `dotnet test --solution Gibeira.slnx`
-- [ ] Test count: 4 repository tests pass
+- [x] Each test fails when its file or setting is removed (checked once by hand, then restored)
+- [x] Gate check passes: `dotnet test --solution Gibeira.slnx`
+- [x] Test count: 4 repository tests pass
 
 **Tests**: integration
 **Gate**: full
 
 **Commit**: `test(repo): add repository structure tests`
+
+**Status**: ✅ Complete
 
 ---
 
@@ -489,7 +491,7 @@ Proof: `dotnet test --project tests/Gibeira.RepositoryTests/Gibeira.RepositoryTe
 
 ## Handoff
 
-**Settled mid-build:** user approved tasks without choosing inline vs sub-agents; executing inline (agent recommendation). T1: the solution build gate cannot pass on an empty `Gibeira.slnx` (NuGet restore: no project to restore), so T1's config was proven by a throwaway classlib under the root inheriting every property and building with 0 warnings; the solution gate starts at T2. User: "Commit T1, note gate (Recommended)" T2: build and format gates pass; `dotnet test --solution` exits 1 with "no test project found" until T3 adds the first test project. T3: (a) the template layout links `Gibeira.Web.styles.css`, so every page body contains "Gibeira"; SCAF-04's "contains Gibeira" is too loose to prove anything, so `WebHomePageReturnsGibeira` asserts `<h1>Gibeira</h1>` (spec-precision gap). (b) Tests start the AppHost with `DOTNET_LAUNCH_PROFILE=http`: under the default `https` profile `web` redirects http to https and the untrusted dev certificate fails the call. (c) `Gibeira.AppHost` suppresses ASPIRE010 and keeps DCP and the dashboard from NuGet, so a clone needs no Aspire CLI. (d) Zero-match `--filter-method` exits 8. Mutation check: Web `http` profile on `0.0.0.0` fails `WebEndpointsAreLoopbackOnly`. T4: no Aspire templates are installed, so `Gibeira.ServiceDefaults` reproduces the Aspire 13 template shape by hand; packages pinned to latest stable (OpenTelemetry 1.20.1, Http.Resilience and ServiceDiscovery 10.11.0). `/health` and `/alive` stay Development-only per design. `WebHealthEndpointReturnsOk` was red (404) before `MapDefaultEndpoints` was wired. Full build gate (build, format, test) passes. T6: the loader reads assemblies with Mono.Cecil (`ArchLoader.LoadFilteredDirectory` per file) instead of `Assembly.LoadFrom`, because Windows App Control blocked loading the unsigned `Fixture.Fakes.dll` into the test process. Rules are plain functions returning violation messages over ArchUnitNET's type-dependency model; `TngTech.ArchUnitNET.xUnitV3` 0.13.5 is referenced as designed.
+**Settled mid-build:** user approved tasks without choosing inline vs sub-agents; executing inline (agent recommendation). T1: the solution build gate cannot pass on an empty `Gibeira.slnx` (NuGet restore: no project to restore), so T1's config was proven by a throwaway classlib under the root inheriting every property and building with 0 warnings; the solution gate starts at T2. User: "Commit T1, note gate (Recommended)" T2: build and format gates pass; `dotnet test --solution` exits 1 with "no test project found" until T3 adds the first test project. T3: (a) the template layout links `Gibeira.Web.styles.css`, so every page body contains "Gibeira"; SCAF-04's "contains Gibeira" is too loose to prove anything, so `WebHomePageReturnsGibeira` asserts `<h1>Gibeira</h1>` (spec-precision gap). (b) Tests start the AppHost with `DOTNET_LAUNCH_PROFILE=http`: under the default `https` profile `web` redirects http to https and the untrusted dev certificate fails the call. (c) `Gibeira.AppHost` suppresses ASPIRE010 and keeps DCP and the dashboard from NuGet, so a clone needs no Aspire CLI. (d) Zero-match `--filter-method` exits 8. Mutation check: Web `http` profile on `0.0.0.0` fails `WebEndpointsAreLoopbackOnly`. T4: no Aspire templates are installed, so `Gibeira.ServiceDefaults` reproduces the Aspire 13 template shape by hand; packages pinned to latest stable (OpenTelemetry 1.20.1, Http.Resilience and ServiceDiscovery 10.11.0). `/health` and `/alive` stay Development-only per design. `WebHealthEndpointReturnsOk` was red (404) before `MapDefaultEndpoints` was wired. Full build gate (build, format, test) passes. T6: the loader reads assemblies with Mono.Cecil (`ArchLoader.LoadFilteredDirectory` per file) instead of `Assembly.LoadFrom`, because Windows App Control blocked loading the unsigned `Fixture.Fakes.dll` into the test process. Rules are plain functions returning violation messages over ArchUnitNET's type-dependency model; `TngTech.ArchUnitNET.xUnitV3` 0.13.5 is referenced as designed. T9: `src/Modules/`, `templates/` and `docs/` carry a `.gitkeep` so a clone has them (SCAF-01 checks the clone's file list via `git ls-files --cached --others --exclude-standard`). `TempRepo` moves to T10, its first user, so T9 ships no unused code. Hand check: removing `docs/.gitkeep`, setting `Nullable=disable` in SharedKernel, adding `Version` to a PackageReference and removing `.gitattributes` each failed its test.
 **Dispatched:** none
 **Walked:** none
 
