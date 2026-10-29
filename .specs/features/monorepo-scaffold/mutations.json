@@ -1,0 +1,23 @@
+[
+  {
+    "file": ".husky/csx/commit-lint.csx",
+    "old": "(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)",
+    "new": "(feat|fix|docs|style|refactor|test|build|ci|chore|revert)",
+    "proof": "dotnet test --project tests/Gibeira.RepositoryTests/Gibeira.RepositoryTests.csproj --filter-method \"*ConventionalHeaderIsAccepted\"",
+    "label": "commit-msg: type perf dropped from the allowed types"
+  },
+  {
+    "file": "tests/Gibeira.ArchitectureTests/LayerRules.cs",
+    "old": "?.Layer is ModuleAssembly.Domain or ModuleAssembly.Application",
+    "new": "?.Layer is ModuleAssembly.Domain",
+    "proof": "dotnet test --project tests/Gibeira.ArchitectureTests/Gibeira.ArchitectureTests.csproj --filter-method \"*InnerLayersUsingFrameworksAreReported\"",
+    "label": "ARCH-03: Application layer no longer checked for ASP.NET Core / EF Core"
+  },
+  {
+    "file": "tests/Gibeira.ArchitectureTests/BoundaryRules.cs",
+    "old": "d.TargetAssembly == $\"{prefix}.AppHost\"",
+    "new": "d.TargetAssembly == $\"{prefix}.AppHostNone\"",
+    "proof": "dotnet test --project tests/Gibeira.ArchitectureTests/Gibeira.ArchitectureTests.csproj --filter-method \"*SharedKernelDependingOnModulesOrHostsIsReported\"",
+    "label": "ARCH-05: SharedKernel -> AppHost no longer reported"
+  }
+]
