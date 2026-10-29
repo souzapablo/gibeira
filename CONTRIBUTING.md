@@ -8,7 +8,7 @@ Two hooks run on every commit:
 
 | Hook | Checks |
 | ---- | ------ |
-| `pre-commit` | `dotnet format --verify-no-changes` on the staged `.cs` files. A commit with no staged `.cs` file skips it. |
+| `pre-commit` | `dotnet format --verify-no-changes` on the staged content of the staged `.cs` files (`.husky/format-staged.sh`). A commit with no staged `.cs` file skips it. |
 | `commit-msg` | The message header follows the commit format below. |
 
 Both hooks need the `dotnet` command; without it they stop the commit and say so.
@@ -24,7 +24,7 @@ The `pre-commit` hook lists each file and line it rejects. Fix them with:
 dotnet format Gibeira.slnx
 ```
 
-Then stage the fixed files again. The hook checks the files as they are on disk, so a file fixed but not re-staged passes the hook while the commit still holds the unformatted version.
+Then stage the fixed files again. The hook checks the staged content, not the working copy, so a file fixed but not re-staged is still rejected.
 
 ## Commit format
 

@@ -136,7 +136,7 @@ The fake EF Core namespace lives in `Fixture.Fakes` so no EF Core package enters
 - **Location**: `.config/dotnet-tools.json`, `.husky/commit-msg`, `.husky/pre-commit`, `.husky/task-runner.json`, `.husky/csx/commit-lint.csx`
 - **commit-msg**: shell hook checks `command -v dotnet` (prints `dotnet SDK not found: install .NET 10 to commit` and exits 1), then `dotnet husky run --name commit-message-linter --args "$1"`. The csx reads the first line and matches
   `^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9-]+\))?!?: \S.*$` with length ≤ 100, or `^Merge ` / `^Revert "`.
-- **pre-commit**: same `dotnet` guard, then `dotnet husky run --name format`; task `dotnet format Gibeira.slnx --verify-no-changes --include ${staged}` with `include: ["**/*.cs"]`. Husky.Net skips the task when no staged file matches.
+- **pre-commit**: same `dotnet` guard, then `dotnet husky run --name format`; task `sh .husky/format-staged.sh` with `include: ["**/*.cs"]`. The script lists the staged `.cs` files from git, exits 0 when there are none, and runs `dotnet format Gibeira.slnx --verify-no-changes --include` over them, swapping each file whose working copy differs from the index for a copy of its staged blob (changed after verification: Husky.Net 0.9.1 passes both its staged copy and the working-tree path).
 - **Install on restore**: `dotnet husky attach tests/Gibeira.ArchitectureTests/Gibeira.ArchitectureTests.csproj` adds the target that runs `dotnet tool restore` and `dotnet husky install` before restore. It is idempotent (`git config` overwrite).
 
 ### Repository tests
@@ -169,7 +169,7 @@ The fake EF Core namespace lives in `Fixture.Fakes` so no EF Core package enters
 | Concern | Location | Impact | Mitigation |
 | ------- | -------- | ------ | ---------- |
 | Rules pass vacuously with zero modules | `tests/Gibeira.ArchitectureTests` | False confidence | Every rule has a fixture test that must fail |
-| `dotnet format --include` reads the working tree, not the staged blob | `.husky/task-runner.json` | A file fixed but not re-staged passes | Documented in CONTRIBUTING; acceptable for a solo repo |
+| `dotnet format --include` reads the working tree, not the staged blob | `.husky/format-staged.sh` | A partially staged file is judged by its working copy | The script checks a copy of the staged blob instead (C37) |
 | Hooks are bypassable with `--no-verify` | git | Bad commits possible | Accepted: CI is out of scope |
 | Repository tests spawn `dotnet` and `git`; slow (~1-2 min) | `tests/Gibeira.RepositoryTests` | Slower `dotnet test` | One shared `TempRepo` per test class; arch tests stay fast as the quick gate |
 | Aspire test needs the dev certificate untrusted-safe path | `tests/Gibeira.IntegrationTests` | TLS failures | Tests call the `http` endpoint |
