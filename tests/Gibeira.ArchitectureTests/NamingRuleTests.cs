@@ -1,3 +1,5 @@
+using static Gibeira.ArchitectureTests.SolutionArchitecture;
+
 namespace Gibeira.ArchitectureTests;
 
 public sealed class NamingRuleTests
@@ -28,6 +30,19 @@ public sealed class NamingRuleTests
     [Fact]
     public void NamingRuleHoldsOnSolution() =>
         Assert.Empty(NamingRules.MisnamedModuleProjects(Path.Combine(RepositoryRoot.Find(), "src", "Modules"), "Gibeira"));
+
+    [Fact]
+    public void MultiSegmentModuleNameIsReported()
+    {
+        var violations = NamingRules.MultiSegmentModuleNames(Load(FixturePrefix), FixturePrefix);
+
+        var violation = Assert.Single(violations);
+        Assert.StartsWith("Fixture.Ledger.Reports.Domain ", violation, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void ModuleNameRuleHoldsOnSolution() =>
+        Assert.Empty(NamingRules.MultiSegmentModuleNames(Load(SolutionPrefix), SolutionPrefix));
 
     private static void CreateProject(string modulesDirectory, string module, string project)
     {

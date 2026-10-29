@@ -37,6 +37,14 @@ public sealed class CommitMessageHookTests(RestoredRepo fixture) : IClassFixture
 
     [Theory]
     [InlineData("chore: test")]
+    [InlineData("docs: describe the ledger")]
+    [InlineData("style: align the home page")]
+    [InlineData("refactor: split the loader")]
+    [InlineData("perf: cache the architecture")]
+    [InlineData("test: cover the hook")]
+    [InlineData("build: pin the SDK")]
+    [InlineData("ci: add a workflow")]
+    [InlineData("revert: drop the probe")]
     [InlineData("feat(ledger)!: add account import")]
     [InlineData("fix(web): handle an empty page\n\nThe home page rendered nothing when the module list was empty.\n\nRefs: #12\nCo-Authored-By: Someone <someone@example.com>")]
     public async Task ConventionalHeaderIsAccepted(string message)
