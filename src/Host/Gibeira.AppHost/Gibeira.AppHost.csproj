@@ -1,0 +1,14 @@
+<Project Sdk="Aspire.AppHost.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <UserSecretsId>5b0f6f7e-3c1d-4a8e-9a57-2f4f0b6d8c21</UserSecretsId>
+    <!-- DCP and the dashboard come from NuGet so a clone needs only the .NET SDK, not the Aspire CLI bundle. -->
+    <NoWarn>$(NoWarn);ASPIRE010</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gibeira.Web\Gibeira.Web.csproj" />
+  </ItemGroup>
+
+</Project>

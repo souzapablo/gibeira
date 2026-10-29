@@ -1,6 +1,13 @@
 <Solution>
   <Folder Name="/src/" />
+  <Folder Name="/src/Host/">
+    <Project Path="src/Host/Gibeira.AppHost/Gibeira.AppHost.csproj" />
+    <Project Path="src/Host/Gibeira.Web/Gibeira.Web.csproj" />
+  </Folder>
   <Folder Name="/src/Shared/">
     <Project Path="src/Shared/Gibeira.SharedKernel/Gibeira.SharedKernel.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Gibeira.IntegrationTests/Gibeira.IntegrationTests.csproj" />
   </Folder>
 </Solution>
