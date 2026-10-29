@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="TngTech.ArchUnitNET.xUnitV3" />
+    <PackageReference Include="xunit.v3.mtp-v2" />
+  </ItemGroup>
+
+  <!-- Every module under src/Modules is built into the test output, so a new module is checked with no edit here (ARCH-08). -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Modules\**\*.csproj" />
+    <ProjectReference Include="..\..\src\Host\Gibeira.AppHost\Gibeira.AppHost.csproj" />
+    <ProjectReference Include="..\..\src\Host\Gibeira.Web\Gibeira.Web.csproj" />
+    <ProjectReference Include="..\..\src\Shared\Gibeira.ServiceDefaults\Gibeira.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\..\src\Shared\Gibeira.SharedKernel\Gibeira.SharedKernel.csproj" />
+  </ItemGroup>
+
+  <!-- Deliberate violations: every rule must fail on them (AD-002). -->
+  <ItemGroup>
+    <ProjectReference Include="..\Gibeira.ArchitectureTests.Fixtures\**\*.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+</Project>
