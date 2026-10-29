@@ -11,4 +11,13 @@
   <Folder Name="/tests/">
     <Project Path="tests/Gibeira.IntegrationTests/Gibeira.IntegrationTests.csproj" />
   </Folder>
+  <Folder Name="/tests/Gibeira.ArchitectureTests.Fixtures/">
+    <Project Path="tests/Gibeira.ArchitectureTests.Fixtures/Fixture.Budgets.Domain/Fixture.Budgets.Domain.csproj" />
+    <Project Path="tests/Gibeira.ArchitectureTests.Fixtures/Fixture.Fakes/Fixture.Fakes.csproj" />
+    <Project Path="tests/Gibeira.ArchitectureTests.Fixtures/Fixture.Ledger.Application/Fixture.Ledger.Application.csproj" />
+    <Project Path="tests/Gibeira.ArchitectureTests.Fixtures/Fixture.Ledger.Domain/Fixture.Ledger.Domain.csproj" />
+    <Project Path="tests/Gibeira.ArchitectureTests.Fixtures/Fixture.Ledger.Infrastructure/Fixture.Ledger.Infrastructure.csproj" />
+    <Project Path="tests/Gibeira.ArchitectureTests.Fixtures/Fixture.SharedKernel/Fixture.SharedKernel.csproj" />
+    <Project Path="tests/Gibeira.ArchitectureTests.Fixtures/Fixture.Web/Fixture.Web.csproj" />
+  </Folder>
 </Solution>

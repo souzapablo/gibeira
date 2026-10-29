@@ -170,14 +170,16 @@ T13 → T14
 
 **Done when**:
 
-- [ ] Every fixture project builds
-- [ ] No `src/` project references a fixture
-- [ ] Gate check passes: `dotnet build Gibeira.slnx -warnaserror`
+- [x] Every fixture project builds
+- [x] No `src/` project references a fixture
+- [x] Gate check passes: `dotnet build Gibeira.slnx -warnaserror`
 
 **Tests**: none
 **Gate**: build
 
 **Commit**: `test(arch): add fixture assemblies with deliberate violations`
+
+**Status**: ✅ Complete
 
 ---
 
