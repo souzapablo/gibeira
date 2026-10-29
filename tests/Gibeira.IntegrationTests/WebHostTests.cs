@@ -24,6 +24,17 @@ public sealed class WebHostTests(WebHostFixture fixture) : IClassFixture<WebHost
     }
 
     [Fact]
+    public async Task WebHealthEndpointReturnsOk()
+    {
+        var cancellationToken = TestContext.Current.CancellationToken;
+        using var client = fixture.App.CreateHttpClient("web", "http");
+
+        using var response = await client.GetAsync(new Uri("/health", UriKind.Relative), cancellationToken);
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
+
+    [Fact]
     public void WebEndpointsAreLoopbackOnly()
     {
         var model = fixture.App.Services.GetRequiredService<DistributedApplicationModel>();
