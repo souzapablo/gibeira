@@ -201,7 +201,7 @@ Gibeira will be a self-hosted, open-source replacement for paid personal-finance
 | ARCH-07 | P1: Architecture rules | Execute | T8 done |
 | ARCH-08 | P1: Architecture rules | Design | In Design |
 | ARCH-09 | P1: Architecture rules | Execute | T6-T8 done |
-| CONV-01 | P1: Conventions on commit | Design | In Design |
+| CONV-01 | P1: Conventions on commit | Execute | T10 done |
 | CONV-02 | P1: Conventions on commit | Design | In Design |
 | CONV-03 | P1: Conventions on commit | Design | In Design |
 | CONV-04 | P1: Conventions on commit | Design | In Design |
