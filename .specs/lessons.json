@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "promote_threshold": 2,
+  "window_days": 45,
+  "quarantine_threshold": 2,
+  "next_id": 6,
+  "lessons": [
+    {
+      "id": "L-001",
+      "key": "surviving_mutant::when a rule accepts a closed list of values test every value in the list not a sample",
+      "text": "When a rule accepts a closed list of values, test every value in the list, not a sample",
+      "signal": "surviving_mutant",
+      "scope": "hooks",
+      "status": "candidate",
+      "features": [
+        "monorepo-scaffold"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "C21 tests/Gibeira.RepositoryTests/CommitMessageHookTests.cs (hooks)"
+      ],
+      "created": "2026-10-29T20:09:08Z",
+      "last_seen": "2026-10-29T20:09:08Z"
+    },
+    {
+      "id": "L-002",
+      "key": "surviving_mutant::when a rule names several subjects give each subject its own violating fixture and assertion",
+      "text": "When a rule names several subjects, give each subject its own violating fixture and assertion",
+      "signal": "surviving_mutant",
+      "scope": "architecture-tests",
+      "status": "candidate",
+      "features": [
+        "monorepo-scaffold"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "C11 tests/Gibeira.ArchitectureTests/LayerRuleTests.cs (architecture-tests)"
+      ],
+      "created": "2026-10-29T20:09:08Z",
+      "last_seen": "2026-10-29T20:09:08Z"
+    },
+    {
+      "id": "L-003",
+      "key": "surviving_mutant::every forbidden target a rule lists needs a fixture assembly that depends on it",
+      "text": "Every forbidden target a rule lists needs a fixture assembly that depends on it",
+      "signal": "surviving_mutant",
+      "scope": "architecture-tests",
+      "status": "candidate",
+      "features": [
+        "monorepo-scaffold"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "C13 tests/Gibeira.ArchitectureTests/BoundaryRuleTests.cs (architecture-tests)"
+      ],
+      "created": "2026-10-29T20:09:08Z",
+      "last_seen": "2026-10-29T20:09:08Z"
+    },
+    {
+      "id": "L-004",
+      "key": "ac_gap::a name parser that returns null for unexpected input must be paired with a rule that reports those names or every rule built on it skips them silently",
+      "text": "A name parser that returns null for unexpected input must be paired with a rule that reports those names, or every rule built on it skips them silently",
+      "signal": "ac_gap",
+      "scope": "architecture-tests",
+      "status": "candidate",
+      "features": [
+        "monorepo-scaffold"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "C36 tests/Gibeira.ArchitectureTests/NamingRules.cs (architecture-tests)"
+      ],
+      "created": "2026-10-29T20:09:08Z",
+      "last_seen": "2026-10-29T20:09:08Z"
+    },
+    {
+      "id": "L-005",
+      "key": "ac_gap::a pre commit check must read the staged blob not the working copy and be tested with a file whose staged and working versions differ",
+      "text": "A pre-commit check must read the staged blob, not the working copy, and be tested with a file whose staged and working versions differ",
+      "signal": "ac_gap",
+      "scope": "hooks",
+      "status": "candidate",
+      "features": [
+        "monorepo-scaffold"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "C37 .husky/format-staged.sh (hooks)"
+      ],
+      "created": "2026-10-29T20:09:08Z",
+      "last_seen": "2026-10-29T20:09:08Z"
+    }
+  ]
+}
