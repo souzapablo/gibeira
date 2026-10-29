@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gibeira.ModuleName.Application\Gibeira.ModuleName.Application.csproj" />
+    <ProjectReference Include="..\Gibeira.ModuleName.Domain\Gibeira.ModuleName.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

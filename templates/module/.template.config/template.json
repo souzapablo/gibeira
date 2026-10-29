@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Pablo Souza",
+  "classifications": ["Gibeira", "Module"],
+  "identity": "Gibeira.Module",
+  "name": "Gibeira module",
+  "description": "A module with Domain, Application and Infrastructure projects under src/Modules/<Name>/. Run from the repository root.",
+  "shortName": "gibeira-module",
+  "sourceName": "ModuleName",
+  "preferNameDirectory": false,
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  }
+}

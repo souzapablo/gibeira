@@ -199,7 +199,7 @@ Gibeira will be a self-hosted, open-source replacement for paid personal-finance
 | ARCH-05 | P1: Architecture rules | Execute | T7 done |
 | ARCH-06 | P1: Architecture rules | Execute | T7 done |
 | ARCH-07 | P1: Architecture rules | Execute | T8 done |
-| ARCH-08 | P1: Architecture rules | Design | In Design |
+| ARCH-08 | P1: Architecture rules | Execute | T13 done |
 | ARCH-09 | P1: Architecture rules | Execute | T6-T8 done |
 | CONV-01 | P1: Conventions on commit | Execute | T10 done |
 | CONV-02 | P1: Conventions on commit | Execute | T11 done |
@@ -209,9 +209,9 @@ Gibeira will be a self-hosted, open-source replacement for paid personal-finance
 | CONV-06 | P1: Conventions on commit | Execute | T12 done |
 | CONV-07 | P1: Conventions on commit | Execute | T12 done |
 | CONV-08 | P1: Conventions on commit | Execute | T1, T9 done |
-| TMPL-01 | P2: Module template | Design | In Design |
-| TMPL-02 | P2: Module template | Design | In Design |
-| TMPL-03 | P2: Module template | Design | In Design |
+| TMPL-01 | P2: Module template | Execute | T13 done |
+| TMPL-02 | P2: Module template | Execute | T13 done |
+| TMPL-03 | P2: Module template | Execute | T13 done |
 | DOCS-01 | P2: Documentation | Design | In Design |
 | DOCS-02 | P2: Documentation | Design | In Design |
 | DOCS-03 | P2: Documentation | Design | In Design |
