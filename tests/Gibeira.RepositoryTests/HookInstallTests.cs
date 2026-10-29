@@ -31,7 +31,7 @@ public sealed class HookInstallTests
         await AssertHooksInstalledAsync(repo);
 
         // The restore stamp skips the install on a repeat restore, so run the install itself a second time too.
-        var reinstall = await repo.RunAsync("dotnet", ["husky", "install"]);
+        var reinstall = await repo.HuskyInstallAsync();
 
         Assert.True(reinstall.ExitCode == 0, reinstall.Output);
         Assert.Equal(hooksAfterFirst, Hooks.Select(hook => File.ReadAllText(repo.PathOf($".husky/{hook}"))));

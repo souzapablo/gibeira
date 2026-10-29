@@ -5,6 +5,12 @@
       "name": "commit-message-linter",
       "command": "dotnet",
       "args": ["husky", "exec", ".husky/csx/commit-lint.csx", "--args", "${args}"]
+    },
+    {
+      "name": "format",
+      "command": "dotnet",
+      "args": ["format", "Gibeira.slnx", "--verify-no-changes", "--include", "${staged}"],
+      "include": ["**/*.cs"]
     }
   ]
 }
