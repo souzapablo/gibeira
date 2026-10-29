@@ -65,6 +65,35 @@ public sealed class FormatHookTests(RestoredRepo fixture) : IClassFixture<Restor
         }
     }
 
+    [Fact]
+    public async Task StagedContentIsCheckedNotWorkingCopy()
+    {
+        var path = $"{KernelDirectory}/Partly.cs";
+        var start = (await Repo.GitAsync("rev-parse", "HEAD")).Output.Trim();
+        try
+        {
+            await StageAsync(path, Formatted("Partly"));
+            File.WriteAllText(Repo.PathOf(path), Unformatted("Partly"));
+
+            var (formatted, formattedCommitted) = await CommitAsync("chore: add formatted staged file");
+
+            Assert.True(formattedCommitted, formatted.Output);
+
+            await StageAsync(path, Unformatted("Partly"));
+            File.WriteAllText(Repo.PathOf(path), Formatted("Partly"));
+
+            var (unformatted, unformattedCommitted) = await CommitAsync("chore: stage unformatted file");
+
+            Assert.False(unformattedCommitted, unformatted.Output);
+            Assert.True(unformatted.Output.Contains("Partly.cs", StringComparison.Ordinal), unformatted.Output);
+        }
+        finally
+        {
+            await CleanAsync();
+            await Repo.GitAsync("reset", "--hard", "--quiet", start);
+        }
+    }
+
     private static string Formatted(string type) => $"namespace Gibeira.SharedKernel;\r\n\r\npublic sealed class {type};";
 
     private static string Unformatted(string type) => $"namespace Gibeira.SharedKernel;\r\n\r\npublic   sealed class {type}   {{   }}";

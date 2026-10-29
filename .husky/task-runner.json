@@ -8,8 +8,8 @@
     },
     {
       "name": "format",
-      "command": "dotnet",
-      "args": ["format", "Gibeira.slnx", "--verify-no-changes", "--include", "${staged}"],
+      "command": "sh",
+      "args": [".husky/format-staged.sh"],
       "include": ["**/*.cs"]
     }
   ]
