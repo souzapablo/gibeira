@@ -61,10 +61,10 @@
 ## Handoff
 
 - **Feature**: home page, `.specs/features/002-home-page`
-- **Phase / Task**: Phase 2 done; next is Phase 3 / T9 - Dropdown
-- **Completed**: T1, T2, T3, T4, T5, T6, T7, T8
+- **Phase / Task**: Phase 3 done; next is Phase 4 / T14 - Frontend contract
+- **Completed**: T1 to T13
 - **In-progress** (file:line): none
-- **Next step**: implement T9 (`Components/UI/Dropdown.razor`) inline, task by task, as approved
-- **Blockers**: none
+- **Next step**: implement T14 (`Ledger/ILedgerStore.cs`) inline, task by task, as approved
+- **Blockers**: none. Note for T27: `Modal` focuses its own root on first render, so `AddItemModal` must focus the amount field after it (ADD-01)
 - **Uncommitted files**: none
 - **Branch**: feat/002-home-page
