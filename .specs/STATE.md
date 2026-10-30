@@ -61,10 +61,10 @@
 ## Handoff
 
 - **Feature**: home page, `.specs/features/002-home-page`
-- **Phase / Task**: Phase 6 in progress; T22 to T25 done; next is T26 - drawer on the home page
-- **Completed**: T1 to T25 (T15 ran before T14: `ILedgerStore.Months(Period)` needs `Period`)
+- **Phase / Task**: Phase 6 done; all 28 tasks committed; `check_proofs.py` green at 822d8fd (75 pass, `proofs.md`)
+- **Completed**: T1 to T28 (T15 ran before T14: `ILedgerStore.Months(Period)` needs `Period`)
 - **In-progress** (file:line): none
-- **Next step**: implement T26 (wire `DayDrawer` into `Pages/Home.razor`) inline, task by task, as approved
-- **Blockers**: none. Note for T27: `Modal` focuses its own root on first render, so `AddItemModal` must focus the amount field after it (ADD-01). `AddItemForm.Tags` is an ordered list and `ToggleTag` takes one tag per Dropdown `OnChoose`. bUnit `Bind` does not re-render on change here: tests re-render with the bound value after each gesture. `DayDrawer` reads `ILedgerStore.Day` itself and raises `OnClose`, `OnAdd` and `OnRemove(DayEntry)` for the page
+- **Next step**: feature validation: walk the running page at 1290x902 and 360 px (C72, `**Walked:**` in tasks.md is still `none`), then the Verifier and the screens sub-agent, one fix pass, `check_proofs.py --mutations`, `validate_verification.py`
+- **Blockers**: none. Mid-build notes are in tasks.md `## Handoff` (ADD-01 chevrons settled by the user, `Modal.AutoFocus`, `DayDrawer.Revision`, amount `@bind:get/set`, browser tests wait for the circuit)
 - **Uncommitted files**: none
 - **Branch**: feat/002-home-page
