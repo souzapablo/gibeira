@@ -430,8 +430,9 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `ChoosingTypeSetsPlaceholderAndButtonLabel`, `RepetitionLabelFollowsChoice` (including `parcelado em 3x`), `DueDateRelabelsDataRowAsVencimento`, `SemCartaoKeepsDataLabel`, `LeavingCartaoClearsCard`, `TagsLabelJoinsCheckedNames`, `AddButtonDisabledWhileAmountZeroOrEmpty`, `EmptyDescriptionSavesTypeName` and `SubmitReturnsItemOnce` pass
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] `ChoosingTypeSetsPlaceholderAndButtonLabel`, `RepetitionLabelFollowsChoice` (including `parcelado em 3x`), `DueDateRelabelsDataRowAsVencimento`, `SemCartaoKeepsDataLabel`, `LeavingCartaoClearsCard`, `TagsLabelJoinsCheckedNames`, `AddButtonDisabledWhileAmountZeroOrEmpty`, `EmptyDescriptionSavesTypeName` and `SubmitReturnsItemOnce` pass
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`; phase end: build gate green
+- [x] Test count: Web.Tests 165 tests; solution 222 tests
 
 **Tests**: unit
 **Gate**: quick

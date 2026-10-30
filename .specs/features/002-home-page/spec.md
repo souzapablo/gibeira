@@ -308,7 +308,7 @@ The canvas values below bind. Token names are the builder's call; each value has
 | ADD-19 | P1: Add modal | Design | Pending |
 | ADD-20 | P1: Add modal | Design | Pending |
 | ADD-21 | P1: Add modal | Design | Pending |
-| ADD-22 | P1: Add modal | Design | Pending |
+| ADD-22 | P1: Add modal | Execute | Implemented (T17) |
 | ADD-23 | P1: Add modal | Design | Pending |
 | ADD-24 | P1: Add modal | Design | Pending |
 | ADD-25 | P1: Add modal | Design | Pending |
