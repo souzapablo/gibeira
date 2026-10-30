@@ -1,4 +1,4 @@
-@* One month of the ledger: the title, a header row, one row per day and the total row (HOME-07 to HOME-15).
+@* One month of the ledger: the title, a header row, one row per day and the total row (HOME-07 to HOME-15, HOME-19 to HOME-21).
    A dia cell raises OnCell with no kind, a money cell with its kind. *@
 <section class="month" aria-label="@PtBr.MonthTitle(Ledger.Month)">
     <h2 class="month-title">@PtBr.MonthTitle(Ledger.Month)</h2>
@@ -9,7 +9,9 @@
                     <th scope="col" class="day-head">dia</th>
                     @foreach (var kind in Kinds)
                     {
-                        <th scope="col">@PtBr.KindPlural(kind)</th>
+                        <th scope="col">
+                            <span class="head-content"><span class="kind-dot" style="background: @KindColor.Var(kind)"></span>@PtBr.KindPlural(kind)</span>
+                        </th>
                     }
                     <th scope="col">saldos</th>
                 </tr>
@@ -21,6 +23,11 @@
                         <th scope="row" class="@(row.IsWeekend ? "day-cell day-cell--weekend" : "day-cell")">
                             <button type="button" class="cell-button" aria-label="@PtBr.DayTitle(row.Date)" @onclick="() => Cell(row.Date, null)">
                                 <span class="day-number">@row.Date.Day</span>
+                                <span class="weekday">@PtBr.WeekdayAbbrev(row.Date)</span>
+                                @if (row.IsToday)
+                                {
+                                    <span class="today-badge">hoje</span>
+                                }
                             </button>
                         </th>
                         @foreach (var kind in Kinds)

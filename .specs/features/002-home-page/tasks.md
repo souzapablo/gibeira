@@ -895,6 +895,15 @@ Proof: `dotnet test --project tests/Gibeira.IntegrationTests/Gibeira.Integration
 **C72** - The page in the canvas look: tokens, fonts, pill buttons, warm grounds, at 1290×902 and 360 px with the drawer, modal, dropdowns and popovers open (Success Criteria)
 Proof: walk - open `/` at both widths, open a cartão cell, the add modal, each dropdown and popover, and compare against the canvas boards `Main.dc.html` and `Adicionar.dc.html`
 
+**C73** - Each kind's header starts with a dot in its kind color; dia and saldos have none (HOME-19, AC 19)
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*KindHeadersStartWithTheirDot"`
+
+**C74** - December 2026's dia cells read `ter`, `qua`, ... after the day number (HOME-20, AC 20)
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*DiaCellShowsWeekdayAfterDayNumber"`
+
+**C75** - Only today's dia cell ends with the `hoje` badge (HOME-21, AC 21)
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*TodayRowShowsHojeBadge"`
+
 ---
 
 ## Handoff

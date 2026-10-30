@@ -8,6 +8,9 @@ public static class PtBr
 {
     private static readonly string[] MonthAbbrevs = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
 
+    // Indexed by DayOfWeek, Sunday first.
+    private static readonly string[] WeekdayAbbrevs = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"];
+
     private static readonly string[] MonthNames =
         ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
 
@@ -23,6 +26,9 @@ public static class PtBr
 
     // out
     public static string MonthAbbrev(int month) => MonthAbbrevs[month - 1];
+
+    // qui
+    public static string WeekdayAbbrev(DateOnly date) => WeekdayAbbrevs[(int)date.DayOfWeek];
 
     // dezembro de 2026
     public static string MonthTitle(DateOnly month) =>

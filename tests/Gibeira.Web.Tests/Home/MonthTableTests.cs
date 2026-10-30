@@ -161,4 +161,42 @@ public sealed class MonthTableTests : BunitContext
         var none = RenderTable(today: new DateOnly(2026, 11, 10));
         Assert.Empty(none.FindAll("tbody tr.day-row--today"));
     }
+
+    // HOME-19: each kind's header starts with a dot in the kind's color; dia and saldos have none.
+    [Fact]
+    public void KindHeadersStartWithTheirDot()
+    {
+        var heads = RenderTable().FindAll("thead th");
+
+        Assert.Equal(
+            Kinds.Select(KindColor.Var),
+            heads.Skip(1).Take(5).Select(th => th.QuerySelector(".head-content > .kind-dot:first-child")!.GetAttribute("style")!.Replace("background:", "").Trim()));
+        Assert.Null(heads[0].QuerySelector(".kind-dot"));
+        Assert.Null(heads[6].QuerySelector(".kind-dot"));
+    }
+
+    // HOME-20: each dia cell shows the pt-BR weekday after the day number; December 2026 starts on a terça.
+    [Fact]
+    public void DiaCellShowsWeekdayAfterDayNumber()
+    {
+        var table = RenderTable();
+        string[] week = ["ter", "qua", "qui", "sex", "sáb", "dom", "seg"];
+
+        Assert.Equal(
+            Enumerable.Range(0, 31).Select(i => week[i % 7]),
+            Enumerable.Range(1, 31).Select(day => Row(table, day).QuerySelector(".day-number + .weekday")!.TextContent.Trim()));
+    }
+
+    // HOME-21: today's dia cell ends with the hoje badge; no other row has one.
+    [Fact]
+    public void TodayRowShowsHojeBadge()
+    {
+        var table = RenderTable(today: new DateOnly(2026, 12, 10));
+
+        var badge = Assert.Single(table.FindAll(".today-badge"));
+        Assert.Equal("hoje", badge.TextContent.Trim());
+        Assert.Same(badge, Row(table, 10).QuerySelector(".weekday + .today-badge"));
+
+        Assert.Empty(RenderTable(today: new DateOnly(2026, 11, 10)).FindAll(".today-badge"));
+    }
 }

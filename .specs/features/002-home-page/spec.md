@@ -138,6 +138,9 @@ The canvas values below bind. Token names are the builder's call; each value has
 16. WHILE the day rows are taller than the window the system SHALL keep each table's header row and total row in view while the day rows scroll.  <!-- HOME-16 -->
 17. WHILE the month tables are wider than the window the system SHALL scroll them horizontally inside the ledger area, with no horizontal scroll on the page, down to 360 px wide.  <!-- HOME-17 -->
 18. WHEN the user uses "adicionar" in the top bar THEN the system SHALL open the add modal with type entrada and today's date.  <!-- HOME-18 -->
+19. The system SHALL start each kind's column header with a dot in the kind's color, as the canvas draws it.  <!-- HOME-19 -->
+20. The system SHALL show each day's pt-BR weekday (`dom`, `seg`, `ter`, `qua`, `qui`, `sex`, `sáb`) after its day number in the dia cell.  <!-- HOME-20 -->
+21. The system SHALL end today's dia cell with an accent `hoje` badge (AD-004).  <!-- HOME-21 -->
 
 **Independent Test**: Open `/`, read today's period label, step it with `<`, `>`, `<<`, `>>`, and check one saldo against the mock data by hand.
 
@@ -275,6 +278,9 @@ The canvas values below bind. Token names are the builder's call; each value has
 | HOME-16 | P1: Twelve-month ledger | Execute | Implemented (T24) |
 | HOME-17 | P1: Twelve-month ledger | Execute | Implemented (T24) |
 | HOME-18 | P1: Twelve-month ledger | Execute | Implemented (T28) |
+| HOME-19 | P1: Twelve-month ledger | Execute | Implemented (screens fix) |
+| HOME-20 | P1: Twelve-month ledger | Execute | Implemented (screens fix) |
+| HOME-21 | P1: Twelve-month ledger | Execute | Implemented (screens fix) |
 | DAY-01 | P1: Day drawer | Execute | Implemented (T26) |
 | DAY-02 | P1: Day drawer | Execute | Implemented (T26) |
 | DAY-03 | P1: Day drawer | Execute | Implemented (T25) |
