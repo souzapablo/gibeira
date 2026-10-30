@@ -254,7 +254,7 @@ The canvas values below bind. Token names are the builder's call; each value has
 | UI-01 | P1: Tokens and reusable components | Execute | Implemented (T1) |
 | UI-02 | P1: Tokens and reusable components | Execute | Implemented (T3) |
 | UI-03 | P1: Tokens and reusable components | Design | Pending |
-| UI-04 | P1: Tokens and reusable components | Design | Pending |
+| UI-04 | P1: Tokens and reusable components | Execute | Implemented (T2, T4) |
 | UI-05 | P1: Tokens and reusable components | Execute | Implemented (T3) |
 | UI-06 | P1: Tokens and reusable components | Design | Pending |
 | HOME-01 | P1: Twelve-month ledger | Design | Pending |
