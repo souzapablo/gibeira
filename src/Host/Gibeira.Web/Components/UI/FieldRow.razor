@@ -1,0 +1,45 @@
+@* A row of the add modal: icon, label, value and chevron, used as a button. With ChildContent, the row holds it (a
+   field) in place of the label and value, and is not a button. *@
+@if (ChildContent is null)
+{
+    <button type="button" class="field-row" @onclick="OnClick">
+        <span class="field-row-icon">@Icon</span>
+        <span class="field-row-label">@Label</span>
+        @if (Value is not null)
+        {
+            <span class="field-row-value">@Value</span>
+        }
+        @if (Chevron)
+        {
+            <span class="field-row-chevron"><Icon Name="IconName.ChevronRight" Size="18" /></span>
+        }
+    </button>
+}
+else
+{
+    <div class="field-row">
+        <span class="field-row-icon">@Icon</span>
+        @ChildContent
+    </div>
+}
+
+@code {
+    [Parameter]
+    public RenderFragment? Icon { get; set; }
+
+    [Parameter, EditorRequired]
+    public string Label { get; set; } = null!;
+
+    // Null shows the label alone, as a placeholder ("tags" when none is checked).
+    [Parameter]
+    public string? Value { get; set; }
+
+    [Parameter]
+    public bool Chevron { get; set; }
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

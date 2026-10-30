@@ -1,0 +1,19 @@
+@* The canvas top bar of AD-004: the gibeira logo and the "adicionar" button. *@
+<header class="top-bar">
+    <a class="logo" href="/" aria-label="gibeira, início">
+        <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+            <path class="logo-stroke" d="M9.5 13.5a6.5 6.5 0 0 1 13 0" fill="none" stroke-width="2.4" stroke-linecap="round" />
+            <circle class="logo-fill" cx="13.9" cy="6.4" r="2" />
+            <circle class="logo-fill" cx="18.1" cy="6.4" r="2" />
+            <path class="logo-fill" d="M5 13h22l-1.9 12.4a3 3 0 0 1-3 2.6H9.9a3 3 0 0 1-3-2.6Z" />
+            <path class="logo-stitch" d="M9 17.5h14" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="0.1 3.2" />
+        </svg>
+        <span>gibeira</span>
+    </a>
+    <Button Variant="ButtonVariant.Primary" OnClick="OnAdd"><Icon Name="IconName.Plus" Size="16" />adicionar</Button>
+</header>
+
+@code {
+    [Parameter]
+    public EventCallback OnAdd { get; set; }
+}

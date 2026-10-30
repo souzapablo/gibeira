@@ -21,6 +21,8 @@ public sealed class UiComponentTests
             .Add(p => p.Header, "parcelas").Add(p => p.Value, 2).Add(p => p.Format, count => $"{count}x")).Markup,
         ["Modal"] = context => context.Render<Modal>(parameters => parameters.Add(p => p.Title, "adicionar").AddChildContent("linhas")).Markup,
         ["Drawer"] = context => context.Render<Drawer>(parameters => parameters.Add(p => p.Label, "10/nov").AddChildContent("nenhum lançamento")).Markup,
+        ["FieldRow"] = context => context.Render<FieldRow>(parameters => parameters.Add(p => p.Label, "data").Add(p => p.Value, "29/10/26").Add(p => p.Chevron, true)).Markup,
+        ["TopBar"] = context => context.Render<TopBar>().Markup,
     };
 
     public static TheoryData<string> Components => new(Renderers.Keys);

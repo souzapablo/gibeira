@@ -1,0 +1,58 @@
+.field-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 52px;
+    padding: 0 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-input);
+    background: var(--ground-page);
+    color: var(--text-primary);
+    font: inherit;
+    font-size: 15px;
+    text-align: left;
+}
+
+button.field-row {
+    cursor: pointer;
+}
+
+button.field-row:hover {
+    border-color: var(--line-hover);
+}
+
+.field-row:focus-within {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-color: transparent;
+}
+
+.field-row-icon {
+    display: inline-flex;
+    flex: none;
+    color: var(--text-subtle);
+}
+
+.field-row-icon:empty {
+    display: none;
+}
+
+.field-row-label {
+    flex: 1;
+    min-width: 0;
+    color: var(--text-muted);
+}
+
+.field-row-value {
+    overflow: hidden;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.field-row-chevron {
+    display: inline-flex;
+    flex: none;
+    color: var(--text-subtle);
+}

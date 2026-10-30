@@ -345,9 +345,9 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `FieldRowShowsLabelValueAndChevron` and `TopBarAddRaisesOnAdd` pass
-- [ ] `EveryUiComponentRendersFromParametersAlone` has all 11 rows of the spec's component table and passes
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] `FieldRowShowsLabelValueAndChevron` and `TopBarAddRaisesOnAdd` pass
+- [x] `EveryUiComponentRendersFromParametersAlone` has all 11 rows of the spec's component table and passes
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
 
 **Tests**: component
 **Gate**: quick
