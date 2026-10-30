@@ -138,11 +138,11 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `NoColorLiteralOutsideTokens` passes on `Gibeira.Web`
-- [ ] `ColorLiteralIsReportedWithFileAndLine` passes: the scanner run over a temp folder holding `#fff`, `rgb(`, `rgba(` and `hsl(` in a `.razor` and a `.css` file reports each as `file:line`, and ignores `tokens.css` and `lib/`
-- [ ] `WebHomePageLoadsNoBootstrap` passes: `/` and every stylesheet it links contain no `bootstrap`
-- [ ] Gate check passes: `dotnet test --solution Gibeira.slnx`
-- [ ] Test count: Web.Tests 4 tests; IntegrationTests 4 tests
+- [x] `NoColorLiteralOutsideTokens` passes on `Gibeira.Web`
+- [x] `ColorLiteralIsReportedWithFileAndLine` passes: the scanner run over a temp folder holding `#fff`, `rgb(`, `rgba(` and `hsl(` in a `.razor` and a `.css` file reports each as `file:line`, and ignores `tokens.css` and `lib/`
+- [x] `WebHomePageLoadsNoBootstrap` passes: `/` and every stylesheet it links contain no `bootstrap`
+- [x] Gate check passes: `dotnet test --solution Gibeira.slnx`
+- [x] Test count: Web.Tests 4 tests; IntegrationTests 4 tests
 
 **Tests**: integration
 **Gate**: full

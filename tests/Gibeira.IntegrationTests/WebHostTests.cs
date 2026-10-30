@@ -1,4 +1,5 @@
 using System.Net;
+using System.Text.RegularExpressions;
 
 using Aspire.Hosting;
 using Aspire.Hosting.ApplicationModel;
@@ -8,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Gibeira.IntegrationTests;
 
-public sealed class WebHostTests(WebHostFixture fixture) : IClassFixture<WebHostFixture>
+public sealed partial class WebHostTests(WebHostFixture fixture) : IClassFixture<WebHostFixture>
 {
     [Fact]
     public async Task WebHomePageReturnsGibeira()
@@ -21,6 +22,25 @@ public sealed class WebHostTests(WebHostFixture fixture) : IClassFixture<WebHost
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.Contains("<h1>Gibeira</h1>", body, StringComparison.Ordinal);
+    }
+
+    // Neither the page nor any stylesheet it links brings Bootstrap (UI-05).
+    [Fact]
+    public async Task WebHomePageLoadsNoBootstrap()
+    {
+        var cancellationToken = TestContext.Current.CancellationToken;
+        using var client = fixture.App.CreateHttpClient("web", "http");
+
+        var page = await client.GetStringAsync(new Uri("/", UriKind.Relative), cancellationToken);
+        var stylesheets = StylesheetLink().Matches(page).Select(match => match.Groups["href"].Value).ToArray();
+
+        Assert.DoesNotContain("bootstrap", page, StringComparison.OrdinalIgnoreCase);
+        Assert.NotEmpty(stylesheets);
+        foreach (var href in stylesheets)
+        {
+            var stylesheet = await client.GetStringAsync(new Uri(href, UriKind.Relative), cancellationToken);
+            Assert.False(stylesheet.Contains("bootstrap", StringComparison.OrdinalIgnoreCase), $"{href} contains bootstrap");
+        }
     }
 
     [Fact]
@@ -53,4 +73,7 @@ public sealed class WebHostTests(WebHostFixture fixture) : IClassFixture<WebHost
     private static bool IsLoopback(string host) =>
         string.Equals(host, "localhost", StringComparison.OrdinalIgnoreCase)
         || (IPAddress.TryParse(host, out var address) && IPAddress.IsLoopback(address));
+
+    [GeneratedRegex(@"<link[^>]*\brel=""stylesheet""[^>]*\bhref=""(?<href>[^""]+)""")]
+    private static partial Regex StylesheetLink();
 }
