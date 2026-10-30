@@ -61,10 +61,10 @@
 ## Handoff
 
 - **Feature**: home page, `.specs/features/002-home-page`
-- **Phase / Task**: Phase 3 done; next is Phase 4 / T14 - Frontend contract
-- **Completed**: T1 to T13
+- **Phase / Task**: Phase 4 done; next is Phase 5 / T18 - Mockup Schedule
+- **Completed**: T1 to T17 (T15 ran before T14: `ILedgerStore.Months(Period)` needs `Period`)
 - **In-progress** (file:line): none
-- **Next step**: implement T14 (`Ledger/ILedgerStore.cs`) inline, task by task, as approved
-- **Blockers**: none. Note for T27: `Modal` focuses its own root on first render, so `AddItemModal` must focus the amount field after it (ADD-01)
+- **Next step**: implement T18 (`Mockup/Schedule.cs`) inline, task by task, as approved
+- **Blockers**: none. Note for T27: `Modal` focuses its own root on first render, so `AddItemModal` must focus the amount field after it (ADD-01). `AddItemForm.Tags` is an ordered list and `ToggleTag` takes one tag per Dropdown `OnChoose`
 - **Uncommitted files**: none
 - **Branch**: feat/002-home-page
