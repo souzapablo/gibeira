@@ -71,12 +71,14 @@ public sealed class ScheduleTests
         Assert.Equal(["parcela 1/3", "parcela 2/3", "parcela 3/3"], parts.Select(o => o.RepetitionLabel));
     }
 
-    // ADD-12 edge case: the parcels always sum to the amount.
+    // ADD-12 edge case: the parcels always sum to the amount; 100/6 and 10/6 are where cutting and rounding differ.
     [Theory]
     [InlineData("100", 4, "25")]
     [InlineData("10", 3, "3.34")]
     [InlineData("0.05", 2, "0.03")]
     [InlineData("999999999.99", 48, "20833333.48")]
+    [InlineData("100", 6, "16.70")]
+    [InlineData("10", 6, "1.70")]
     public void InstallmentsSumToTheAmount(string amount, int count, string first)
     {
         var start = new DateOnly(2026, 1, 31);
