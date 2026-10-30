@@ -1,0 +1,56 @@
+/* Every value of the UI lives here, once (UI-01). Elsewhere, read var(--…). */
+:root {
+    /* Grounds */
+    --ground-page: #15130f;
+    --ground-backdrop: #0c0b09;
+    --ground-surface: #1d1a15;
+    --ground-raised: #25211b;
+    --ground-popover: #2a261f;
+    --ground-weekend: #1a1813;
+    --ground-today: #2a2316;
+    --ground-selected: #241f15;
+
+    /* Lines */
+    --line-default: #2c2820;
+    --line-strong: #3a342a;
+    --line-hover: #4a4336;
+    --line-row: #26221c;
+
+    /* Text */
+    --text-primary: #f3ede2;
+    --text-muted: #b9b0a1;
+    --text-subtle: #958d7e;
+    --text-zero: #6f6758;
+    --text-on-accent: #1a1408;
+    --text-negative: #ef8f79;
+
+    /* Accent */
+    --accent: #e8b04b;
+    --accent-hover: #f3c76f;
+
+    /* Kinds */
+    --kind-entrada: var(--accent);
+    --kind-saida: #df6a51;
+    --kind-diario: #d65db1;
+    --kind-economia: #37a675;
+    --kind-cartao: #8c7cf0;
+
+    /* Fonts */
+    --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+    --font-body: "Instrument Sans", system-ui, sans-serif;
+
+    /* Radii */
+    --radius-pill: 999px;
+    --radius-modal: 24px;
+    --radius-card: 20px;
+    --radius-panel: 16px;
+    --radius-option: 14px;
+    --radius-input: 12px;
+
+    /* Shadows */
+    --shadow-modal: 0 30px 80px rgba(0, 0, 0, .6);
+    --shadow-popover: 0 12px 32px rgba(0, 0, 0, .45);
+
+    /* Targets */
+    --target-min: 44px;
+}

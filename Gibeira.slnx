@@ -12,6 +12,7 @@
     <Project Path="tests/Gibeira.ArchitectureTests/Gibeira.ArchitectureTests.csproj" />
     <Project Path="tests/Gibeira.IntegrationTests/Gibeira.IntegrationTests.csproj" />
     <Project Path="tests/Gibeira.RepositoryTests/Gibeira.RepositoryTests.csproj" />
+    <Project Path="tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj" />
   </Folder>
   <Folder Name="/tests/Gibeira.ArchitectureTests.Fixtures/">
     <Project Path="tests/Gibeira.ArchitectureTests.Fixtures/Fixture.AppHost/Fixture.AppHost.csproj" />

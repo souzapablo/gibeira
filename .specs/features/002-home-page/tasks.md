@@ -9,7 +9,7 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 ---
 
 **Design**: `.specs/features/002-home-page/design.md`
-**Status**: Draft
+**Status**: In progress
 **Approved**: 2026-10-30 - user: "Approve tasks.md"; execution: "Inline, task by task"
 **Mutations**: 3
 **Build**: `dotnet build Gibeira.slnx -warnaserror; dotnet format Gibeira.slnx --verify-no-changes; dotnet test --solution Gibeira.slnx`
@@ -95,10 +95,10 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `TokensDefineEachCanvasValueOnce` passes: it reads the spec's values from a list in the test and finds each exactly once as a custom property value
-- [ ] `ArchitectureTests` still pass (the new assembly ends in `Tests` and is skipped)
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
-- [ ] Test count: Web.Tests 1 test
+- [x] `TokensDefineEachCanvasValueOnce` passes: it reads the spec's values from a list in the test and finds each exactly once as a custom property value
+- [x] `ArchitectureTests` still pass (the new assembly ends in `Tests` and is skipped)
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] Test count: Web.Tests 1 test
 
 **Tests**: unit
 **Gate**: quick

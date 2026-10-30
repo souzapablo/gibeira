@@ -251,7 +251,7 @@ The canvas values below bind. Token names are the builder's call; each value has
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
-| UI-01 | P1: Tokens and reusable components | Design | Pending |
+| UI-01 | P1: Tokens and reusable components | Execute | Implemented (T1) |
 | UI-02 | P1: Tokens and reusable components | Design | Pending |
 | UI-03 | P1: Tokens and reusable components | Design | Pending |
 | UI-04 | P1: Tokens and reusable components | Design | Pending |
