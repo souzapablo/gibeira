@@ -15,6 +15,8 @@ public sealed class UiComponentTests
         ["Money"] = context => context.Render<Money>(parameters => parameters.Add(p => p.Value, 1189.27m)).Markup,
         ["Button"] = context => context.Render<Button>(parameters => parameters.Add(p => p.Variant, ButtonVariant.Primary).AddChildContent("salvar")).Markup,
         ["IconButton"] = context => context.Render<IconButton>(parameters => parameters.Add(p => p.Icon, IconName.Close).Add(p => p.Label, "fechar")).Markup,
+        ["Dropdown"] = context => context.Render<Dropdown<string>>(parameters => parameters
+            .Add(p => p.Header, "repetir").Add(p => p.Options, [new DropdownOption<string>("nenhuma", "não repete")])).Markup,
     };
 
     public static TheoryData<string> Components => new(Renderers.Keys);

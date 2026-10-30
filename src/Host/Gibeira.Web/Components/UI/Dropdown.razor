@@ -1,0 +1,77 @@
+@typeparam T
+@* A floating list of choices under its trigger, the chosen ones checked. It never closes itself on a choice:
+   the parent decides. Esc or a click outside raises OnClose (ADD-25). *@
+<div class="dropdown-layer" @onclick="OnClose"></div>
+<div class="dropdown" role="dialog" aria-label="@Header" tabindex="-1" @ref="root" @onkeydown="KeyDown">
+    <div class="dropdown-header">
+        <span class="dropdown-title">@Header</span>
+        @HeaderAction
+    </div>
+    <div class="dropdown-options">
+        @foreach (var option in Options)
+        {
+            var selected = Selected.Contains(option.Value);
+            <button type="button" class="@(selected ? "dropdown-option dropdown-option--selected" : "dropdown-option")"
+                    aria-pressed="@(selected ? "true" : "false")" @onclick="() => OnChoose.InvokeAsync(option.Value)">
+                @option.Icon
+                <span class="dropdown-text">
+                    <span class="dropdown-label">@option.Label</span>
+                    @if (option.Description is not null)
+                    {
+                        <span class="dropdown-description">@option.Description</span>
+                    }
+                </span>
+                @if (Multiple)
+                {
+                    <span class="dropdown-box">
+                        @if (selected)
+                        {
+                            <Icon Name="IconName.Check" Size="14" />
+                        }
+                    </span>
+                }
+                else if (selected)
+                {
+                    <span class="dropdown-check"><Icon Name="IconName.Check" Size="18" /></span>
+                }
+            </button>
+        }
+    </div>
+</div>
+
+@code {
+    private ElementReference root;
+
+    [Parameter, EditorRequired]
+    public string Header { get; set; } = null!;
+
+    // Shown at the right of the header, as the card list's "adicionar cartão".
+    [Parameter]
+    public RenderFragment? HeaderAction { get; set; }
+
+    [Parameter, EditorRequired]
+    public IReadOnlyList<DropdownOption<T>> Options { get; set; } = [];
+
+    [Parameter]
+    public IReadOnlyCollection<T> Selected { get; set; } = [];
+
+    // Each option shows a check box, so several read as checkable (ADD-19).
+    [Parameter]
+    public bool Multiple { get; set; }
+
+    [Parameter]
+    public EventCallback<T> OnChoose { get; set; }
+
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await root.FocusAsync();
+        }
+    }
+
+    private Task KeyDown(KeyboardEventArgs e) => e.Key == "Escape" ? OnClose.InvokeAsync() : Task.CompletedTask;
+}
