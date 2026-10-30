@@ -1,0 +1,55 @@
+@* Stroke glyphs on a 24-unit grid, as drawn on the canvas. Decorative unless Label names it. *@
+<svg class="icon" width="@Size" height="@Size" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+     stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" focusable="false"
+     aria-hidden="@(Label is null ? "true" : null)" role="@(Label is null ? null : "img")" aria-label="@Label">
+    @switch (Name)
+    {
+        case IconName.ChevronLeft:
+            <path d="M15 6l-6 6 6 6" />
+            break;
+        case IconName.ChevronRight:
+            <path d="M9 6l6 6-6 6" />
+            break;
+        case IconName.ChevronsLeft:
+            <path d="M12 6l-6 6 6 6M19 6l-6 6 6 6" />
+            break;
+        case IconName.ChevronsRight:
+            <path d="M5 6l6 6-6 6M12 6l6 6-6 6" />
+            break;
+        case IconName.ChevronDown:
+            <path d="M6 9l6 6 6-6" />
+            break;
+        case IconName.Close:
+            <path d="M6 6l12 12M18 6L6 18" />
+            break;
+        case IconName.Plus:
+            <path d="M12 5v14M5 12h14" />
+            break;
+        case IconName.More:
+            <circle cx="12" cy="5" r="1.7" fill="currentColor" stroke="none" />
+            <circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none" />
+            <circle cx="12" cy="19" r="1.7" fill="currentColor" stroke="none" />
+            break;
+        case IconName.Check:
+            <path d="M5 12.5l4.5 4.5L19 7" />
+            break;
+        case IconName.ArrowIn:
+            <path d="M17 7L7 17M7 9v8h8" />
+            break;
+        case IconName.ArrowOut:
+            <path d="M7 17L17 7M9 7h8v8" />
+            break;
+    }
+</svg>
+
+@code {
+    [Parameter, EditorRequired]
+    public IconName Name { get; set; }
+
+    [Parameter]
+    public int Size { get; set; } = 20;
+
+    // The pt-BR name a screen reader reads; null keeps the glyph hidden from it.
+    [Parameter]
+    public string? Label { get; set; }
+}

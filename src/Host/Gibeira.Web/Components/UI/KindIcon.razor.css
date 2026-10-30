@@ -1,0 +1,17 @@
+.kind-icon {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: var(--radius-pill);
+    color: var(--text-on-accent);
+}
+
+.kind-letter {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1;
+}

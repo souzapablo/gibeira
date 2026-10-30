@@ -182,9 +182,9 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `KindIconShowsGlyphAndKindColor` and `IconIsHiddenFromScreenReadersWithoutLabel` pass
-- [ ] `EveryUiComponentRendersFromParametersAlone` exists as a theory with rows for `Icon` and `KindIcon`, rendered in a bUnit context with no services
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] `KindIconShowsGlyphAndKindColor` and `IconIsHiddenFromScreenReadersWithoutLabel` pass
+- [x] `EveryUiComponentRendersFromParametersAlone` exists as a theory with rows for `Icon` and `KindIcon`, rendered in a bUnit context with no services
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
 
 **Tests**: component
 **Gate**: quick

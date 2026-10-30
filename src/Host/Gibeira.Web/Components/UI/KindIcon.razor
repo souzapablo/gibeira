@@ -1,0 +1,40 @@
+@* The round badge of a kind: arrow in, arrow out, D, E or C on the kind color. *@
+<span class="kind-icon" style="background: var(@ColorToken)" aria-hidden="true">
+    @switch (Kind)
+    {
+        case Kind.Entrada:
+            <Icon Name="IconName.ArrowIn" Size="12" />
+            break;
+        case Kind.Saida:
+            <Icon Name="IconName.ArrowOut" Size="12" />
+            break;
+        case Kind.Diario:
+            <span class="kind-letter">D</span>
+            break;
+        case Kind.Economia:
+            <span class="kind-letter">E</span>
+            break;
+        case Kind.Cartao:
+            <span class="kind-letter">C</span>
+            break;
+    }
+</span>
+
+@code {
+    [Parameter, EditorRequired]
+    public Kind Kind { get; set; }
+
+    // A zero amount shows its badge in the zero color (HOME-09).
+    [Parameter]
+    public bool Muted { get; set; }
+
+    private string ColorToken => Muted ? "--text-zero" : Kind switch
+    {
+        Kind.Entrada => "--kind-entrada",
+        Kind.Saida => "--kind-saida",
+        Kind.Diario => "--kind-diario",
+        Kind.Economia => "--kind-economia",
+        Kind.Cartao => "--kind-cartao",
+        _ => throw new ArgumentOutOfRangeException(nameof(Kind), Kind, null),
+    };
+}
