@@ -82,6 +82,10 @@
     [Parameter]
     public EventCallback<Kind?> FilterChanged { get; set; }
 
+    // The page bumps it whenever the store changes, so an open drawer re-renders and re-reads its day (ADD-21).
+    [Parameter]
+    public int Revision { get; set; }
+
     [Parameter]
     public EventCallback OnClose { get; set; }
 

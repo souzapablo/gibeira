@@ -9,7 +9,7 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 ---
 
 **Design**: `.specs/features/002-home-page/design.md`
-**Status**: In progress
+**Status**: Tasks done; verification next
 **Approved**: 2026-10-30 - user: "Approve tasks.md"; execution: "Inline, task by task"
 **Mutations**: 3
 **Build**: `dotnet build Gibeira.slnx -warnaserror; dotnet format Gibeira.slnx --verify-no-changes; dotnet test --solution Gibeira.slnx`
@@ -665,9 +665,10 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] bUnit: `TopBarAddOpensModalWithEntradaAndToday`, `DrawerPlusOpensModalWithDayAndKind`, `AddingItemUpdatesTablesAndOpenDrawer`, `DoubleSubmitAddsOnce` and `IconOnlyControlsHaveAriaLabelsAndDialogsHaveRole` pass
-- [ ] Playwright: `AmountFieldDropsRejectedCharacters`, `ReloadDiscardsChanges` and `ModalFillsWidthMinusGuttersBelow432` pass
-- [ ] Gate check passes: `dotnet build Gibeira.slnx -warnaserror; dotnet format Gibeira.slnx --verify-no-changes; dotnet test --solution Gibeira.slnx`
+- [x] bUnit: `TopBarAddOpensModalWithEntradaAndToday`, `DrawerPlusOpensModalWithDayAndKind`, `AddingItemUpdatesTablesAndOpenDrawer`, `DoubleSubmitAddsOnce` and `IconOnlyControlsHaveAriaLabelsAndDialogsHaveRole` pass
+- [x] Playwright: `AmountFieldDropsRejectedCharacters`, `ReloadDiscardsChanges` and `ModalFillsWidthMinusGuttersBelow432` pass
+- [x] Gate check passes: `dotnet build Gibeira.slnx -warnaserror; dotnet format Gibeira.slnx --verify-no-changes; dotnet test --solution Gibeira.slnx`
+- [x] Test count: Web.Tests 244 tests; IntegrationTests 13 tests; solution 309 tests
 
 **Tests**: e2e
 **Gate**: build
@@ -902,6 +903,7 @@ The feature's live state, written as it happens - a compaction gives no warning.
 
 **Settled mid-build:** ADD-01 chevrons (T27): asked whether "the last four" rows or the four picker rows get the chevron, the user chose "The four picker rows (Recommended)"; ADD-01 now names type, data, repetition and tags
 **T27 touched UI:** `Modal` gained `AutoFocus` (default true) so `AddItemModal` focuses the amount field itself; yielding after `Modal`'s focus left renders pending in bUnit. `Icon` gained `Text`, `Calendar`, `Repeat` and `Tag` for the modal rows. The card list uses card names as values (`""` is sem cartão): Razor's generated code rejects `T="Card?"`
+**T28 fixes:** `AddingItemUpdatesTablesAndOpenDrawer` found the open drawer kept its old list after an add: its parameters did not change, so Blazor never re-rendered it. The page now passes `DayDrawer.Revision`, bumped on every add and remove. The amount field binds with `@bind:get`/`@bind:set` on `oninput`: with a plain `value` + `@oninput` a rejected character stayed in the field (ADD-02). The filter runs on the server, so `AmountFieldDropsRejectedCharacters` types at 100 ms per key; keys sent faster than the round trip are lost with the rejected text
 **Browser tests:** `OpenHomeAsync` waits for the circuit's first render, which replaces the prerendered page; a scroll made before it was undone (one flaky `LedgerScrollsSidewaysWithoutPageScrollAt360` run in T26)
 **Order:** T15 runs before T14, because `ILedgerStore.Months(Period)` needs `Period` to compile; T15 uses nothing from T14
 **Dispatched:** none

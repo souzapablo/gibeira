@@ -8,7 +8,7 @@
         <Icon><span class="currency">R$</span></Icon>
         <ChildContent>
             <input class="amount-input" type="text" inputmode="decimal" placeholder="0,00" aria-label="valor" autocomplete="off"
-                   value="@Form.AmountText" @oninput="TypeAmount" @ref="amount" />
+                   @bind:get="Form.AmountText" @bind:set="TypeAmount" @bind:event="oninput" @ref="amount" />
         </ChildContent>
     </FieldRow>
 
@@ -128,7 +128,8 @@
         }
     }
 
-    private void TypeAmount(ChangeEventArgs e) => Form.Type(e.Value as string ?? "");
+    // AddItemForm keeps the previous text when the rule rejects the new one; the binding then writes it back (ADD-02).
+    private void TypeAmount(string? text) => Form.Type(text ?? "");
 
     private void Close() => open = Picker.None;
 

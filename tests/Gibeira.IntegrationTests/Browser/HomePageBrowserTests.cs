@@ -155,40 +155,96 @@ public sealed class HomePageBrowserTests(BrowserFixture fixture) : IClassFixture
         Assert.True(await entry.Locator(".money").IsVisibleAsync());
     }
 
-    // The 10th of the current month holds the seed's Itaú cartão item. A click before the circuit connects does nothing,
-    // so it clicks until the drawer shows.
+    // ADD-02: a letter or a third decimal typed in the amount field never shows.
+    [Fact]
+    public async Task AmountFieldDropsRejectedCharacters()
+    {
+        await using var context = await fixture.NewContextAsync(Viewport(1290, 902));
+        var page = await OpenHomeAsync(context);
+        var modal = await OpenModalAsync(page);
+        var amount = modal.Locator("input.amount-input");
+
+        // The filter runs on the server: type at a person's pace, so each key meets the text the last one left.
+        var typing = new LocatorPressSequentiallyOptions { Delay = 100 };
+        await amount.PressSequentiallyAsync("12a,3x45", typing);
+
+        Assert.Equal("12,34", await amount.InputValueAsync());
+        await amount.PressSequentiallyAsync(",", typing);
+        Assert.Equal("12,34", await amount.InputValueAsync());
+        Assert.True(await modal.Locator(".add-button-slot .button").IsEnabledAsync());
+    }
+
+    // MOCK-02: an item added before a reload is gone after it.
+    [Fact]
+    public async Task ReloadDiscardsChanges()
+    {
+        await using var context = await fixture.NewContextAsync(Viewport(1290, 902));
+        var page = await OpenHomeAsync(context);
+        var entradas = page.Locator(".month").First.Locator("tfoot td.money-cell").First.Locator(".money");
+        var before = (await entradas.InnerTextAsync()).Trim();
+
+        var modal = await OpenModalAsync(page);
+        await modal.Locator("input.amount-input").PressSequentiallyAsync("777");
+        await modal.Locator(".add-button-slot .button").ClickAsync();
+        await modal.WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Detached });
+        Assert.NotEqual(before, (await entradas.InnerTextAsync()).Trim());
+
+        await page.ReloadAsync();
+        await WaitForCircuitAsync(page);
+
+        Assert.Equal(before, (await entradas.InnerTextAsync()).Trim());
+    }
+
+    // SCR-01: at 400 px the modal is the window width minus 16 px each side.
+    [Fact]
+    public async Task ModalFillsWidthMinusGuttersBelow432()
+    {
+        await using var context = await fixture.NewContextAsync(Viewport(400, 800));
+        var page = await OpenHomeAsync(context);
+
+        var modal = await OpenModalAsync(page);
+
+        var box = await Box(modal);
+        Assert.Equal(16, box.X);
+        Assert.Equal(368, box.Width);
+    }
+
+    // The 10th of the current month holds the seed's Itaú cartão item.
     private static async Task<ILocator> OpenCartaoDrawerAsync(IPage page)
     {
         var cell = page.Locator(".month").First.Locator("tbody tr").Nth(9).Locator("td.money-cell").Nth(4).Locator("button");
-        var drawer = page.Locator(".drawer");
-        for (var attempt = 0; attempt < 50 && !await drawer.IsVisibleAsync(); attempt++)
-        {
-            await cell.ClickAsync();
-            try
-            {
-                await drawer.WaitForAsync(new LocatorWaitForOptions { Timeout = 200 });
-            }
-            catch (TimeoutException)
-            {
-            }
-        }
-
+        var drawer = await ClickToOpenAsync(cell, page.Locator(".drawer"));
         Assert.Equal("cartão", (await drawer.Locator(".filter-pill").InnerTextAsync()).Trim());
         return drawer;
+    }
+
+    private static Task<ILocator> OpenModalAsync(IPage page) => ClickToOpenAsync(page.Locator(".top-bar .button"), page.Locator(".modal"));
+
+    // OpenHomeAsync has waited for the circuit, so one click reaches its handler.
+    private static async Task<ILocator> ClickToOpenAsync(ILocator control, ILocator target)
+    {
+        await control.ClickAsync();
+        await target.WaitForAsync();
+        return target;
     }
 
     private static BrowserNewContextOptions Viewport(int width, int height) =>
         new() { ViewportSize = new ViewportSize { Width = width, Height = height } };
 
-    // Waits for the circuit: its first render replaces the prerendered page, which would undo a scroll made before it.
     private static async Task<IPage> OpenHomeAsync(IBrowserContext context)
     {
         var page = await context.NewPageAsync();
         await page.GotoAsync("/", new PageGotoOptions { WaitUntil = WaitUntilState.Commit });
+        await WaitForCircuitAsync(page);
+        return page;
+    }
+
+    // The circuit's first render replaces the prerendered page, which would undo a scroll made before it.
+    private static async Task WaitForCircuitAsync(IPage page)
+    {
         await page.Locator(".ledger").EvaluateAsync("el => { el.__prerendered = true; }");
         await page.WaitForFunctionAsync("() => !document.querySelector('.ledger').__prerendered");
         await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
-        return page;
     }
 
     private static async Task<LocatorBoundingBoxResult> Box(ILocator locator) =>

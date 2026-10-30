@@ -7,7 +7,7 @@
 
 @* The top bar, the period bar and the twelve months of the period side by side (HOME-01). *@
 <div class="home">
-    <TopBar />
+    <TopBar OnAdd="() => OpenModal(Kind.Entrada, today)" />
     <PeriodBar @bind-Period="period" Today="today" />
     <main class="ledger" aria-label="saldos">
         @foreach (var month in Store.Months(period))
@@ -17,7 +17,12 @@
     </main>
     @if (drawerOpen)
     {
-        <DayDrawer @bind-Day="drawerDay" @bind-Filter="drawerFilter" OnClose="() => drawerOpen = false" OnRemove="Remove" />
+        <DayDrawer @bind-Day="drawerDay" @bind-Filter="drawerFilter" Revision="revision" OnClose="() => drawerOpen = false"
+                   OnAdd="() => OpenModal(drawerFilter ?? Kind.Entrada, drawerDay)" OnRemove="Remove" />
+    }
+    @if (form is not null)
+    {
+        <AddItemModal Form="form" OnAdd="Add" OnClose="() => form = null" />
     }
 </div>
 
@@ -27,6 +32,8 @@
     private bool drawerOpen;
     private DateOnly drawerDay;
     private Kind? drawerFilter;
+    private AddItemForm? form;
+    private int revision;
 
     protected override void OnInitialized()
     {
@@ -42,6 +49,21 @@
         drawerOpen = true;
     }
 
+    // The top bar opens it on entrada and today (HOME-18); the drawer's + on its day and filter, entrada for todos (DAY-10).
+    private void OpenModal(Kind kind, DateOnly date) => form = new AddItemForm(kind, date);
+
+    // The tables and an open drawer re-read the store on render (ADD-21).
+    private void Add(NewItem item)
+    {
+        Store.Add(item);
+        revision++;
+        form = null;
+    }
+
     // That occurrence only; the tables re-read the store on render (DAY-12).
-    private void Remove(DayEntry entry) => Store.Remove(entry.ItemId, entry.Date);
+    private void Remove(DayEntry entry)
+    {
+        Store.Remove(entry.ItemId, entry.Date);
+        revision++;
+    }
 }

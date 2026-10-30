@@ -124,6 +124,135 @@ public sealed class HomePageTests : BunitContext
         Assert.Equal("R$ 950,00", MoneyCell(home, 1, 10, Kind.Cartao).QuerySelector(".money")!.TextContent.Trim());
     }
 
+    // HOME-18: adicionar in the top bar opens the modal on entrada and today.
+    [Fact]
+    public void TopBarAddOpensModalWithEntradaAndToday()
+    {
+        var home = RenderHome();
+        Assert.Empty(home.FindAll(".modal"));
+
+        home.Find(".top-bar .button").Click();
+
+        Assert.Equal("adicionar", home.Find(".modal .modal-title").TextContent.Trim());
+        Assert.Equal("entrada", ModalRowLabel(home, 1));
+        Assert.Equal("29/10/26", home.FindAll(".modal .field-row")[3].QuerySelector(".field-row-value")!.TextContent.Trim());
+        Assert.Equal("adicionar entrada", AddButton(home).TextContent.Trim());
+    }
+
+    // DAY-10: + in the drawer opens the modal on the drawer's day and the filter's kind, or entrada for todos.
+    [Fact]
+    public void DrawerPlusOpensModalWithDayAndKind()
+    {
+        var home = RenderHome();
+        MoneyCell(home, 0, 10, Kind.Cartao).Click();
+
+        home.Find(".drawer-header button[aria-label='adicionar']").Click();
+
+        Assert.Equal("cartão", ModalRowLabel(home, 1));
+        Assert.Equal("10/10/26", home.FindAll(".modal .field-row")[3].QuerySelector(".field-row-value")!.TextContent.Trim());
+        Assert.Equal("adicionar cartão", AddButton(home).TextContent.Trim());
+
+        home.Find(".modal-header button[aria-label='fechar']").Click();
+        Row(home, 0, 6).QuerySelector(".day-cell button")!.Click();
+        home.Find(".drawer-header button[aria-label='adicionar']").Click();
+
+        Assert.Equal("entrada", ModalRowLabel(home, 1));
+        Assert.Equal("06/10/26", home.FindAll(".modal .field-row")[3].QuerySelector(".field-row-value")!.TextContent.Trim());
+    }
+
+    // ADD-21: adding closes the modal and updates the tables, totals, saldos and the open drawer.
+    [Fact]
+    public void AddingItemUpdatesTablesAndOpenDrawer()
+    {
+        var home = RenderHome();
+        var saidaTwelfth = MoneyValue(MoneyCell(home, 0, 12, Kind.Saida));
+        var saidaTotal = TotalCell(home, 0, Kind.Saida);
+        var saldoEleventh = Saldo(home, 0, 11);
+        var saldoTwelfth = Saldo(home, 0, 12);
+        var saldoNextMonth = Saldo(home, 1, 1);
+        Row(home, 0, 12).QuerySelector(".day-cell button")!.Click();
+        Assert.Equal(["dia a dia"], Descriptions(home));
+
+        home.Find(".drawer-header button[aria-label='adicionar']").Click();
+        home.Find(".modal input.amount-input").Input("100");
+        home.Find(".modal input.description-input").Input("farmácia");
+        home.FindAll(".modal .field-row")[1].Click();
+        home.FindAll(".modal .dropdown-option").Single(o => o.QuerySelector(".dropdown-label")!.TextContent.Trim() == "saída").Click();
+        AddButton(home).Click();
+
+        Assert.Empty(home.FindAll(".modal"));
+        Assert.Equal(["dia a dia", "farmácia"], Descriptions(home));
+        Assert.Equal(saidaTwelfth + 100m, MoneyValue(MoneyCell(home, 0, 12, Kind.Saida)));
+        Assert.Equal(ParseMoney(saidaTotal) + 100m, ParseMoney(TotalCell(home, 0, Kind.Saida)));
+        Assert.Equal(saldoEleventh, Saldo(home, 0, 11));
+        Assert.Equal(saldoTwelfth - 100m, Saldo(home, 0, 12));
+        Assert.Equal(saldoNextMonth - 100m, Saldo(home, 1, 1));
+    }
+
+    // ADD-23: a second click on the add button while the first is being handled adds nothing.
+    [Fact]
+    public void DoubleSubmitAddsOnce()
+    {
+        var store = new ReentrantStore(new InMemoryLedgerStore(new FixedTime(Today)));
+        var home = RenderHome(store);
+        var entradaTotal = ParseMoney(TotalCell(home, 0, Kind.Entrada));
+        home.Find(".top-bar .button").Click();
+        home.Find(".modal input.amount-input").Input("250");
+        var button = AddButton(home);
+        store.BeforeAdd = () => button.Click();
+
+        button.Click();
+
+        Assert.Equal(1, store.Adds);
+        Assert.Empty(home.FindAll(".modal"));
+        Assert.Equal(entradaTotal + 250m, ParseMoney(TotalCell(home, 0, Kind.Entrada)));
+    }
+
+    // UI-06: with the drawer, the modal and a popover open, every icon-only control has a pt-BR label and every
+    // drawer, modal, dropdown and popover is a dialog.
+    [Fact]
+    public void IconOnlyControlsHaveAriaLabelsAndDialogsHaveRole()
+    {
+        string[] ptBrLabels =
+            ["12 meses antes", "mês anterior", "mês seguinte", "12 meses depois", "fechar", "dia anterior", "dia seguinte", "adicionar", "opções", "anterior", "próximo"];
+        var home = RenderHome();
+        MoneyCell(home, 0, 10, Kind.Cartao).Click();
+        home.Find(".drawer-header button[aria-label='adicionar']").Click();
+        home.FindAll(".modal .field-row")[3].Click();
+
+        Assert.Equal("dialog", home.Find(".drawer").GetAttribute("role"));
+        Assert.Equal("dialog", home.Find(".modal").GetAttribute("role"));
+        Assert.Equal("dialog", home.Find(".stepper").GetAttribute("role"));
+        var iconOnly = home.FindAll("button").Where(b => b.TextContent.Trim().Length == 0).ToList();
+        Assert.NotEmpty(iconOnly);
+        Assert.All(iconOnly, b => Assert.Contains(b.GetAttribute("aria-label"), ptBrLabels));
+        Assert.Contains(iconOnly, b => b.Closest(".stepper") is not null);
+        Assert.Contains(iconOnly, b => b.Closest(".drawer") is not null);
+        Assert.Contains(iconOnly, b => b.Closest(".modal") is not null);
+
+        home.Find(".stepper").KeyDown(key: "Escape");
+        home.FindAll(".modal .field-row")[4].Click();
+        Assert.Equal("dialog", home.Find(".modal .dropdown").GetAttribute("role"));
+        home.Find(".modal").KeyDown(key: "Escape");
+        home.Find(".period-pill").Click();
+        Assert.Equal("dialog", home.Find(".period-bar .dropdown").GetAttribute("role"));
+        home.Find(".period-bar .dropdown").KeyDown(key: "Escape");
+        home.Find(".filter-pill").Click();
+        Assert.Equal("dialog", home.Find(".drawer .dropdown").GetAttribute("role"));
+    }
+
+    private static string ModalRowLabel(IRenderedComponent<Gibeira.Web.Components.Pages.Home> home, int row) =>
+        home.FindAll(".modal .field-row")[row].QuerySelector(".field-row-label")!.TextContent.Trim();
+
+    private static AngleSharp.Dom.IElement AddButton(IRenderedComponent<Gibeira.Web.Components.Pages.Home> home) =>
+        home.Find(".modal .add-button-slot .button");
+
+    private static decimal MoneyValue(AngleSharp.Dom.IElement cell) => ParseMoney(cell.QuerySelector(".money")!.TextContent.Trim());
+
+    // R$ -1.234,56 → -1234.56
+    private static decimal ParseMoney(string text) =>
+        decimal.Parse(text["R$ ".Length..].Replace(".", "", StringComparison.Ordinal).Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
+
     private static AngleSharp.Dom.IElement Row(IRenderedComponent<Gibeira.Web.Components.Pages.Home> home, int month, int day) =>
         home.FindAll(".month")[month].QuerySelectorAll("tbody tr")[day - 1];
 
@@ -133,14 +262,40 @@ public sealed class HomePageTests : BunitContext
     private static string TotalCell(IRenderedComponent<Gibeira.Web.Components.Pages.Home> home, int month, Kind kind) =>
         home.FindAll(".month")[month].QuerySelectorAll("tfoot td.money-cell")[(int)kind].QuerySelector(".money")!.TextContent.Trim();
 
-    // R$ -1.234,56 → -1234.56
     private static decimal Saldo(IRenderedComponent<Gibeira.Web.Components.Pages.Home> home, int month, int day) =>
-        decimal.Parse(
-            Row(home, month, day).QuerySelector("td.saldo-cell")!.TextContent.Trim()["R$ ".Length..].Replace(".", "", StringComparison.Ordinal).Replace(',', '.'),
-            System.Globalization.CultureInfo.InvariantCulture);
+        ParseMoney(Row(home, month, day).QuerySelector("td.saldo-cell")!.TextContent.Trim());
 
     private static string[] Descriptions(IRenderedComponent<Gibeira.Web.Components.Pages.Home> home) =>
         home.FindAll(".entry-description").Select(d => d.TextContent.Trim()).ToArray();
+
+    // The mock store, with a hook that runs inside the first Add, before the page can close the modal.
+    private sealed class ReentrantStore(ILedgerStore inner) : ILedgerStore
+    {
+        public Action? BeforeAdd { get; set; }
+
+        public int Adds { get; private set; }
+
+        public IReadOnlyList<Card> Cards => inner.Cards;
+
+        public IReadOnlyList<string> Tags => inner.Tags;
+
+        public IReadOnlyList<MonthLedger> Months(Period period) => inner.Months(period);
+
+        public IReadOnlyList<DayEntry> Day(DateOnly day, Kind? filter) => inner.Day(day, filter);
+
+        public DateOnly DueDate(Card card, DateOnly onOrAfter, int monthsAhead) => inner.DueDate(card, onOrAfter, monthsAhead);
+
+        public void Add(NewItem item)
+        {
+            Adds++;
+            var hook = BeforeAdd;
+            BeforeAdd = null;
+            hook?.Invoke();
+            inner.Add(item);
+        }
+
+        public void Remove(Guid itemId, DateOnly day) => inner.Remove(itemId, day);
+    }
 
     // Every day of every month is zero, but the 3rd: an economia of 4.321,00 and a saldo of -12,34; entradas total 98.765,43.
     private sealed class StubStore : ILedgerStore
