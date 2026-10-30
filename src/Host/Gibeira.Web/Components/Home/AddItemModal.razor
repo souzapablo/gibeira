@@ -1,0 +1,219 @@
+@using System.Globalization
+@inject ILedgerStore Store
+
+@* The add modal over Modal: six rows bound to AddItemForm, each picker row opening its Dropdown or StepperPopover,
+   one at a time (ADD-01 to ADD-25). The page owns the form and acts on OnAdd and OnClose. *@
+<Modal Title="adicionar" AutoFocus="false" OnClose="OnClose">
+    <FieldRow Label="valor">
+        <Icon><span class="currency">R$</span></Icon>
+        <ChildContent>
+            <input class="amount-input" type="text" inputmode="decimal" placeholder="0,00" aria-label="valor" autocomplete="off"
+                   value="@Form.AmountText" @oninput="TypeAmount" @ref="amount" />
+        </ChildContent>
+    </FieldRow>
+
+    <div class="row-slot">
+        <FieldRow Label="@PtBr.KindName(Form.Kind)" Chevron="true" OnClick="() => open = Picker.Type">
+            <Icon><KindIcon Kind="Form.Kind" /></Icon>
+        </FieldRow>
+        @if (open == Picker.Type)
+        {
+            <Dropdown T="Kind" Header="tipo" Options="KindOptions" Selected="[Form.Kind]" OnChoose="ChooseKind" OnClose="Close" />
+        }
+        @if (open == Picker.Card)
+        {
+            <Dropdown T="string" Header="cartão" Options="CardOptions()" Selected="[Form.Card?.Name ?? NoCard]" OnChoose="ChooseCard" OnClose="Close">
+                <HeaderAction>
+                    <button type="button" class="add-card" disabled><Icon Name="IconName.Plus" Size="14" />adicionar cartão</button>
+                </HeaderAction>
+            </Dropdown>
+        }
+    </div>
+
+    <FieldRow Label="descrição">
+        <Icon><Icon Name="IconName.Text" Size="18" /></Icon>
+        <ChildContent>
+            <input class="description-input" type="text" placeholder="@Form.DescriptionPlaceholder" aria-label="descrição" autocomplete="off"
+                   @bind="Form.Description" @bind:event="oninput" />
+        </ChildContent>
+    </FieldRow>
+
+    <div class="row-slot">
+        <FieldRow Label="@Form.DateLabel" Value="@PtBr.RowDate(Form.Date)" Chevron="true" OnClick="OpenDate">
+            <Icon><Icon Name="IconName.Calendar" Size="18" /></Icon>
+        </FieldRow>
+        @if (open == Picker.Date)
+        {
+            <StepperPopover T="DateOnly" Header="data" Value="draftDate" Format="PtBr.LongDate"
+                            OnStep="step => draftDate = draftDate.AddDays(step)" OnSave="SaveDate" OnClose="Close" />
+        }
+        @if (open == Picker.DueDate && Form.Card is { } card)
+        {
+            <StepperPopover T="DateOnly" Header="vencimento" Value="Store.DueDate(card, Form.Date, dueMonths)" Format="PtBr.LongDate"
+                            OnStep="step => dueMonths += step" OnSave="() => SaveDueDate(card)" OnClose="Close" />
+        }
+    </div>
+
+    <div class="row-slot">
+        <FieldRow Label="@Form.RepetitionLabel" Chevron="true" OnClick="() => open = Picker.Repetition">
+            <Icon><Icon Name="IconName.Repeat" Size="18" /></Icon>
+        </FieldRow>
+        @if (open == Picker.Repetition)
+        {
+            <Dropdown T="string" Header="repetir" Options="RepetitionOptions" Selected="[RepetitionKey(Form.Repetition)]" OnChoose="ChooseRepetition" OnClose="Close" />
+        }
+        @if (open == Picker.Installments)
+        {
+            <StepperPopover T="int" Header="parcelas" Value="draftCount" Format="@(n => n.ToString(CultureInfo.InvariantCulture))"
+                            OnStep="step => draftCount = Math.Clamp(draftCount + step, 2, 48)" OnSave="SaveInstallments" OnClose="Close" />
+        }
+    </div>
+
+    <div class="row-slot">
+        <FieldRow Label="tags" Value="@(Form.Tags.Count == 0 ? null : Form.TagsLabel)" Chevron="true" OnClick="() => open = Picker.Tags">
+            <Icon><Icon Name="IconName.Tag" Size="18" /></Icon>
+        </FieldRow>
+        @if (open == Picker.Tags)
+        {
+            <Dropdown T="string" Header="tags" Options="TagOptions()" Selected="Form.Tags" Multiple="true" OnChoose="Form.ToggleTag" OnClose="Close" />
+        }
+    </div>
+
+    <div class="add-button-slot">
+        <Button Variant="ButtonVariant.Kind" Kind="Form.Kind" Disabled="!Form.CanSubmit" OnClick="Submit">@Form.ButtonLabel</Button>
+    </div>
+</Modal>
+
+@code {
+    private enum Picker { None, Type, Card, Date, DueDate, Repetition, Installments, Tags }
+
+    private static readonly DropdownOption<Kind>[] KindOptions =
+        Enum.GetValues<Kind>().Select(k => new DropdownOption<Kind>(k, PtBr.KindName(k), Icon: builder =>
+        {
+            builder.OpenComponent<KindIcon>(0);
+            builder.AddComponentParameter(1, nameof(KindIcon.Kind), k);
+            builder.CloseComponent();
+        })).ToArray();
+
+    private static readonly DropdownOption<string>[] RepetitionOptions =
+    [
+        new("mensal", "mensalmente", "repete o mesmo valor mensalmente"),
+        new("semanal", "semanalmente", "repete o mesmo valor semanalmente"),
+        new("diario", "diariamente", "repete o mesmo valor diariamente"),
+        new("parcelado", "parcelado", "divide o valor pelo número de parcelas"),
+        new("nenhuma", "não repete"),
+    ];
+
+    private ElementReference amount;
+    private Picker open;
+    private DateOnly draftDate;
+    private int dueMonths;
+    private int draftCount;
+
+    [Parameter, EditorRequired]
+    public AddItemForm Form { get; set; } = null!;
+
+    [Parameter]
+    public EventCallback<NewItem> OnAdd { get; set; }
+
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    // The amount field takes the focus in place of the modal's root (ADD-01).
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await amount.FocusAsync();
+        }
+    }
+
+    private void TypeAmount(ChangeEventArgs e) => Form.Type(e.Value as string ?? "");
+
+    private void Close() => open = Picker.None;
+
+    private void ChooseKind(Kind kind)
+    {
+        Form.SetKind(kind);
+        open = kind == Kind.Cartao ? Picker.Card : Picker.None;
+    }
+
+    // The card list's values are card names; this one is sem cartão.
+    private const string NoCard = "";
+
+    private List<DropdownOption<string>> CardOptions() =>
+        [.. Store.Cards.Select(c => new DropdownOption<string>(c.Name, c.Name)), new(NoCard, "sem cartão")];
+
+    // A card opens its vencimento at the first due date on or after the form's date; sem cartão opens nothing.
+    private void ChooseCard(string name)
+    {
+        var card = Store.Cards.FirstOrDefault(c => c.Name == name);
+        Form.ChooseCard(card);
+        dueMonths = 0;
+        open = card is null ? Picker.None : Picker.DueDate;
+    }
+
+    private void OpenDate()
+    {
+        draftDate = Form.Date;
+        dueMonths = 0;
+        open = Form.Card is null ? Picker.Date : Picker.DueDate;
+    }
+
+    private void SaveDate()
+    {
+        Form.Date = draftDate;
+        Close();
+    }
+
+    private void SaveDueDate(Card card)
+    {
+        Form.SetDueDate(Store.DueDate(card, Form.Date, dueMonths));
+        Close();
+    }
+
+    private static string RepetitionKey(Repetition repetition) => repetition switch
+    {
+        Repetition.Monthly => "mensal",
+        Repetition.Weekly => "semanal",
+        Repetition.Daily => "diario",
+        Repetition.Installments => "parcelado",
+        _ => "nenhuma",
+    };
+
+    private void ChooseRepetition(string key)
+    {
+        if (key == "parcelado")
+        {
+            draftCount = Form.Repetition is Repetition.Installments(var count) ? count : 2;
+            open = Picker.Installments;
+            return;
+        }
+
+        Form.Repetition = key switch
+        {
+            "mensal" => new Repetition.Monthly(),
+            "semanal" => new Repetition.Weekly(),
+            "diario" => new Repetition.Daily(),
+            _ => new Repetition.None(),
+        };
+        Close();
+    }
+
+    private void SaveInstallments()
+    {
+        Form.Repetition = new Repetition.Installments(draftCount);
+        Close();
+    }
+
+    private List<DropdownOption<string>> TagOptions() => Store.Tags.Select(t => new DropdownOption<string>(t, t)).ToList();
+
+    // AddItemForm.Submit returns the item once; a second click gets null (ADD-23).
+    private async Task Submit()
+    {
+        if (Form.Submit() is { } item)
+        {
+            await OnAdd.InvokeAsync(item);
+        }
+    }
+}

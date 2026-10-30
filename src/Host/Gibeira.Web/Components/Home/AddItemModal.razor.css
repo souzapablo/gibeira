@@ -1,0 +1,65 @@
+/* A dropdown or popover opens under its row. */
+.row-slot {
+    position: relative;
+}
+
+.currency {
+    color: var(--text-subtle);
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.amount-input,
+.description-input {
+    flex: 1;
+    min-width: 0;
+    padding: 6px 0;
+    border: 0;
+    background: none;
+    color: var(--text-primary);
+    font: inherit;
+    outline: none;
+}
+
+.amount-input {
+    font-family: var(--font-display);
+    font-size: 44px;
+    font-weight: 800;
+    letter-spacing: -.02em;
+}
+
+.amount-input::placeholder,
+.description-input::placeholder {
+    color: var(--text-zero);
+}
+
+.description-input {
+    font-size: 15px;
+}
+
+.add-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 32px;
+    padding: 0 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-pill);
+    background: none;
+    color: var(--text-muted);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.add-card:disabled {
+    cursor: not-allowed;
+    opacity: .45;
+}
+
+.add-button-slot {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+}

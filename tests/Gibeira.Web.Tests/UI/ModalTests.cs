@@ -53,6 +53,17 @@ public sealed class ModalTests : BunitContext
         JSInterop.VerifyFocusAsyncInvoke();
     }
 
+    // ADD-01: with AutoFocus off the modal leaves the focus to its content.
+    [Fact]
+    public void ModalWithoutAutoFocusLeavesFocusToContent()
+    {
+        Render<Modal>(parameters => parameters
+            .Add(p => p.Title, "adicionar")
+            .Add(p => p.AutoFocus, false));
+
+        Assert.Empty(JSInterop.Invocations);
+    }
+
     // ADD-25: Esc in a dropdown or popover inside the modal closes that one and leaves the modal open.
     [Fact]
     public void EscInsideAPopoverClosesOnlyThePopover()

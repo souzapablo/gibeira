@@ -176,7 +176,7 @@ The canvas values below bind. Token names are the builder's call; each value has
 
 **Acceptance Criteria**:
 
-1. WHEN the add modal opens THEN the system SHALL show title `adicionar`, X, the rows R$ amount (placeholder `0,00`), type (kind icon and name), description (placeholder the type's name), data (date `dd/mm/yy`), repetition (`não repete`) and tags (`tags`), each with its icon and the last four with a chevron, and the button `adicionar entrada`, with the amount field focused.  <!-- ADD-01 -->
+1. WHEN the add modal opens THEN the system SHALL show title `adicionar`, X, the rows R$ amount (placeholder `0,00`), type (kind icon and name), description (placeholder the type's name), data (date `dd/mm/yy`), repetition (`não repete`) and tags (`tags`), each with its icon and the four picker rows (type, data, repetition, tags) with a chevron, and the button `adicionar entrada`, with the amount field focused.  <!-- ADD-01 -->
 2. The system SHALL accept in the amount field digits and one comma with at most two digits after it, up to `999.999.999,99`, and ignore any other character typed.  <!-- ADD-02 -->
 3. WHEN the user uses the type row THEN the system SHALL open a dropdown with `entrada`, `saída`, `diário`, `economia`, `cartão`, the current one checked.  <!-- ADD-03 -->
 4. WHEN the user chooses a type THEN the system SHALL show its icon and name on the row, use its name as the description placeholder, and label the button `adicionar <type>` in that kind's color.  <!-- ADD-04 -->
@@ -287,31 +287,31 @@ The canvas values below bind. Token names are the builder's call; each value has
 | DAY-10 | P1: Day drawer | Design | Pending |
 | DAY-11 | P1: Day drawer | Execute | Implemented (T25) |
 | DAY-12 | P1: Day drawer | Execute | Implemented (T26) |
-| ADD-01 | P1: Add modal | Design | Pending |
+| ADD-01 | P1: Add modal | Execute | Implemented (T27) |
 | ADD-02 | P1: Add modal | Design | Pending |
-| ADD-03 | P1: Add modal | Design | Pending |
-| ADD-04 | P1: Add modal | Design | Pending |
-| ADD-05 | P1: Add modal | Design | Pending |
-| ADD-06 | P1: Add modal | Design | Pending |
-| ADD-07 | P1: Add modal | Design | Pending |
-| ADD-08 | P1: Add modal | Design | Pending |
-| ADD-09 | P1: Add modal | Design | Pending |
+| ADD-03 | P1: Add modal | Execute | Implemented (T27) |
+| ADD-04 | P1: Add modal | Execute | Implemented (T27) |
+| ADD-05 | P1: Add modal | Execute | Implemented (T27) |
+| ADD-06 | P1: Add modal | Execute | Implemented (T27) |
+| ADD-07 | P1: Add modal | Execute | Implemented (T27) |
+| ADD-08 | P1: Add modal | Execute | Implemented (T27) |
+| ADD-09 | P1: Add modal | Execute | Implemented (T27) |
 | ADD-10 | P1: Add modal | Execute | Implemented (T18) |
 | ADD-11 | P1: Add modal | Execute | Implemented (T18) |
 | ADD-12 | P1: Add modal | Execute | Implemented (T18) |
-| ADD-13 | P1: Add modal | Design | Pending |
-| ADD-14 | P1: Add modal | Design | Pending |
-| ADD-15 | P1: Add modal | Design | Pending |
-| ADD-16 | P1: Add modal | Design | Pending |
-| ADD-17 | P1: Add modal | Design | Pending |
-| ADD-18 | P1: Add modal | Design | Pending |
-| ADD-19 | P1: Add modal | Design | Pending |
-| ADD-20 | P1: Add modal | Design | Pending |
+| ADD-13 | P1: Add modal | Execute | Implemented (T27) |
+| ADD-14 | P1: Add modal | Execute | Implemented (T27) |
+| ADD-15 | P1: Add modal | Execute | Implemented (T27) |
+| ADD-16 | P1: Add modal | Execute | Implemented (T27) |
+| ADD-17 | P1: Add modal | Execute | Implemented (T27) |
+| ADD-18 | P1: Add modal | Execute | Implemented (T17) |
+| ADD-19 | P1: Add modal | Execute | Implemented (T27) |
+| ADD-20 | P1: Add modal | Execute | Implemented (T27) |
 | ADD-21 | P1: Add modal | Design | Pending |
 | ADD-22 | P1: Add modal | Execute | Implemented (T17) |
 | ADD-23 | P1: Add modal | Design | Pending |
-| ADD-24 | P1: Add modal | Design | Pending |
-| ADD-25 | P1: Add modal | Design | Pending |
+| ADD-24 | P1: Add modal | Execute | Implemented (T27) |
+| ADD-25 | P1: Add modal | Execute | Implemented (T27) |
 | MOCK-01 | P1: Mock data | Execute | Implemented (T21) |
 | MOCK-02 | P1: Mock data | Design | Pending |
 | MOCK-03 | P1: Mock data | Execute | Implemented (T24) |

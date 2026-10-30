@@ -23,9 +23,13 @@
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    // False when the content focuses a field of its own on open, as the add modal's amount (ADD-01).
+    [Parameter]
+    public bool AutoFocus { get; set; } = true;
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if (firstRender && AutoFocus)
         {
             await root.FocusAsync();
         }

@@ -644,8 +644,9 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `AddModalOpensWithRowsAndFocusedAmount`, `TypeRowListsKindsWithCurrentChecked`, `ChoosingTypeUpdatesRowPlaceholderAndButton`, `DataPopoverStepsOneDay`, `DataSalvarSetsDateAndCloses`, `RepetirListsOptionsWithDescriptions`, `ChoosingRepetitionShowsItOnRow`, `ParceladoOpensCountPopoverFrom2To48`, `CartaoOpensCardDropdown`, `ChoosingCardOpensVencimentoAtFirstDueDate`, `VencimentoArrowsStepOneMonth`, `VencimentoSalvarSetsDateAndRelabelsRow`, `SemCartaoOpensNoVencimento`, `TagsDropdownChecksSeveral`, `AddButtonIsDisabledForZeroAmount`, `ModalClosesOnXEscAndBackdropWithoutAdding` and `PopoverClosesOnEscAndOutsideKeepingValue` pass
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] `AddModalOpensWithRowsAndFocusedAmount`, `TypeRowListsKindsWithCurrentChecked`, `ChoosingTypeUpdatesRowPlaceholderAndButton`, `DataPopoverStepsOneDay`, `DataSalvarSetsDateAndCloses`, `RepetirListsOptionsWithDescriptions`, `ChoosingRepetitionShowsItOnRow`, `ParceladoOpensCountPopoverFrom2To48`, `CartaoOpensCardDropdown`, `ChoosingCardOpensVencimentoAtFirstDueDate`, `VencimentoArrowsStepOneMonth`, `VencimentoSalvarSetsDateAndRelabelsRow`, `SemCartaoOpensNoVencimento`, `TagsDropdownChecksSeveral`, `AddButtonIsDisabledForZeroAmount`, `ModalClosesOnXEscAndBackdropWithoutAdding` and `PopoverClosesOnEscAndOutsideKeepingValue` pass
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] Test count: Web.Tests 239 tests (17 here, plus `ModalWithoutAutoFocusLeavesFocusToContent`)
 
 **Tests**: component
 **Gate**: quick
@@ -899,7 +900,8 @@ Proof: walk - open `/` at both widths, open a cartão cell, the add modal, each 
 
 The feature's live state, written as it happens - a compaction gives no warning.
 
-**Settled mid-build:** none
+**Settled mid-build:** ADD-01 chevrons (T27): asked whether "the last four" rows or the four picker rows get the chevron, the user chose "The four picker rows (Recommended)"; ADD-01 now names type, data, repetition and tags
+**T27 touched UI:** `Modal` gained `AutoFocus` (default true) so `AddItemModal` focuses the amount field itself; yielding after `Modal`'s focus left renders pending in bUnit. `Icon` gained `Text`, `Calendar`, `Repeat` and `Tag` for the modal rows. The card list uses card names as values (`""` is sem cartão): Razor's generated code rejects `T="Card?"`
 **Browser tests:** `OpenHomeAsync` waits for the circuit's first render, which replaces the prerendered page; a scroll made before it was undone (one flaky `LedgerScrollsSidewaysWithoutPageScrollAt360` run in T26)
 **Order:** T15 runs before T14, because `ILedgerStore.Months(Period)` needs `Period` to compile; T15 uses nothing from T14
 **Dispatched:** none

@@ -13,4 +13,8 @@ public enum IconName
     Check,
     ArrowIn,
     ArrowOut,
+    Text,
+    Calendar,
+    Repeat,
+    Tag,
 }
