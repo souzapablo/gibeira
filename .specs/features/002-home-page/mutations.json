@@ -1,0 +1,23 @@
+[
+  {
+    "file": "src/Host/Gibeira.Web/Mockup/InMemoryLedgerStore.cs",
+    "old": "Schedule.Expand(i, DateOnly.MinValue, last)",
+    "new": "Schedule.Expand(i, period.First, last)",
+    "proof": "dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj",
+    "label": "C19 HOME-10: store drops occurrences before the period, so the saldo restarts at 0 instead of carrying the opening balance (whole Web.Tests suite)"
+  },
+  {
+    "file": "src/Host/Gibeira.Web/Mockup/Schedule.cs",
+    "old": "decimal.Floor(amount / count * 100) / 100",
+    "new": "decimal.Round(amount / count, 2)",
+    "proof": "dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method \"*Installments*\"",
+    "label": "C53 ADD-12: parcels rounded instead of cut to cents, so the first can carry a negative remainder (100,00 / 6 -> 16,65 + 5 x 16,67)"
+  },
+  {
+    "file": "src/Host/Gibeira.Web/Components/UI/Drawer.razor.css",
+    "old": "@media (max-width: 432px)",
+    "new": "@media (max-width: 300px)",
+    "proof": "dotnet test --project tests/Gibeira.IntegrationTests/Gibeira.IntegrationTests.csproj --filter-method \"*DrawerFillsWidthBelow432\"",
+    "label": "C71 SCR-02: drawer full-width breakpoint moved from 432 px to 300 px"
+  }
+]
