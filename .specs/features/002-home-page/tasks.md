@@ -386,8 +386,9 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `PeriodLabelUsesPtBrAbbrevs` (`out/2026 - set/2027`), `ShiftMovesByMonthsAcrossYears` and `ChoicesSpanTwelveMonthsEachWay` (25, first `out/2025 - set/2026`, last `out/2027 - set/2028`) pass
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] `PeriodLabelUsesPtBrAbbrevs` (`out/2026 - set/2027`), `ShiftMovesByMonthsAcrossYears` and `ChoicesSpanTwelveMonthsEachWay` (25, first `out/2025 - set/2026`, last `out/2027 - set/2028`) pass
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] Test count: Web.Tests 116 tests
 
 **Tests**: unit
 **Gate**: quick
@@ -887,6 +888,7 @@ Proof: walk - open `/` at both widths, open a cartão cell, the add modal, each 
 The feature's live state, written as it happens - a compaction gives no warning.
 
 **Settled mid-build:** none
+**Order:** T15 runs before T14, because `ILedgerStore.Months(Period)` needs `Period` to compile; T15 uses nothing from T14
 **Dispatched:** none
 **Walked:** none
 
