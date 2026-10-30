@@ -1,0 +1,43 @@
+@* The bar that moves the twelve months shown: << and >> by a year, < and > by a month, and the pill that
+   lists the 25 periods around today's month (HOME-03 to HOME-06). *@
+<nav class="period-bar" aria-label="período">
+    <IconButton Icon="IconName.ChevronsLeft" Label="12 meses antes" OnClick="() => Shift(-12)" />
+    <IconButton Icon="IconName.ChevronLeft" Label="mês anterior" OnClick="() => Shift(-1)" />
+    <div class="period-choice">
+        <button type="button" class="period-pill" aria-haspopup="dialog" aria-expanded="@(open ? "true" : "false")" @onclick="() => open = true">
+            @Period.Label
+            <Icon Name="IconName.ChevronDown" Size="16" />
+        </button>
+        @if (open)
+        {
+            <Dropdown T="Period" Header="período" Options="Choices()" Selected="[Period]" OnChoose="Choose" OnClose="() => open = false" />
+        }
+    </div>
+    <IconButton Icon="IconName.ChevronRight" Label="mês seguinte" OnClick="() => Shift(1)" />
+    <IconButton Icon="IconName.ChevronsRight" Label="12 meses depois" OnClick="() => Shift(12)" />
+</nav>
+
+@code {
+    private bool open;
+
+    [Parameter, EditorRequired]
+    public Period Period { get; set; } = null!;
+
+    [Parameter]
+    public EventCallback<Period> PeriodChanged { get; set; }
+
+    // The choices are centered on today's month, not on the period shown.
+    [Parameter, EditorRequired]
+    public DateOnly Today { get; set; }
+
+    private List<DropdownOption<Period>> Choices() =>
+        Period.Choices(Today).Select(p => new DropdownOption<Period>(p, p.Label)).ToList();
+
+    private Task Shift(int months) => PeriodChanged.InvokeAsync(Period.Shift(months));
+
+    private Task Choose(Period chosen)
+    {
+        open = false;
+        return PeriodChanged.InvokeAsync(chosen);
+    }
+}

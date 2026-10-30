@@ -259,10 +259,10 @@ The canvas values below bind. Token names are the builder's call; each value has
 | UI-06 | P1: Tokens and reusable components | Design | Pending |
 | HOME-01 | P1: Twelve-month ledger | Design | Pending |
 | HOME-02 | P1: Twelve-month ledger | Design | Pending |
-| HOME-03 | P1: Twelve-month ledger | Design | Pending |
-| HOME-04 | P1: Twelve-month ledger | Design | Pending |
-| HOME-05 | P1: Twelve-month ledger | Design | Pending |
-| HOME-06 | P1: Twelve-month ledger | Design | Pending |
+| HOME-03 | P1: Twelve-month ledger | Execute | Implemented (T22) |
+| HOME-04 | P1: Twelve-month ledger | Execute | Implemented (T22) |
+| HOME-05 | P1: Twelve-month ledger | Execute | Implemented (T22) |
+| HOME-06 | P1: Twelve-month ledger | Execute | Implemented (T22) |
 | HOME-07 | P1: Twelve-month ledger | Design | Pending |
 | HOME-08 | P1: Twelve-month ledger | Design | Pending |
 | HOME-09 | P1: Twelve-month ledger | Design | Pending |

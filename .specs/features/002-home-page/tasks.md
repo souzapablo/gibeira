@@ -536,8 +536,9 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `PeriodArrowsMoveOneMonth`, `PeriodDoubleArrowsMoveTwelveMonths`, `PeriodPillListsTwentyFivePeriodsWithCurrentChecked` and `ChoosingPeriodShowsItAndClosesDropdown` pass
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] `PeriodArrowsMoveOneMonth`, `PeriodDoubleArrowsMoveTwelveMonths`, `PeriodPillListsTwentyFivePeriodsWithCurrentChecked` and `ChoosingPeriodShowsItAndClosesDropdown` pass
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] Test count: Web.Tests 200 tests
 
 **Tests**: component
 **Gate**: quick
