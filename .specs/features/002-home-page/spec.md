@@ -264,14 +264,14 @@ The canvas values below bind. Token names are the builder's call; each value has
 | HOME-05 | P1: Twelve-month ledger | Execute | Implemented (T22) |
 | HOME-06 | P1: Twelve-month ledger | Execute | Implemented (T22) |
 | HOME-07 | P1: Twelve-month ledger | Design | Pending |
-| HOME-08 | P1: Twelve-month ledger | Design | Pending |
-| HOME-09 | P1: Twelve-month ledger | Design | Pending |
+| HOME-08 | P1: Twelve-month ledger | Execute | Implemented (T23) |
+| HOME-09 | P1: Twelve-month ledger | Execute | Implemented (T23) |
 | HOME-10 | P1: Twelve-month ledger | Execute | Implemented (T19) |
 | HOME-11 | P1: Twelve-month ledger | Execute | Implemented (T6) |
-| HOME-12 | P1: Twelve-month ledger | Design | Pending |
-| HOME-13 | P1: Twelve-month ledger | Design | Pending |
-| HOME-14 | P1: Twelve-month ledger | Design | Pending |
-| HOME-15 | P1: Twelve-month ledger | Design | Pending |
+| HOME-12 | P1: Twelve-month ledger | Execute | Implemented (T23) |
+| HOME-13 | P1: Twelve-month ledger | Execute | Implemented (T23) |
+| HOME-14 | P1: Twelve-month ledger | Execute | Implemented (T23) |
+| HOME-15 | P1: Twelve-month ledger | Execute | Implemented (T23) |
 | HOME-16 | P1: Twelve-month ledger | Design | Pending |
 | HOME-17 | P1: Twelve-month ledger | Design | Pending |
 | HOME-18 | P1: Twelve-month ledger | Design | Pending |

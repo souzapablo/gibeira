@@ -557,8 +557,9 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `MonthTableHasPtBrTitleColumnsAndOneRowPerDay`, `MoneyCellShowsKindIconAndDaySum`, `ZeroCellIsMuted`, `SaldoCellTintFollowsSign`, `TotalRowHoldsMonthSumsAndEmptySaldo`, `WeekendDiaCellsAreTinted` and `TodayRowIsMarked` pass
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] `MonthTableHasPtBrTitleColumnsAndOneRowPerDay`, `MoneyCellShowsKindIconAndDaySum`, `ZeroCellIsMuted`, `SaldoCellTintFollowsSign`, `TotalRowHoldsMonthSumsAndEmptySaldo`, `WeekendDiaCellsAreTinted` and `TodayRowIsMarked` pass
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] Test count: Web.Tests 207 tests
 
 **Tests**: component
 **Gate**: quick

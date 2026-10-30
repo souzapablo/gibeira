@@ -53,6 +53,10 @@
     --kind-economia: #37a675;
     --kind-cartao: #8c7cf0;
 
+    /* Saldo tints: a muted economia or saída, not a solid fill (AD-003) */
+    --saldo-positive: color-mix(in srgb, var(--kind-economia) 14%, transparent);
+    --saldo-negative: color-mix(in srgb, var(--kind-saida) 16%, transparent);
+
     /* Fonts */
     --font-display: "Bricolage Grotesque", system-ui, sans-serif;
     --font-body: "Instrument Sans", system-ui, sans-serif;

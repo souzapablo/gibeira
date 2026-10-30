@@ -1,0 +1,73 @@
+@* One month of the ledger: the title, a header row, one row per day and the total row (HOME-07 to HOME-15).
+   A dia cell raises OnCell with no kind, a money cell with its kind. *@
+<section class="month" aria-label="@PtBr.MonthTitle(Ledger.Month)">
+    <h2 class="month-title">@PtBr.MonthTitle(Ledger.Month)</h2>
+    <div class="month-scroll">
+        <table class="month-table">
+            <thead>
+                <tr>
+                    <th scope="col" class="day-head">dia</th>
+                    @foreach (var kind in Kinds)
+                    {
+                        <th scope="col">@PtBr.KindPlural(kind)</th>
+                    }
+                    <th scope="col">saldos</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var row in Ledger.Days)
+                {
+                    <tr class="@(row.IsToday ? "day-row day-row--today" : "day-row")">
+                        <th scope="row" class="@(row.IsWeekend ? "day-cell day-cell--weekend" : "day-cell")">
+                            <button type="button" class="cell-button" aria-label="@PtBr.DayTitle(row.Date)" @onclick="() => Cell(row.Date, null)">
+                                <span class="day-number">@row.Date.Day</span>
+                            </button>
+                        </th>
+                        @foreach (var kind in Kinds)
+                        {
+                            var sum = row.Sums[kind];
+                            <td class="money-cell">
+                                <button type="button" class="cell-button" @onclick="() => Cell(row.Date, kind)">
+                                    <KindIcon Kind="kind" Muted="sum == 0" />
+                                    <Money Value="sum" Muted="sum == 0" />
+                                </button>
+                            </td>
+                        }
+                        <td class="@(row.Saldo < 0 ? "saldo-cell saldo-cell--negative" : "saldo-cell saldo-cell--positive")">
+                            <Money Value="row.Saldo" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th scope="row" class="day-cell">total</th>
+                    @foreach (var kind in Kinds)
+                    {
+                        var total = Ledger.Totals[kind];
+                        <td class="money-cell">
+                            <span class="cell-content">
+                                <KindIcon Kind="kind" Muted="total == 0" />
+                                <Money Value="total" Muted="total == 0" />
+                            </span>
+                        </td>
+                    }
+                    <td class="saldo-cell"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</section>
+
+@code {
+    private static readonly Kind[] Kinds = Enum.GetValues<Kind>();
+
+    [Parameter, EditorRequired]
+    public MonthLedger Ledger { get; set; } = null!;
+
+    // The day, and the cell's kind or null for the dia cell.
+    [Parameter]
+    public EventCallback<(DateOnly Date, Kind? Kind)> OnCell { get; set; }
+
+    private Task Cell(DateOnly date, Kind? kind) => OnCell.InvokeAsync((date, kind));
+}
