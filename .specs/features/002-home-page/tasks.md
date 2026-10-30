@@ -451,8 +451,9 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `MonthlyRepeatsOnSameDayClampedToMonthEnd` (31/01 → 28/02 or 29/02 → 31/03), `WeeklyAndDailyRepeatWithNoEnd` and `InstallmentsSplitWithRemainderOnFirst` (100,00 / 3 → 33,34 + 33,33 + 33,33, labels `parcela 1/3` to `parcela 3/3`) pass
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] `MonthlyRepeatsOnSameDayClampedToMonthEnd` (31/01 → 28/02 or 29/02 → 31/03), `WeeklyAndDailyRepeatWithNoEnd` and `InstallmentsSplitWithRemainderOnFirst` (100,00 / 3 → 33,34 + 33,33 + 33,33, labels `parcela 1/3` to `parcela 3/3`) pass
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] Test count: Web.Tests 175 tests
 
 **Tests**: unit
 **Gate**: quick
