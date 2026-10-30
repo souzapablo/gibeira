@@ -1,0 +1,107 @@
+@inject ILedgerStore Store
+
+@* One day's entries over Drawer: X, < title >, + in the header, the filter pill below it, then the list with a
+   ⋮ menu per entry (DAY-01 to DAY-11). The page owns the day and the filter and acts on OnAdd and OnRemove. *@
+<Drawer Label="@PtBr.DayTitle(Day)" OnClose="OnClose">
+    <Header>
+        <IconButton Icon="IconName.Close" Label="fechar" OnClick="OnClose" />
+        <IconButton Icon="IconName.ChevronLeft" Label="dia anterior" OnClick="() => DayChanged.InvokeAsync(Day.AddDays(-1))" />
+        <h2 class="drawer-title">@PtBr.DayTitle(Day)</h2>
+        <IconButton Icon="IconName.ChevronRight" Label="dia seguinte" OnClick="() => DayChanged.InvokeAsync(Day.AddDays(1))" />
+        <IconButton Icon="IconName.Plus" Label="adicionar" OnClick="OnAdd" />
+    </Header>
+    <ChildContent>
+        <div class="filter">
+            <button type="button" class="filter-pill" aria-haspopup="dialog" aria-expanded="@(filterOpen ? "true" : "false")" @onclick="() => filterOpen = true">
+                @FilterName(Filter)
+                <Icon Name="IconName.ChevronDown" Size="16" />
+            </button>
+            @if (filterOpen)
+            {
+                <Dropdown T="Kind?" Header="filtro" Options="FilterOptions" Selected="[Filter]" OnChoose="ChooseFilter" OnClose="() => filterOpen = false" />
+            }
+        </div>
+        @{
+            var entries = Store.Day(Day, Filter);
+        }
+        @if (entries.Count == 0)
+        {
+            <p class="entries-empty">nenhum lançamento</p>
+        }
+        else
+        {
+            <ul class="entries">
+                @foreach (var entry in entries)
+                {
+                    <li class="entry" @key="entry.ItemId">
+                        <KindIcon Kind="entry.Kind" />
+                        <span class="entry-text">
+                            <span class="entry-description">@entry.Description</span>
+                            <span class="entry-meta">
+                                <span class="entry-date">@PtBr.ShortDate(entry.Date)</span>
+                                @if (entry.RepetitionLabel is not null)
+                                {
+                                    <span class="entry-repetition">@entry.RepetitionLabel</span>
+                                }
+                            </span>
+                        </span>
+                        <Money Value="entry.Amount" />
+                        <span class="entry-menu">
+                            <IconButton Icon="IconName.More" Label="opções" OnClick="() => menuFor = entry.ItemId" />
+                            @if (menuFor == entry.ItemId)
+                            {
+                                <Dropdown T="string" Header="opções" Options="MenuOptions" OnChoose="_ => Remove(entry)" OnClose="() => menuFor = null" />
+                            }
+                        </span>
+                    </li>
+                }
+            </ul>
+        }
+    </ChildContent>
+</Drawer>
+
+@code {
+    private static readonly DropdownOption<string>[] MenuOptions = [new("excluir", "excluir")];
+
+    private static readonly DropdownOption<Kind?>[] FilterOptions =
+        [new(null, FilterName(null)), .. Enum.GetValues<Kind>().Select(k => new DropdownOption<Kind?>(k, FilterName(k)))];
+
+    private bool filterOpen;
+    private Guid? menuFor;
+
+    [Parameter, EditorRequired]
+    public DateOnly Day { get; set; }
+
+    [Parameter]
+    public EventCallback<DateOnly> DayChanged { get; set; }
+
+    // null is todos.
+    [Parameter]
+    public Kind? Filter { get; set; }
+
+    [Parameter]
+    public EventCallback<Kind?> FilterChanged { get; set; }
+
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    [Parameter]
+    public EventCallback OnAdd { get; set; }
+
+    [Parameter]
+    public EventCallback<DayEntry> OnRemove { get; set; }
+
+    private static string FilterName(Kind? kind) => kind is { } k ? PtBr.KindPlural(k) : "todos";
+
+    private Task ChooseFilter(Kind? kind)
+    {
+        filterOpen = false;
+        return FilterChanged.InvokeAsync(kind);
+    }
+
+    private Task Remove(DayEntry entry)
+    {
+        menuFor = null;
+        return OnRemove.InvokeAsync(entry);
+    }
+}

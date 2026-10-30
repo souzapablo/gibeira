@@ -1,0 +1,94 @@
+.drawer-title {
+    flex: 1;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.filter {
+    position: relative;
+    align-self: flex-start;
+    margin: 8px 0;
+}
+
+.filter-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: var(--target-min);
+    padding: 0 14px 0 18px;
+    border: 1px solid var(--line-default);
+    border-radius: var(--radius-pill);
+    background: var(--ground-surface);
+    color: var(--text-primary);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.filter-pill:hover {
+    background: var(--ground-raised);
+}
+
+.entries {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.entry {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-top: 1px solid var(--line-default);
+    font-size: 14px;
+}
+
+.entry-text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+/* A long description is cut with an ellipsis (DAY-04). */
+.entry-description {
+    overflow: hidden;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.entry-meta {
+    display: flex;
+    gap: 8px;
+    color: var(--text-subtle);
+    font-size: 12px;
+}
+
+.entry .money {
+    font-weight: 700;
+}
+
+.entry-menu {
+    position: relative;
+}
+
+.entry-menu ::deep .dropdown {
+    right: 0;
+    left: auto;
+    min-width: 160px;
+}
+
+.entries-empty {
+    margin: 24px 0;
+    color: var(--text-subtle);
+    text-align: center;
+}

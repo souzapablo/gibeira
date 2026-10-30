@@ -277,15 +277,15 @@ The canvas values below bind. Token names are the builder's call; each value has
 | HOME-18 | P1: Twelve-month ledger | Design | Pending |
 | DAY-01 | P1: Day drawer | Design | Pending |
 | DAY-02 | P1: Day drawer | Design | Pending |
-| DAY-03 | P1: Day drawer | Design | Pending |
+| DAY-03 | P1: Day drawer | Execute | Implemented (T25) |
 | DAY-04 | P1: Day drawer | Design | Pending |
-| DAY-05 | P1: Day drawer | Design | Pending |
-| DAY-06 | P1: Day drawer | Design | Pending |
-| DAY-07 | P1: Day drawer | Design | Pending |
-| DAY-08 | P1: Day drawer | Design | Pending |
-| DAY-09 | P1: Day drawer | Design | Pending |
+| DAY-05 | P1: Day drawer | Execute | Implemented (T25) |
+| DAY-06 | P1: Day drawer | Execute | Implemented (T25) |
+| DAY-07 | P1: Day drawer | Execute | Implemented (T25) |
+| DAY-08 | P1: Day drawer | Execute | Implemented (T25) |
+| DAY-09 | P1: Day drawer | Execute | Implemented (T25) |
 | DAY-10 | P1: Day drawer | Design | Pending |
-| DAY-11 | P1: Day drawer | Design | Pending |
+| DAY-11 | P1: Day drawer | Execute | Implemented (T25) |
 | DAY-12 | P1: Day drawer | Design | Pending |
 | ADD-01 | P1: Add modal | Design | Pending |
 | ADD-02 | P1: Add modal | Design | Pending |
