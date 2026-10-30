@@ -17,6 +17,8 @@ public sealed class UiComponentTests
         ["IconButton"] = context => context.Render<IconButton>(parameters => parameters.Add(p => p.Icon, IconName.Close).Add(p => p.Label, "fechar")).Markup,
         ["Dropdown"] = context => context.Render<Dropdown<string>>(parameters => parameters
             .Add(p => p.Header, "repetir").Add(p => p.Options, [new DropdownOption<string>("nenhuma", "não repete")])).Markup,
+        ["StepperPopover"] = context => context.Render<StepperPopover<int>>(parameters => parameters
+            .Add(p => p.Header, "parcelas").Add(p => p.Value, 2).Add(p => p.Format, count => $"{count}x")).Markup,
     };
 
     public static TheoryData<string> Components => new(Renderers.Keys);

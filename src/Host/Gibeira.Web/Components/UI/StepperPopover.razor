@@ -1,0 +1,46 @@
+@typeparam T
+@* A value between < and >, and "salvar": the data, vencimento and parcelas pickers. The parent steps and bounds
+   the value; Esc or a click outside raises OnClose and saves nothing (ADD-25). *@
+<div class="stepper-layer" @onclick="OnClose"></div>
+<div class="stepper" role="dialog" aria-label="@Header" tabindex="-1" @ref="root" @onkeydown="KeyDown">
+    <span class="stepper-title">@Header</span>
+    <div class="stepper-row">
+        <IconButton Icon="IconName.ChevronLeft" Label="anterior" OnClick="() => OnStep.InvokeAsync(-1)" />
+        <span class="stepper-value">@Format(Value)</span>
+        <IconButton Icon="IconName.ChevronRight" Label="próximo" OnClick="() => OnStep.InvokeAsync(1)" />
+    </div>
+    <Button Variant="ButtonVariant.Light" OnClick="OnSave">salvar</Button>
+</div>
+
+@code {
+    private ElementReference root;
+
+    [Parameter, EditorRequired]
+    public string Header { get; set; } = null!;
+
+    [Parameter, EditorRequired]
+    public T Value { get; set; } = default!;
+
+    [Parameter, EditorRequired]
+    public Func<T, string> Format { get; set; } = null!;
+
+    // -1 for <, 1 for >.
+    [Parameter]
+    public EventCallback<int> OnStep { get; set; }
+
+    [Parameter]
+    public EventCallback OnSave { get; set; }
+
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await root.FocusAsync();
+        }
+    }
+
+    private Task KeyDown(KeyboardEventArgs e) => e.Key == "Escape" ? OnClose.InvokeAsync() : Task.CompletedTask;
+}
