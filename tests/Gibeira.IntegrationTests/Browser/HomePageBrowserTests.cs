@@ -117,18 +117,21 @@ public sealed class HomePageBrowserTests(BrowserFixture fixture) : IClassFixture
         Assert.Equal(0, await page.EvaluateAsync<double>("() => window.scrollX"));
     }
 
-    // SCR-02: at 400 px the drawer is the full window width.
-    [Fact]
-    public async Task DrawerFillsWidthBelow432()
+    // SCR-02: below 432 px the drawer is the full window width; from 433 px it is its own 400 px at the right.
+    // 420 px is wider than the drawer, so only the narrow-window rule makes it fill the window.
+    [Theory]
+    [InlineData(420, 0, 420)]
+    [InlineData(433, 33, 400)]
+    public async Task DrawerFillsWidthBelow432(int width, int x, int drawerWidth)
     {
-        await using var context = await fixture.NewContextAsync(Viewport(400, 800));
+        await using var context = await fixture.NewContextAsync(Viewport(width, 800));
         var page = await OpenHomeAsync(context);
 
         var drawer = await OpenCartaoDrawerAsync(page);
 
         var box = await Box(drawer);
-        Assert.Equal(0, box.X);
-        Assert.Equal(400, box.Width);
+        Assert.Equal(x, box.X);
+        Assert.Equal(drawerWidth, box.Width);
     }
 
     // DAY-04: a description too long for its row stays on one line and ends in an ellipsis, leaving the amount and ⋮ in view.
@@ -183,16 +186,18 @@ public sealed class HomePageBrowserTests(BrowserFixture fixture) : IClassFixture
         var entradas = page.Locator(".month").First.Locator("tfoot td.money-cell").First.Locator(".money");
         var before = (await entradas.InnerTextAsync()).Trim();
 
+        // Typed at a person's pace and read with waiting assertions: each answer comes back over the circuit.
         var modal = await OpenModalAsync(page);
-        await modal.Locator("input.amount-input").PressSequentiallyAsync("777");
+        await modal.Locator("input.amount-input").PressSequentiallyAsync("777", new LocatorPressSequentiallyOptions { Delay = 100 });
+        await Assertions.Expect(modal.Locator("input.amount-input")).ToHaveValueAsync("777");
         await modal.Locator(".add-button-slot .button").ClickAsync();
         await modal.WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Detached });
-        Assert.NotEqual(before, (await entradas.InnerTextAsync()).Trim());
+        await Assertions.Expect(entradas).Not.ToHaveTextAsync(before);
 
         await page.ReloadAsync();
         await WaitForCircuitAsync(page);
 
-        Assert.Equal(before, (await entradas.InnerTextAsync()).Trim());
+        await Assertions.Expect(entradas).ToHaveTextAsync(before);
     }
 
     // SCR-01: at 400 px the modal is the window width minus 16 px each side.
