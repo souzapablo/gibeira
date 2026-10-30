@@ -408,9 +408,10 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `AmountAcceptsDigitsAndOneCommaWithTwoDecimals` passes over accepted (`1`, `12,`, `12,3`, `12,34`, `999999999,99`) and rejected (`a`, `1,2,`, `12,345`, `1000000000`, `-1`, `1.0`) inputs
-- [ ] `ParseReadsCommaDecimals` passes (`1189,27` → 1189.27, empty → 0)
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] `AmountAcceptsDigitsAndOneCommaWithTwoDecimals` passes over accepted (`1`, `12,`, `12,3`, `12,34`, `999999999,99`) and rejected (`a`, `1,2,`, `12,345`, `1000000000`, `-1`, `1.0`) inputs
+- [x] `ParseReadsCommaDecimals` passes (`1189,27` → 1189.27, empty → 0)
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] Test count: Web.Tests 138 tests
 
 **Tests**: unit
 **Gate**: quick
