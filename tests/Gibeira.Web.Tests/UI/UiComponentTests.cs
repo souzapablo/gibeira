@@ -19,6 +19,7 @@ public sealed class UiComponentTests
             .Add(p => p.Header, "repetir").Add(p => p.Options, [new DropdownOption<string>("nenhuma", "não repete")])).Markup,
         ["StepperPopover"] = context => context.Render<StepperPopover<int>>(parameters => parameters
             .Add(p => p.Header, "parcelas").Add(p => p.Value, 2).Add(p => p.Format, count => $"{count}x")).Markup,
+        ["Modal"] = context => context.Render<Modal>(parameters => parameters.Add(p => p.Title, "adicionar").AddChildContent("linhas")).Markup,
     };
 
     public static TheoryData<string> Components => new(Renderers.Keys);

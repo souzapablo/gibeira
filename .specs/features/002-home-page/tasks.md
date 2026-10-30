@@ -305,8 +305,8 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `ModalClosesOnXEscAndBackdrop` and `ModalIsAnAriaDialog` pass; row added to the theory
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] `ModalClosesOnXEscAndBackdrop` and `ModalIsAnAriaDialog` pass; row added to the theory
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
 
 **Tests**: component
 **Gate**: quick

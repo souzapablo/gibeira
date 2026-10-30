@@ -2,7 +2,7 @@
 @* A floating list of choices under its trigger, the chosen ones checked. It never closes itself on a choice:
    the parent decides. Esc or a click outside raises OnClose (ADD-25). *@
 <div class="dropdown-layer" @onclick="OnClose"></div>
-<div class="dropdown" role="dialog" aria-label="@Header" tabindex="-1" @ref="root" @onkeydown="KeyDown">
+<div class="dropdown" role="dialog" aria-label="@Header" tabindex="-1" @ref="root" @onkeydown="KeyDown" @onkeydown:stopPropagation>
     <div class="dropdown-header">
         <span class="dropdown-title">@Header</span>
         @HeaderAction

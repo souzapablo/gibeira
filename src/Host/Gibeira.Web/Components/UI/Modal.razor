@@ -1,0 +1,35 @@
+@* A centered dialog over a backdrop. X, Esc and a backdrop click raise OnClose (ADD-24); at 432 px or narrower it
+   is the window width minus 16 px each side (SCR-01). *@
+<div class="modal-backdrop" @onclick="OnClose"></div>
+<section class="modal" role="dialog" aria-modal="true" aria-label="@Title" tabindex="-1" @ref="root" @onkeydown="KeyDown">
+    <header class="modal-header">
+        <h2 class="modal-title">@Title</h2>
+        <IconButton Icon="IconName.Close" Label="fechar" OnClick="OnClose" />
+    </header>
+    <div class="modal-body">
+        @ChildContent
+    </div>
+</section>
+
+@code {
+    private ElementReference root;
+
+    [Parameter, EditorRequired]
+    public string Title { get; set; } = null!;
+
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await root.FocusAsync();
+        }
+    }
+
+    private Task KeyDown(KeyboardEventArgs e) => e.Key == "Escape" ? OnClose.InvokeAsync() : Task.CompletedTask;
+}

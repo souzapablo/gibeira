@@ -2,7 +2,7 @@
 @* A value between < and >, and "salvar": the data, vencimento and parcelas pickers. The parent steps and bounds
    the value; Esc or a click outside raises OnClose and saves nothing (ADD-25). *@
 <div class="stepper-layer" @onclick="OnClose"></div>
-<div class="stepper" role="dialog" aria-label="@Header" tabindex="-1" @ref="root" @onkeydown="KeyDown">
+<div class="stepper" role="dialog" aria-label="@Header" tabindex="-1" @ref="root" @onkeydown="KeyDown" @onkeydown:stopPropagation>
     <span class="stepper-title">@Header</span>
     <div class="stepper-row">
         <IconButton Icon="IconName.ChevronLeft" Label="anterior" OnClick="() => OnStep.InvokeAsync(-1)" />
