@@ -59,3 +59,12 @@
 - **Status**: active
 
 ## Handoff
+
+- **Feature**: home page, `.specs/features/002-home-page`
+- **Phase / Task**: Phase 2 done; next is Phase 3 / T9 - Dropdown
+- **Completed**: T1, T2, T3, T4, T5, T6, T7, T8
+- **In-progress** (file:line): none
+- **Next step**: implement T9 (`Components/UI/Dropdown.razor`) inline, task by task, as approved
+- **Blockers**: none
+- **Uncommitted files**: none
+- **Branch**: feat/002-home-page
