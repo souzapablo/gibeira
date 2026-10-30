@@ -117,9 +117,9 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `FontFacesPointToLocalFiles` passes: every `@font-face` `src` is a relative URL to a file that exists, and no CSS file under `wwwroot` (outside `lib/`) has `@import` or a `url(` to another host
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
-- [ ] Test count: Web.Tests 2 tests
+- [x] `FontFacesPointToLocalFiles` passes: every `@font-face` `src` is a relative URL to a file that exists, and no CSS file under `wwwroot` (outside `lib/`) has `@import` or a `url(` to another host
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] Test count: Web.Tests 2 tests
 
 **Tests**: unit
 **Gate**: quick
