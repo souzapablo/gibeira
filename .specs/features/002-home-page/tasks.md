@@ -366,8 +366,9 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] Types compile with the members of the design
-- [ ] Gate check passes: `dotnet build Gibeira.slnx -warnaserror; dotnet format Gibeira.slnx --verify-no-changes; dotnet test --solution Gibeira.slnx`
+- [x] Types compile with the members of the design
+- [x] Gate check passes: `dotnet build Gibeira.slnx -warnaserror; dotnet format Gibeira.slnx --verify-no-changes; dotnet test --solution Gibeira.slnx`
+- [x] Test count: solution 173 tests
 
 **Tests**: none
 **Gate**: build
