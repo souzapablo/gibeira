@@ -203,10 +203,10 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `MoneyFormatsWithGroupsAndComma` (`R$ 1.189,27`, `R$ 0,00`, `R$ 15.500,00`) passes
-- [ ] `NegativeAmountFormatsWithMinusAfterSymbol` (`R$ -477,67`) passes
-- [ ] `DayTitleIsDayAndMonthAbbrev` (`10/nov`), `MonthTitleIsLowercaseFullName` (`dezembro de 2026`) and the date-format tests pass for every month
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] `MoneyFormatsWithGroupsAndComma` (`R$ 1.189,27`, `R$ 0,00`, `R$ 15.500,00`) passes
+- [x] `NegativeAmountFormatsWithMinusAfterSymbol` (`R$ -477,67`) passes
+- [x] `DayTitleIsDayAndMonthAbbrev` (`10/nov`), `MonthTitleIsLowercaseFullName` (`dezembro de 2026`) and the date-format tests pass for every month
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
 
 **Tests**: unit
 **Gate**: quick

@@ -267,7 +267,7 @@ The canvas values below bind. Token names are the builder's call; each value has
 | HOME-08 | P1: Twelve-month ledger | Design | Pending |
 | HOME-09 | P1: Twelve-month ledger | Design | Pending |
 | HOME-10 | P1: Twelve-month ledger | Design | Pending |
-| HOME-11 | P1: Twelve-month ledger | Design | Pending |
+| HOME-11 | P1: Twelve-month ledger | Execute | Implemented (T6) |
 | HOME-12 | P1: Twelve-month ledger | Design | Pending |
 | HOME-13 | P1: Twelve-month ledger | Design | Pending |
 | HOME-14 | P1: Twelve-month ledger | Design | Pending |
