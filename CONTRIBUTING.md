@@ -26,6 +26,16 @@ dotnet format Gibeira.slnx
 
 Then stage the fixed files again. The hook checks the staged content, not the working copy, so a file fixed but not re-staged is still rejected.
 
+## Browser tests
+
+The tests under `tests/Gibeira.IntegrationTests/Browser/` drive Chromium through [Playwright](https://playwright.dev/dotnet/). `dotnet build` does not download the browser. After the first build, install it once from the repository root:
+
+```sh
+pwsh tests/Gibeira.IntegrationTests/bin/Debug/net10.0/playwright.ps1 install chromium
+```
+
+Without it the browser tests fail and print this command.
+
 ## Commit format
 
 Commits follow [Conventional Commits 1.0](https://www.conventionalcommits.org/en/v1.0.0/):

@@ -161,9 +161,9 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `HomePageLoadsNothingFromAnotherHost` passes: every request while `/` loads goes to a loopback host, and `document.fonts` reports both families loaded
-- [ ] Gate check passes: `dotnet test --solution Gibeira.slnx`
-- [ ] Test count: IntegrationTests 5 tests
+- [x] `HomePageLoadsNothingFromAnotherHost` passes: every request while `/` loads goes to a loopback host, and `document.fonts` reports both families loaded
+- [x] Gate check passes: `dotnet test --solution Gibeira.slnx`
+- [x] Test count: IntegrationTests 5 tests
 
 **Tests**: e2e
 **Gate**: full
