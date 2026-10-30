@@ -225,8 +225,8 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `MoneyRendersFormattedValue` and `MutedMoneyUsesZeroColor` pass; the `Money` row is added to `EveryUiComponentRendersFromParametersAlone`
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] `MoneyRendersFormattedValue` and `MutedMoneyUsesZeroColor` pass; the `Money` row is added to `EveryUiComponentRendersFromParametersAlone`
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
 
 **Tests**: component
 **Gate**: quick

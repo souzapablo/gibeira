@@ -1,0 +1,10 @@
+@* An amount as R$ 1.189,27; in the zero color when Muted (HOME-09). *@
+<span class="money" style="@(Muted ? "color: var(--text-zero)" : null)">@PtBr.Money(Value)</span>
+
+@code {
+    [Parameter]
+    public decimal Value { get; set; }
+
+    [Parameter]
+    public bool Muted { get; set; }
+}
