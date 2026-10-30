@@ -37,6 +37,21 @@ public sealed class InMemoryLedgerStoreTests
             Store(today).Months(Period.Starting(today)).SelectMany(m => m.Days).Select(d => d.Saldo));
     }
 
+    // HOME-10 through the store: the opening day reads 1000 - 1800 - 40, and a day's saldo is the same in every
+    // period that shows it, so the saldo carries in from before the period.
+    [Fact]
+    public void StoreSaldoCarriesPreviousDayAcrossMonths()
+    {
+        var store = Store(Today);
+        var day = new DateOnly(2027, 9, 30);
+
+        var opening = store.Months(Period.Starting(new DateOnly(2025, 10, 1)))[0].Days[0];
+
+        Assert.Equal(new DateOnly(2025, 10, 1), opening.Date);
+        Assert.Equal(-840m, opening.Saldo);
+        Assert.Equal(Row(store, day).Saldo, store.Months(Period.Starting(day)).SelectMany(m => m.Days).Single(d => d.Date == day).Saldo);
+    }
+
     // MOCK-01: cartão items fall on both cards' due days.
     [Fact]
     public void SeedBooksCartaoOnBothCardsDueDays()
