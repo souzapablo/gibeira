@@ -275,10 +275,10 @@ The canvas values below bind. Token names are the builder's call; each value has
 | HOME-16 | P1: Twelve-month ledger | Execute | Implemented (T24) |
 | HOME-17 | P1: Twelve-month ledger | Execute | Implemented (T24) |
 | HOME-18 | P1: Twelve-month ledger | Design | Pending |
-| DAY-01 | P1: Day drawer | Design | Pending |
-| DAY-02 | P1: Day drawer | Design | Pending |
+| DAY-01 | P1: Day drawer | Execute | Implemented (T26) |
+| DAY-02 | P1: Day drawer | Execute | Implemented (T26) |
 | DAY-03 | P1: Day drawer | Execute | Implemented (T25) |
-| DAY-04 | P1: Day drawer | Design | Pending |
+| DAY-04 | P1: Day drawer | Execute | Implemented (T26) |
 | DAY-05 | P1: Day drawer | Execute | Implemented (T25) |
 | DAY-06 | P1: Day drawer | Execute | Implemented (T25) |
 | DAY-07 | P1: Day drawer | Execute | Implemented (T25) |
@@ -286,7 +286,7 @@ The canvas values below bind. Token names are the builder's call; each value has
 | DAY-09 | P1: Day drawer | Execute | Implemented (T25) |
 | DAY-10 | P1: Day drawer | Design | Pending |
 | DAY-11 | P1: Day drawer | Execute | Implemented (T25) |
-| DAY-12 | P1: Day drawer | Design | Pending |
+| DAY-12 | P1: Day drawer | Execute | Implemented (T26) |
 | ADD-01 | P1: Add modal | Design | Pending |
 | ADD-02 | P1: Add modal | Design | Pending |
 | ADD-03 | P1: Add modal | Design | Pending |
@@ -316,7 +316,7 @@ The canvas values below bind. Token names are the builder's call; each value has
 | MOCK-02 | P1: Mock data | Design | Pending |
 | MOCK-03 | P1: Mock data | Execute | Implemented (T24) |
 | SCR-01 | P1: Screens at each width | Design | Pending |
-| SCR-02 | P1: Screens at each width | Design | Pending |
+| SCR-02 | P1: Screens at each width | Execute | Implemented (T26) |
 
 **Coverage:** 66 total, 0 mapped to tasks, 66 unmapped ⚠️
 

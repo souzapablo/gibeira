@@ -117,13 +117,77 @@ public sealed class HomePageBrowserTests(BrowserFixture fixture) : IClassFixture
         Assert.Equal(0, await page.EvaluateAsync<double>("() => window.scrollX"));
     }
 
+    // SCR-02: at 400 px the drawer is the full window width.
+    [Fact]
+    public async Task DrawerFillsWidthBelow432()
+    {
+        await using var context = await fixture.NewContextAsync(Viewport(400, 800));
+        var page = await OpenHomeAsync(context);
+
+        var drawer = await OpenCartaoDrawerAsync(page);
+
+        var box = await Box(drawer);
+        Assert.Equal(0, box.X);
+        Assert.Equal(400, box.Width);
+    }
+
+    // DAY-04: a description too long for its row stays on one line and ends in an ellipsis, leaving the amount and ⋮ in view.
+    [Fact]
+    public async Task LongDescriptionIsCutWithEllipsis()
+    {
+        await using var context = await fixture.NewContextAsync(Viewport(400, 800));
+        var page = await OpenHomeAsync(context);
+        var drawer = await OpenCartaoDrawerAsync(page);
+        var entry = drawer.Locator(".entry").First;
+        var description = entry.Locator(".entry-description");
+        var height = (await Box(entry)).Height;
+
+        // The seed has no long description; the add modal that could make one comes later in the page.
+        await description.EvaluateAsync("el => { el.textContent = 'compra parcelada da geladeira nova da cozinha com instalação e frete'; }");
+
+        Assert.True(await description.EvaluateAsync<bool>("el => el.scrollWidth > el.clientWidth"), "the description is wider than its row");
+        Assert.Equal("ellipsis", await description.EvaluateAsync<string>("el => getComputedStyle(el).textOverflow"));
+        Assert.Equal("nowrap", await description.EvaluateAsync<string>("el => getComputedStyle(el).whiteSpace"));
+        Assert.Equal("hidden", await description.EvaluateAsync<string>("el => getComputedStyle(el).overflowX"));
+        Assert.Equal(height, (await Box(entry)).Height);
+        var menu = await Box(entry.Locator("button[aria-label='opções']"));
+        Assert.True(menu.X + menu.Width <= 400, "⋮ stays inside the window");
+        Assert.True(await entry.Locator(".money").IsVisibleAsync());
+    }
+
+    // The 10th of the current month holds the seed's Itaú cartão item. A click before the circuit connects does nothing,
+    // so it clicks until the drawer shows.
+    private static async Task<ILocator> OpenCartaoDrawerAsync(IPage page)
+    {
+        var cell = page.Locator(".month").First.Locator("tbody tr").Nth(9).Locator("td.money-cell").Nth(4).Locator("button");
+        var drawer = page.Locator(".drawer");
+        for (var attempt = 0; attempt < 50 && !await drawer.IsVisibleAsync(); attempt++)
+        {
+            await cell.ClickAsync();
+            try
+            {
+                await drawer.WaitForAsync(new LocatorWaitForOptions { Timeout = 200 });
+            }
+            catch (TimeoutException)
+            {
+            }
+        }
+
+        Assert.Equal("cartão", (await drawer.Locator(".filter-pill").InnerTextAsync()).Trim());
+        return drawer;
+    }
+
     private static BrowserNewContextOptions Viewport(int width, int height) =>
         new() { ViewportSize = new ViewportSize { Width = width, Height = height } };
 
+    // Waits for the circuit: its first render replaces the prerendered page, which would undo a scroll made before it.
     private static async Task<IPage> OpenHomeAsync(IBrowserContext context)
     {
         var page = await context.NewPageAsync();
-        await page.GotoAsync("/", new PageGotoOptions { WaitUntil = WaitUntilState.NetworkIdle });
+        await page.GotoAsync("/", new PageGotoOptions { WaitUntil = WaitUntilState.Commit });
+        await page.Locator(".ledger").EvaluateAsync("el => { el.__prerendered = true; }");
+        await page.WaitForFunctionAsync("() => !document.querySelector('.ledger').__prerendered");
+        await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
         return page;
     }
 

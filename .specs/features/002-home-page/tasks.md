@@ -622,9 +622,10 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] bUnit: `MoneyCellOpensDrawerFilteredByKind`, `DiaCellOpensDrawerWithTodos` and `ExcluirRemovesOccurrenceAndUpdatesSaldos` pass
-- [ ] Playwright: `DrawerFillsWidthBelow432` and `LongDescriptionIsCutWithEllipsis` pass
-- [ ] Gate check passes: `dotnet test --solution Gibeira.slnx`
+- [x] bUnit: `MoneyCellOpensDrawerFilteredByKind`, `DiaCellOpensDrawerWithTodos` and `ExcluirRemovesOccurrenceAndUpdatesSaldos` pass
+- [x] Playwright: `DrawerFillsWidthBelow432` and `LongDescriptionIsCutWithEllipsis` pass
+- [x] Gate check passes: `dotnet test --solution Gibeira.slnx`
+- [x] Test count: Web.Tests 221 tests; IntegrationTests 10 tests; solution 283 tests
 
 **Tests**: e2e
 **Gate**: full
@@ -899,6 +900,7 @@ Proof: walk - open `/` at both widths, open a cartão cell, the add modal, each 
 The feature's live state, written as it happens - a compaction gives no warning.
 
 **Settled mid-build:** none
+**Browser tests:** `OpenHomeAsync` waits for the circuit's first render, which replaces the prerendered page; a scroll made before it was undone (one flaky `LedgerScrollsSidewaysWithoutPageScrollAt360` run in T26)
 **Order:** T15 runs before T14, because `ILedgerStore.Months(Period)` needs `Period` to compile; T15 uses nothing from T14
 **Dispatched:** none
 **Walked:** none

@@ -12,18 +12,36 @@
     <main class="ledger" aria-label="saldos">
         @foreach (var month in Store.Months(period))
         {
-            <MonthTable @key="month.Month" Ledger="month" />
+            <MonthTable @key="month.Month" Ledger="month" OnCell="OpenDrawer" />
         }
     </main>
+    @if (drawerOpen)
+    {
+        <DayDrawer @bind-Day="drawerDay" @bind-Filter="drawerFilter" OnClose="() => drawerOpen = false" OnRemove="Remove" />
+    }
 </div>
 
 @code {
     private DateOnly today;
     private Period period = null!;
+    private bool drawerOpen;
+    private DateOnly drawerDay;
+    private Kind? drawerFilter;
 
     protected override void OnInitialized()
     {
         today = DateOnly.FromDateTime(Time.GetLocalNow().DateTime);
         period = Period.Starting(today);
     }
+
+    // A money cell filters by its kind, a dia cell shows todos (DAY-01, DAY-02).
+    private void OpenDrawer((DateOnly Date, Kind? Kind) cell)
+    {
+        drawerDay = cell.Date;
+        drawerFilter = cell.Kind;
+        drawerOpen = true;
+    }
+
+    // That occurrence only; the tables re-read the store on render (DAY-12).
+    private void Remove(DayEntry entry) => Store.Remove(entry.ItemId, entry.Date);
 }
