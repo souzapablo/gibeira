@@ -321,6 +321,25 @@ public sealed class AddItemModalTests : BunitContext
         Assert.Null(modal.Instance.Form.Card);
     }
 
+    // ADD-18 through the modal: leaving cartão after a vencimento relabels the row data and saves no card.
+    [Fact]
+    public void ModalLeavingCartaoClearsCard()
+    {
+        var modal = RenderModal();
+        modal.Find("input.amount-input").Input("100");
+        ChooseType(modal, "cartão");
+        Option(modal, "Itaú").Click();
+        Save(modal);
+        Assert.Equal("vencimento 10/11/26", Text(FieldRow(modal, 3)));
+
+        ChooseType(modal, "saída");
+
+        Assert.Equal("data", FieldRow(modal, 3).QuerySelector(".field-row-label")!.TextContent.Trim());
+        modal.Find(".add-button-slot .button").Click();
+        Assert.Equal(Kind.Saida, added.Single().Kind);
+        Assert.Null(added.Single().Card);
+    }
+
     // ADD-19: the tags list checks several; the row joins them with ", ", or reads tags when none.
     [Fact]
     public void TagsDropdownChecksSeveral()

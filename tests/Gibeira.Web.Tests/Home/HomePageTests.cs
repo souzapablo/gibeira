@@ -189,6 +189,22 @@ public sealed class HomePageTests : BunitContext
         Assert.Equal(saldoNextMonth - 100m, Saldo(home, 1, 1));
     }
 
+    // ADD-22 through the page: an item added with no description is listed in the drawer under its type's name.
+    [Fact]
+    public void HomeEmptyDescriptionSavesTypeName()
+    {
+        var home = RenderHome();
+        Row(home, 0, 12).QuerySelector(".day-cell button")!.Click();
+
+        home.Find(".drawer-header button[aria-label='adicionar']").Click();
+        home.Find(".modal input.amount-input").Input("100");
+        home.FindAll(".modal .field-row")[1].Click();
+        home.FindAll(".modal .dropdown-option").Single(o => o.QuerySelector(".dropdown-label")!.TextContent.Trim() == "saída").Click();
+        AddButton(home).Click();
+
+        Assert.Equal(["dia a dia", "saída"], Descriptions(home));
+    }
+
     // ADD-23: a second click on the add button while the first is being handled adds nothing.
     [Fact]
     public void DoubleSubmitAddsOnce()
