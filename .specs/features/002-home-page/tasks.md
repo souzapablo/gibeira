@@ -514,9 +514,10 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `SeedHasEveryKindThisMonthAndANegativeSaldo` passes for several `today` values, including 2026-10-29 and a 31st
-- [ ] `RemoveDropsOnlyThatOccurrence` and `DayListsEntriesInAddedOrder` pass
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] `SeedHasEveryKindThisMonthAndANegativeSaldo` passes for several `today` values, including 2026-10-29 and a 31st
+- [x] `RemoveDropsOnlyThatOccurrence` and `DayListsEntriesInAddedOrder` pass
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`; phase end: build gate green
+- [x] Test count: Web.Tests 196 tests; solution 253 tests
 
 **Tests**: unit
 **Gate**: quick

@@ -312,7 +312,7 @@ The canvas values below bind. Token names are the builder's call; each value has
 | ADD-23 | P1: Add modal | Design | Pending |
 | ADD-24 | P1: Add modal | Design | Pending |
 | ADD-25 | P1: Add modal | Design | Pending |
-| MOCK-01 | P1: Mock data | Design | Pending |
+| MOCK-01 | P1: Mock data | Execute | Implemented (T21) |
 | MOCK-02 | P1: Mock data | Design | Pending |
 | MOCK-03 | P1: Mock data | Design | Pending |
 | SCR-01 | P1: Screens at each width | Design | Pending |

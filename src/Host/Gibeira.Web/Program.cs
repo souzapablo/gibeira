@@ -1,4 +1,8 @@
 using Gibeira.Web.Components;
+using Gibeira.Web.Ledger;
+using Gibeira.Web.Mockup;
+
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +11,10 @@ builder.AddServiceDefaults();
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+// One mock store per circuit, so a reload starts from the seed (temporary, AD-007).
+builder.Services.TryAddSingleton(TimeProvider.System);
+builder.Services.AddScoped<ILedgerStore, InMemoryLedgerStore>();
 
 var app = builder.Build();
 
