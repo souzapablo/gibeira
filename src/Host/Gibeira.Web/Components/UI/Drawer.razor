@@ -1,0 +1,37 @@
+@* A panel on the right with a header slot and content. Esc raises OnClose (DAY-09); the owner puts its X in the
+   header. At 432 px or narrower it is the full window width (SCR-02). *@
+<aside class="drawer" role="dialog" aria-label="@Label" tabindex="-1" @ref="root" @onkeydown="KeyDown">
+    <header class="drawer-header">
+        @Header
+    </header>
+    <div class="drawer-body">
+        @ChildContent
+    </div>
+</aside>
+
+@code {
+    private ElementReference root;
+
+    // The dialog's name for a screen reader, as the day title.
+    [Parameter, EditorRequired]
+    public string Label { get; set; } = null!;
+
+    [Parameter]
+    public RenderFragment? Header { get; set; }
+
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await root.FocusAsync();
+        }
+    }
+
+    private Task KeyDown(KeyboardEventArgs e) => e.Key == "Escape" ? OnClose.InvokeAsync() : Task.CompletedTask;
+}

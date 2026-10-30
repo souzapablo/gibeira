@@ -1,0 +1,44 @@
+.drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 25;
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    max-width: 100vw;
+    border-left: 1px solid var(--line-default);
+    background: var(--ground-surface);
+    box-shadow: var(--shadow-modal);
+    color: var(--text-primary);
+}
+
+.drawer:focus {
+    outline: none;
+}
+
+.drawer-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    border-bottom: 1px solid var(--line-default);
+}
+
+.drawer-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+    min-height: 0;
+    padding: 8px 16px 16px;
+    overflow-y: auto;
+}
+
+@media (max-width: 432px) {
+    .drawer {
+        width: 100vw;
+        border-left: 0;
+    }
+}

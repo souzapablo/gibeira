@@ -20,6 +20,7 @@ public sealed class UiComponentTests
         ["StepperPopover"] = context => context.Render<StepperPopover<int>>(parameters => parameters
             .Add(p => p.Header, "parcelas").Add(p => p.Value, 2).Add(p => p.Format, count => $"{count}x")).Markup,
         ["Modal"] = context => context.Render<Modal>(parameters => parameters.Add(p => p.Title, "adicionar").AddChildContent("linhas")).Markup,
+        ["Drawer"] = context => context.Render<Drawer>(parameters => parameters.Add(p => p.Label, "10/nov").AddChildContent("nenhum lançamento")).Markup,
     };
 
     public static TheoryData<string> Components => new(Renderers.Keys);
