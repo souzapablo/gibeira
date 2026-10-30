@@ -1,6 +1,6 @@
 .period-bar {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: center;
     gap: 8px;
@@ -30,4 +30,29 @@
 
 .period-pill:hover {
     background: var(--ground-raised);
+}
+
+/* The list opens centered under the pill, so on a phone it stays inside the window (HOME-23). */
+.period-choice ::deep .dropdown {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* The five controls stay on one line down to 360 px: tighter gaps, a smaller label and narrower arrows,
+   still 44 px high (HOME-23). */
+@media (max-width: 432px) {
+    .period-bar {
+        gap: 4px;
+        padding: 12px 8px;
+    }
+
+    .period-bar ::deep .icon-button {
+        width: 40px;
+    }
+
+    .period-pill {
+        gap: 4px;
+        padding: 0 8px 0 12px;
+        font-size: 12px;
+    }
 }

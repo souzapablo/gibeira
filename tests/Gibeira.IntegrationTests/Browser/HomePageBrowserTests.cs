@@ -177,6 +177,49 @@ public sealed class HomePageBrowserTests(BrowserFixture fixture) : IClassFixture
         Assert.True(await modal.Locator(".add-button-slot .button").IsEnabledAsync());
     }
 
+    // HOME-22: the period list opens with the checked period, the 13th of 25, in view inside the list.
+    [Theory]
+    [InlineData(1290, 902)]
+    [InlineData(360, 800)]
+    public async Task PeriodDropdownOpensWithCheckedPeriodInView(int width, int height)
+    {
+        await using var context = await fixture.NewContextAsync(Viewport(width, height));
+        var page = await OpenHomeAsync(context);
+
+        await page.Locator(".period-pill").ClickAsync();
+        var list = page.Locator(".period-bar .dropdown-options");
+        await list.WaitForAsync();
+        var checkedOption = list.Locator(".dropdown-option[aria-pressed=true]");
+        await Assertions.Expect(checkedOption).ToBeFocusedAsync();
+
+        Assert.Equal(13, await list.EvaluateAsync<int>("el => [...el.children].findIndex(o => o.getAttribute('aria-pressed') === 'true') + 1"));
+        var box = await Box(list);
+        var option = await Box(checkedOption);
+        Assert.True(option.Y >= box.Y && option.Y + option.Height <= box.Y + box.Height, $"checked option at {option.Y}, list {box.Y} to {box.Y + box.Height}");
+    }
+
+    // HOME-23: at 360 px the period bar's five controls share one line and the open period list stays inside the window.
+    [Fact]
+    public async Task PeriodBarFitsOneLineAt360()
+    {
+        await using var context = await fixture.NewContextAsync(Viewport(360, 800));
+        var page = await OpenHomeAsync(context);
+        var bar = page.Locator(".period-bar");
+
+        var tops = await bar.EvaluateAsync<double[]>("el => [...el.children].map(c => c.getBoundingClientRect().top)");
+        Assert.Equal(5, tops.Length);
+        Assert.All(tops, top => Assert.Equal(tops[0], top));
+        foreach (var button in await bar.Locator("button").AllAsync())
+        {
+            Assert.True((await Box(button)).Height >= 44, "every control stays 44 px high");
+        }
+
+        await page.Locator(".period-pill").ClickAsync();
+        var dropdown = await Box(page.Locator(".period-bar .dropdown"));
+        Assert.True(dropdown.X >= 0 && dropdown.X + dropdown.Width <= 360, $"dropdown from {dropdown.X} to {dropdown.X + dropdown.Width}");
+        Assert.False(await page.EvaluateAsync<bool>("() => document.documentElement.scrollWidth > document.documentElement.clientWidth"));
+    }
+
     // MOCK-02: an item added before a reload is gone after it.
     [Fact]
     public async Task ReloadDiscardsChanges()

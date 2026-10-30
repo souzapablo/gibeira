@@ -125,6 +125,20 @@ public sealed class DropdownTests : BunitContext
         Assert.Equal("-1", dialog.GetAttribute("tabindex"));
         Assert.Equal("cartão", dialog.QuerySelector(".dropdown-title")!.TextContent);
         Assert.NotNull(dialog.QuerySelector(".dropdown-header .add-card"));
-        JSInterop.VerifyFocusAsyncInvoke();
+        var target = (ElementReference)JSInterop.VerifyFocusAsyncInvoke().Arguments[0]!;
+        Assert.Equal(dialog.GetAttribute("blazor:elementReference"), target.Id);
+    }
+
+    // HOME-22: a list with a checked option opens focused on it, so a long list shows it in view.
+    [Fact]
+    public void DropdownFocusesCheckedOption()
+    {
+        var dropdown = Render<Dropdown<string>>(parameters => parameters
+            .Add(p => p.Header, "repetir")
+            .Add(p => p.Options, Repetitions)
+            .Add(p => p.Selected, ["semanal"]));
+
+        var target = (ElementReference)JSInterop.VerifyFocusAsyncInvoke().Arguments[0]!;
+        Assert.Equal(dropdown.Find(".dropdown-option--selected").GetAttribute("blazor:elementReference"), target.Id);
     }
 }

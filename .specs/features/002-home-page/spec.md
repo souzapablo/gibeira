@@ -141,6 +141,8 @@ The canvas values below bind. Token names are the builder's call; each value has
 19. The system SHALL start each kind's column header with a dot in the kind's color, as the canvas draws it.  <!-- HOME-19 -->
 20. The system SHALL show each day's pt-BR weekday (`dom`, `seg`, `ter`, `qua`, `qui`, `sex`, `sáb`) after its day number in the dia cell.  <!-- HOME-20 -->
 21. The system SHALL end today's dia cell with an accent `hoje` badge (AD-004).  <!-- HOME-21 -->
+22. WHEN the period dropdown opens THEN the system SHALL show the checked period in view inside the list.  <!-- HOME-22 -->
+23. WHILE the window is 360 px wide or more the system SHALL keep the period bar's five controls on one line and the open period dropdown inside the window.  <!-- HOME-23 -->
 
 **Independent Test**: Open `/`, read today's period label, step it with `<`, `>`, `<<`, `>>`, and check one saldo against the mock data by hand.
 
@@ -281,6 +283,8 @@ The canvas values below bind. Token names are the builder's call; each value has
 | HOME-19 | P1: Twelve-month ledger | Execute | Implemented (screens fix) |
 | HOME-20 | P1: Twelve-month ledger | Execute | Implemented (screens fix) |
 | HOME-21 | P1: Twelve-month ledger | Execute | Implemented (screens fix) |
+| HOME-22 | P1: Twelve-month ledger | Execute | Implemented (screens fix) |
+| HOME-23 | P1: Twelve-month ledger | Execute | Implemented (screens fix) |
 | DAY-01 | P1: Day drawer | Execute | Implemented (T26) |
 | DAY-02 | P1: Day drawer | Execute | Implemented (T26) |
 | DAY-03 | P1: Day drawer | Execute | Implemented (T25) |

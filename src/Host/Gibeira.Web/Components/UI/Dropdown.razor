@@ -1,5 +1,6 @@
 @typeparam T
-@* A floating list of choices under its trigger, the chosen ones checked. It never closes itself on a choice:
+@* A floating list of choices under its trigger, the chosen ones checked. It opens focused on the first checked
+   option, which scrolls it into view (HOME-22), or on itself when none is. It never closes itself on a choice:
    the parent decides. Esc or a click outside raises OnClose (ADD-25). *@
 <div class="dropdown-layer" @onclick="OnClose"></div>
 <div class="dropdown" role="dialog" aria-label="@Header" tabindex="-1" @ref="root" @onkeydown="KeyDown" @onkeydown:stopPropagation>
@@ -8,10 +9,12 @@
         @HeaderAction
     </div>
     <div class="dropdown-options">
-        @foreach (var option in Options)
+        @for (var i = 0; i < Options.Count; i++)
         {
+            var index = i;
+            var option = Options[i];
             var selected = Selected.Contains(option.Value);
-            <button type="button" class="@(selected ? "dropdown-option dropdown-option--selected" : "dropdown-option")"
+            <button type="button" class="@(selected ? "dropdown-option dropdown-option--selected" : "dropdown-option")" @ref="optionRefs[index]"
                     aria-pressed="@(selected ? "true" : "false")" @onclick="() => OnChoose.InvokeAsync(option.Value)">
                 @option.Icon
                 <span class="dropdown-text">
@@ -41,6 +44,7 @@
 
 @code {
     private ElementReference root;
+    private ElementReference[] optionRefs = [];
 
     [Parameter, EditorRequired]
     public string Header { get; set; } = null!;
@@ -65,11 +69,20 @@
     [Parameter]
     public EventCallback OnClose { get; set; }
 
+    protected override void OnParametersSet()
+    {
+        if (optionRefs.Length != Options.Count)
+        {
+            optionRefs = new ElementReference[Options.Count];
+        }
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            await root.FocusAsync();
+            var first = Options.ToList().FindIndex(o => Selected.Contains(o.Value));
+            await (first >= 0 ? optionRefs[first] : root).FocusAsync();
         }
     }
 

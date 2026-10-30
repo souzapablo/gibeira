@@ -904,6 +904,12 @@ Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj -
 **C75** - Only today's dia cell ends with the `hoje` badge (HOME-21, AC 21)
 Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*TodayRowShowsHojeBadge"`
 
+**C76** - The period list opens with the checked period, the 13th of 25, focused and in view, at 1290 and 360 px (HOME-22, AC 22)
+Proof: `dotnet test --project tests/Gibeira.IntegrationTests/Gibeira.IntegrationTests.csproj --filter-method "*PeriodDropdownOpensWithCheckedPeriodInView"`
+
+**C77** - At 360 px the five period controls share one line, 44 px high, and the open list stays inside the window with no page scroll (HOME-23, AC 23)
+Proof: `dotnet test --project tests/Gibeira.IntegrationTests/Gibeira.IntegrationTests.csproj --filter-method "*PeriodBarFitsOneLineAt360"`
+
 ---
 
 ## Handoff
