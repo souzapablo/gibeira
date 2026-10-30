@@ -17,6 +17,16 @@
     background: var(--ground-raised);
 }
 
+.icon-button--bare {
+    border-color: transparent;
+    background: none;
+    color: var(--text-muted);
+}
+
+.icon-button--bare:hover:not(:disabled) {
+    color: var(--text-primary);
+}
+
 .icon-button:disabled {
     cursor: not-allowed;
     opacity: .45;

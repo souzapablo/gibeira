@@ -4,7 +4,7 @@
 <section class="modal" role="dialog" aria-modal="true" aria-label="@Title" tabindex="-1" @ref="root" @onkeydown="KeyDown">
     <header class="modal-header">
         <h2 class="modal-title">@Title</h2>
-        <IconButton Icon="IconName.Close" Label="fechar" OnClick="OnClose" />
+        <IconButton Icon="IconName.Close" Label="fechar" Bare="true" OnClick="OnClose" />
     </header>
     <div class="modal-body">
         @ChildContent

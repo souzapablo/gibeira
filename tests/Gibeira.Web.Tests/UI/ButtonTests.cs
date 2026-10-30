@@ -73,4 +73,20 @@ public sealed class ButtonTests : BunitContext
         Assert.Equal(IconName.ChevronLeft, button.FindComponent<Icon>().Instance.Name);
         Assert.Throws<InvalidOperationException>(() => Render<IconButton>(parameters => parameters.Add(p => p.Icon, IconName.Close)));
     }
+
+    // The canvas draws the modal's X with no border or ground; a plain icon button keeps both.
+    [Fact]
+    public void BareIconButtonHasItsOwnClass()
+    {
+        var bare = Render<IconButton>(parameters => parameters
+            .Add(p => p.Icon, IconName.Close)
+            .Add(p => p.Label, "fechar")
+            .Add(p => p.Bare, true));
+        var plain = Render<IconButton>(parameters => parameters
+            .Add(p => p.Icon, IconName.Close)
+            .Add(p => p.Label, "fechar"));
+
+        Assert.Equal("icon-button icon-button--bare", bare.Find("button").ClassName);
+        Assert.Equal("icon-button", plain.Find("button").ClassName);
+    }
 }

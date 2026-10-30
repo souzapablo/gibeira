@@ -49,7 +49,7 @@ public sealed class ModalTests : BunitContext
         Assert.Equal("-1", dialog.GetAttribute("tabindex"));
         Assert.Equal("adicionar", dialog.QuerySelector(".modal-title")!.TextContent);
         Assert.Equal("linhas", dialog.QuerySelector(".modal-body .rows")!.TextContent);
-        Assert.NotNull(dialog.QuerySelector("button[aria-label='fechar']"));
+        Assert.NotNull(dialog.QuerySelector("button.icon-button--bare[aria-label='fechar']"));
         JSInterop.VerifyFocusAsyncInvoke();
     }
 
