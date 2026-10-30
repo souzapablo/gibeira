@@ -1,0 +1,26 @@
+@* A pill button at least 44 px high: primary, secondary, light ("salvar") or kind-colored. *@
+<button type="button" class="button button--@Variant.ToString().ToLowerInvariant()"
+        style="@(Variant == ButtonVariant.Kind && Kind is { } kind ? $"--button-color: {KindColor.Var(kind)}" : null)"
+        disabled="@Disabled" @onclick="Click">
+    @ChildContent
+</button>
+
+@code {
+    [Parameter]
+    public ButtonVariant Variant { get; set; } = ButtonVariant.Secondary;
+
+    // The color of the Kind variant.
+    [Parameter]
+    public Kind? Kind { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private Task Click() => Disabled ? Task.CompletedTask : OnClick.InvokeAsync();
+}

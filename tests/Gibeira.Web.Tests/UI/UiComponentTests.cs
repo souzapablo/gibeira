@@ -13,6 +13,8 @@ public sealed class UiComponentTests
         ["Icon"] = context => context.Render<Icon>(parameters => parameters.Add(p => p.Name, IconName.Plus)).Markup,
         ["KindIcon"] = context => context.Render<KindIcon>(parameters => parameters.Add(p => p.Kind, Kind.Cartao)).Markup,
         ["Money"] = context => context.Render<Money>(parameters => parameters.Add(p => p.Value, 1189.27m)).Markup,
+        ["Button"] = context => context.Render<Button>(parameters => parameters.Add(p => p.Variant, ButtonVariant.Primary).AddChildContent("salvar")).Markup,
+        ["IconButton"] = context => context.Render<IconButton>(parameters => parameters.Add(p => p.Icon, IconName.Close).Add(p => p.Label, "fechar")).Markup,
     };
 
     public static TheoryData<string> Components => new(Renderers.Keys);

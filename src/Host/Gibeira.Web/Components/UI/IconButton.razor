@@ -1,0 +1,28 @@
+@* A round, icon-only button; Label is its pt-BR accessible name (UI-06). *@
+<button type="button" class="icon-button" aria-label="@Label" disabled="@Disabled" @onclick="Click">
+    <Icon Name="Icon" Size="18" />
+</button>
+
+@code {
+    [Parameter, EditorRequired]
+    public IconName Icon { get; set; }
+
+    [Parameter, EditorRequired]
+    public string Label { get; set; } = null!;
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (string.IsNullOrWhiteSpace(Label))
+        {
+            throw new InvalidOperationException($"{nameof(IconButton)} needs a {nameof(Label)}: it is the button's only name for a screen reader.");
+        }
+    }
+
+    private Task Click() => Disabled ? Task.CompletedTask : OnClick.InvokeAsync();
+}

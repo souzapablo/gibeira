@@ -1,0 +1,23 @@
+.icon-button {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: var(--target-min);
+    height: var(--target-min);
+    padding: 0;
+    border: 1px solid var(--line-default);
+    border-radius: var(--radius-pill);
+    background: var(--ground-surface);
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.icon-button:hover:not(:disabled) {
+    background: var(--ground-raised);
+}
+
+.icon-button:disabled {
+    cursor: not-allowed;
+    opacity: .45;
+}
