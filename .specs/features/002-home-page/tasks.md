@@ -493,8 +493,9 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `FirstDueDateOnOrAfter` (Itaú on 29/10/2026 → 10/11/2026; on 10/11/2026 → 10/11/2026) and `DueDateStepsByMonth` (→ 10/12/2026, ← 10/10/2026) pass
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] `FirstDueDateOnOrAfter` (Itaú on 29/10/2026 → 10/11/2026; on 10/11/2026 → 10/11/2026) and `DueDateStepsByMonth` (→ 10/12/2026, ← 10/10/2026) pass
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj`
+- [x] Test count: Web.Tests 187 tests
 
 **Tests**: unit
 **Gate**: quick
