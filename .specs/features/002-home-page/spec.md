@@ -257,13 +257,13 @@ The canvas values below bind. Token names are the builder's call; each value has
 | UI-04 | P1: Tokens and reusable components | Execute | Implemented (T2, T4) |
 | UI-05 | P1: Tokens and reusable components | Execute | Implemented (T3) |
 | UI-06 | P1: Tokens and reusable components | Design | Pending |
-| HOME-01 | P1: Twelve-month ledger | Design | Pending |
-| HOME-02 | P1: Twelve-month ledger | Design | Pending |
+| HOME-01 | P1: Twelve-month ledger | Execute | Implemented (T24) |
+| HOME-02 | P1: Twelve-month ledger | Execute | Implemented (T24) |
 | HOME-03 | P1: Twelve-month ledger | Execute | Implemented (T22) |
 | HOME-04 | P1: Twelve-month ledger | Execute | Implemented (T22) |
 | HOME-05 | P1: Twelve-month ledger | Execute | Implemented (T22) |
 | HOME-06 | P1: Twelve-month ledger | Execute | Implemented (T22) |
-| HOME-07 | P1: Twelve-month ledger | Design | Pending |
+| HOME-07 | P1: Twelve-month ledger | Execute | Implemented (T24) |
 | HOME-08 | P1: Twelve-month ledger | Execute | Implemented (T23) |
 | HOME-09 | P1: Twelve-month ledger | Execute | Implemented (T23) |
 | HOME-10 | P1: Twelve-month ledger | Execute | Implemented (T19) |
@@ -272,8 +272,8 @@ The canvas values below bind. Token names are the builder's call; each value has
 | HOME-13 | P1: Twelve-month ledger | Execute | Implemented (T23) |
 | HOME-14 | P1: Twelve-month ledger | Execute | Implemented (T23) |
 | HOME-15 | P1: Twelve-month ledger | Execute | Implemented (T23) |
-| HOME-16 | P1: Twelve-month ledger | Design | Pending |
-| HOME-17 | P1: Twelve-month ledger | Design | Pending |
+| HOME-16 | P1: Twelve-month ledger | Execute | Implemented (T24) |
+| HOME-17 | P1: Twelve-month ledger | Execute | Implemented (T24) |
 | HOME-18 | P1: Twelve-month ledger | Design | Pending |
 | DAY-01 | P1: Day drawer | Design | Pending |
 | DAY-02 | P1: Day drawer | Design | Pending |
@@ -314,7 +314,7 @@ The canvas values below bind. Token names are the builder's call; each value has
 | ADD-25 | P1: Add modal | Design | Pending |
 | MOCK-01 | P1: Mock data | Execute | Implemented (T21) |
 | MOCK-02 | P1: Mock data | Design | Pending |
-| MOCK-03 | P1: Mock data | Design | Pending |
+| MOCK-03 | P1: Mock data | Execute | Implemented (T24) |
 | SCR-01 | P1: Screens at each width | Design | Pending |
 | SCR-02 | P1: Screens at each width | Design | Pending |
 

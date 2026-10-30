@@ -578,10 +578,11 @@ T22 → T23 → T24 → T25 → T26 → T27 → T28
 
 **Done when**:
 
-- [ ] bUnit: `PeriodStartsAtCurrentMonthWithPtBrLabel`, `MonthTablesFollowPeriodInOrder` and `HomeReadsDataOnlyThroughILedgerStore` (a stub store's values appear) pass
-- [ ] Playwright: `HomeShowsTopBarPeriodBarAndMonthTablesInOrder`, `HeaderAndTotalRowsStayInViewWhileDaysScroll` and `LedgerScrollsSidewaysWithoutPageScrollAt360` pass
-- [ ] `WebHomePageReturnsGibeira` passes with the period label
-- [ ] Gate check passes: `dotnet test --solution Gibeira.slnx`
+- [x] bUnit: `PeriodStartsAtCurrentMonthWithPtBrLabel`, `MonthTablesFollowPeriodInOrder` and `HomeReadsDataOnlyThroughILedgerStore` (a stub store's values appear) pass
+- [x] Playwright: `HomeShowsTopBarPeriodBarAndMonthTablesInOrder`, `HeaderAndTotalRowsStayInViewWhileDaysScroll` and `LedgerScrollsSidewaysWithoutPageScrollAt360` pass
+- [x] `WebHomePageReturnsGibeira` passes with the period label
+- [x] Gate check passes: `dotnet test --solution Gibeira.slnx`
+- [x] Test count: Web.Tests 210 tests; IntegrationTests 8 tests; solution 270 tests
 
 **Tests**: e2e
 **Gate**: full

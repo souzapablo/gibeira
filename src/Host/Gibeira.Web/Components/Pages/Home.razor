@@ -1,5 +1,29 @@
 @page "/"
+@rendermode InteractiveServer
+@inject ILedgerStore Store
+@inject TimeProvider Time
 
 <PageTitle>Gibeira</PageTitle>
 
-<h1>Gibeira</h1>
+@* The top bar, the period bar and the twelve months of the period side by side (HOME-01). *@
+<div class="home">
+    <TopBar />
+    <PeriodBar @bind-Period="period" Today="today" />
+    <main class="ledger" aria-label="saldos">
+        @foreach (var month in Store.Months(period))
+        {
+            <MonthTable @key="month.Month" Ledger="month" />
+        }
+    </main>
+</div>
+
+@code {
+    private DateOnly today;
+    private Period period = null!;
+
+    protected override void OnInitialized()
+    {
+        today = DateOnly.FromDateTime(Time.GetLocalNow().DateTime);
+        period = Period.Starting(today);
+    }
+}

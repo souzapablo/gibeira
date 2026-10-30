@@ -19,6 +19,30 @@ body {
     font-family: var(--font-body);
 }
 
+/* The home page fills the window: top bar, period bar, then the ledger, which scrolls sideways
+   inside itself while each month scrolls its own days (HOME-16, HOME-17). */
+.home {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+}
+
+.ledger {
+    display: flex;
+    flex: 1;
+    gap: 16px;
+    min-height: 0;
+    padding: 0 24px 24px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+@media (max-width: 432px) {
+    .ledger {
+        padding: 0 16px 16px;
+    }
+}
+
 h1:focus {
     outline: none;
 }

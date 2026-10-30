@@ -11,6 +11,7 @@ namespace Gibeira.IntegrationTests;
 
 public sealed partial class WebHostTests(WebHostFixture fixture) : IClassFixture<WebHostFixture>
 {
+    // The home page answers with the ledger, opened on today's period (HOME-02).
     [Fact]
     public async Task WebHomePageReturnsGibeira()
     {
@@ -21,7 +22,8 @@ public sealed partial class WebHostTests(WebHostFixture fixture) : IClassFixture
         var body = await response.Content.ReadAsStringAsync(cancellationToken);
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        Assert.Contains("<h1>Gibeira</h1>", body, StringComparison.Ordinal);
+        Assert.Contains("<title>Gibeira</title>", body, StringComparison.Ordinal);
+        Assert.Contains(ExpectedPeriod.Label, body, StringComparison.Ordinal);
     }
 
     // Neither the page nor any stylesheet it links brings Bootstrap (UI-05).
