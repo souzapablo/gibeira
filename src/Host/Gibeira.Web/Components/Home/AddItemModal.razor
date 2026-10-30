@@ -47,7 +47,7 @@
             <StepperPopover T="DateOnly" Header="data" Value="draftDate" Format="PtBr.LongDate"
                             OnStep="step => draftDate = draftDate.AddDays(step)" OnSave="SaveDate" OnClose="Close" />
         }
-        @if (open == Picker.DueDate && Form.Card is { } card)
+        @if (open == Picker.DueDate && draftCard is { } card)
         {
             <StepperPopover T="DateOnly" Header="vencimento" Value="Store.DueDate(card, Form.Date, dueMonths)" Format="PtBr.LongDate"
                             OnStep="step => dueMonths += step" OnSave="() => SaveDueDate(card)" OnClose="Close" />
@@ -107,6 +107,7 @@
     private ElementReference amount;
     private Picker open;
     private DateOnly draftDate;
+    private Card? draftCard;
     private int dueMonths;
     private int draftCount;
 
@@ -145,18 +146,27 @@
     private List<DropdownOption<string>> CardOptions() =>
         [.. Store.Cards.Select(c => new DropdownOption<string>(c.Name, c.Name)), new(NoCard, "sem cartão")];
 
-    // A card opens its vencimento at the first due date on or after the form's date; sem cartão opens nothing.
+    // A card opens its vencimento at the first due date on or after the form's date and is taken only on salvar,
+    // so dismissing the popover keeps the previous card (ADD-25); sem cartão opens nothing.
     private void ChooseCard(string name)
     {
         var card = Store.Cards.FirstOrDefault(c => c.Name == name);
-        Form.ChooseCard(card);
+        if (card is null)
+        {
+            Form.ChooseCard(null);
+            Close();
+            return;
+        }
+
+        draftCard = card;
         dueMonths = 0;
-        open = card is null ? Picker.None : Picker.DueDate;
+        open = Picker.DueDate;
     }
 
     private void OpenDate()
     {
         draftDate = Form.Date;
+        draftCard = Form.Card;
         dueMonths = 0;
         open = Form.Card is null ? Picker.Date : Picker.DueDate;
     }
@@ -169,6 +179,7 @@
 
     private void SaveDueDate(Card card)
     {
+        Form.ChooseCard(card);
         Form.SetDueDate(Store.DueDate(card, Form.Date, dueMonths));
         Close();
     }

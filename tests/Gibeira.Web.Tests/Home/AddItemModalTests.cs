@@ -427,5 +427,14 @@ public sealed class AddItemModalTests : BunitContext
         Assert.Equal("data 29/10/26", Text(FieldRow(modal, 3)));
         Assert.Equal(0, closes);
         Assert.Empty(added);
+
+        // The dismissed vencimento took no card: the card list still checks sem cartão and the item has none.
+        ChooseType(modal, "cartão");
+        Assert.Equal("true", Option(modal, "sem cartão").GetAttribute("aria-pressed"));
+        modal.Find(".dropdown").KeyDown(key: "Escape");
+        modal.Find("input.amount-input").Input("100");
+        modal.Find(".add-button-slot .button").Click();
+        Assert.Null(added.Single().Card);
+        Assert.Equal(Today, added.Single().Date);
     }
 }
