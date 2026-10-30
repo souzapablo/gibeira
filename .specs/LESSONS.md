@@ -44,6 +44,42 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: C37 .husky/format-staged.sh (hooks)
 - last seen: 2026-10-29T20:09:08Z
 
+### L-006 - Prove a rule that depends on a date window through the component that picks the window, not only through the helper it calls
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `web-ledger` · harmful: 0
+- features: 002-home-page
+- evidence: Mockup/InMemoryLedgerStore.cs:31 (C19) (web-ledger)
+- last seen: 2026-10-30T21:16:06Z
+
+### L-007 - Test a cents rule on amounts where cutting and rounding give different results
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `money` · harmful: 0
+- features: 002-home-page
+- evidence: Mockup/Schedule.cs:48 (C53) (money)
+- last seen: 2026-10-30T21:16:07Z
+
+### L-008 - Test a breakpoint at a width where the base style alone would give a different result
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `browser-tests` · harmful: 0
+- features: 002-home-page
+- evidence: UI/Drawer.razor.css:39 (C71) (browser-tests)
+- last seen: 2026-10-30T21:16:07Z
+
+### L-009 - Apply a picker choice only when its follow-up step is saved, so dismissing the step keeps the previous value
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `web-ui` · harmful: 0
+- features: 002-home-page
+- evidence: Home/AddItemModal.razor:149 (ADD-25) (web-ui)
+- last seen: 2026-10-30T21:16:07Z
+
+### L-010 - Prove each UI criterion through user gestures at the level the Test Coverage Matrix names, not only on the state class behind it
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `web-ui` · harmful: 0
+- features: 002-home-page
+- evidence: C59, C63 (web-ui)
+- last seen: 2026-10-30T21:16:07Z
+
+### L-011 - Read a server-rendered change in a browser test with a waiting assertion, never a single read right after the action
+- signal: `gate_fail` · recurrence: 1 feature(s) · scope: `browser-tests` · harmful: 0
+- features: 002-home-page
+- evidence: C68 ReloadDiscardsChanges (browser-tests)
+- last seen: 2026-10-30T21:16:07Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.

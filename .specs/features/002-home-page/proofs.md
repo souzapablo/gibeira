@@ -1,8 +1,8 @@
 # 002-home-page proofs
 
-**HEAD**: 822d8fd
+**HEAD**: 43e2440
 **Tree**: clean
-**Result**: 75 pass, 0 fail; mutations 0 killed, 0 not
+**Result**: 80 pass, 0 fail; mutations 3 killed, 0 not
 
 | Check | Proof | Ran | Passed | Result |
 | --- | --- | --- | --- | --- |
@@ -78,6 +78,19 @@
 | C70 | `dotnet test --project tests/Gibeira.IntegrationTests/Gibeira.IntegrationTests.csproj --filter-method "*ModalFi` | count unknown | - | pass |
 | C71 | `dotnet test --project tests/Gibeira.IntegrationTests/Gibeira.IntegrationTests.csproj --filter-method "*DrawerF` | count unknown | - | pass |
 | C72 | `walk - open / at both widths, open a cartão cell, the add modal, each dropdown and popover, and compare agains` | - | - | pass (Walked) |
+| C73 | `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*KindHeadersStartWithT` | count unknown | - | pass |
+| C74 | `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*DiaCellShowsWeekdayAf` | count unknown | - | pass |
+| C75 | `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*TodayRowShowsHojeBadg` | count unknown | - | pass |
+| C76 | `dotnet test --project tests/Gibeira.IntegrationTests/Gibeira.IntegrationTests.csproj --filter-method "*PeriodD` | count unknown | - | pass |
+| C77 | `dotnet test --project tests/Gibeira.IntegrationTests/Gibeira.IntegrationTests.csproj --filter-method "*PeriodB` | count unknown | - | pass |
 | Build | `dotnet build Gibeira.slnx -warnaserror` | - | - | pass |
 | Build | `dotnet format Gibeira.slnx --verify-no-changes` | - | - | pass |
 | Build | `dotnet test --solution Gibeira.slnx` | - | - | pass |
+
+## Mutations
+
+| Mutation | Location | Killed |
+| --- | --- | --- |
+| C19 HOME-10: store drops occurrences before the period, so the saldo restarts at 0 instead of carrying the opening balance (whole Web.Tests suite) | `src\Host\Gibeira.Web\Mockup\InMemoryLedgerStore.cs:31` | yes |
+| C53 ADD-12: parcels rounded instead of cut to cents, so the first can carry a negative remainder (100,00 / 6 -> 16,65 + 5 x 16,67) | `src\Host\Gibeira.Web\Mockup\Schedule.cs:48` | yes |
+| C71 SCR-02: drawer full-width breakpoint moved from 432 px to 300 px | `src\Host\Gibeira.Web\Components\UI\Drawer.razor.css:39` | yes |

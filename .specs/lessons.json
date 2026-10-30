@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 6,
+  "next_id": 12,
   "lessons": [
     {
       "id": "L-001",
@@ -94,6 +94,114 @@
       ],
       "created": "2026-10-29T20:09:08Z",
       "last_seen": "2026-10-29T20:09:08Z"
+    },
+    {
+      "id": "L-006",
+      "key": "surviving_mutant::prove a rule that depends on a date window through the component that picks the window not only through the helper it calls",
+      "text": "Prove a rule that depends on a date window through the component that picks the window, not only through the helper it calls",
+      "signal": "surviving_mutant",
+      "scope": "web-ledger",
+      "status": "candidate",
+      "features": [
+        "002-home-page"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "Mockup/InMemoryLedgerStore.cs:31 (C19) (web-ledger)"
+      ],
+      "created": "2026-10-30T21:16:06Z",
+      "last_seen": "2026-10-30T21:16:06Z"
+    },
+    {
+      "id": "L-007",
+      "key": "surviving_mutant::test a cents rule on amounts where cutting and rounding give different results",
+      "text": "Test a cents rule on amounts where cutting and rounding give different results",
+      "signal": "surviving_mutant",
+      "scope": "money",
+      "status": "candidate",
+      "features": [
+        "002-home-page"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "Mockup/Schedule.cs:48 (C53) (money)"
+      ],
+      "created": "2026-10-30T21:16:07Z",
+      "last_seen": "2026-10-30T21:16:07Z"
+    },
+    {
+      "id": "L-008",
+      "key": "surviving_mutant::test a breakpoint at a width where the base style alone would give a different result",
+      "text": "Test a breakpoint at a width where the base style alone would give a different result",
+      "signal": "surviving_mutant",
+      "scope": "browser-tests",
+      "status": "candidate",
+      "features": [
+        "002-home-page"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "UI/Drawer.razor.css:39 (C71) (browser-tests)"
+      ],
+      "created": "2026-10-30T21:16:07Z",
+      "last_seen": "2026-10-30T21:16:07Z"
+    },
+    {
+      "id": "L-009",
+      "key": "ac_gap::apply a picker choice only when its follow up step is saved so dismissing the step keeps the previous value",
+      "text": "Apply a picker choice only when its follow-up step is saved, so dismissing the step keeps the previous value",
+      "signal": "ac_gap",
+      "scope": "web-ui",
+      "status": "candidate",
+      "features": [
+        "002-home-page"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "Home/AddItemModal.razor:149 (ADD-25) (web-ui)"
+      ],
+      "created": "2026-10-30T21:16:07Z",
+      "last_seen": "2026-10-30T21:16:07Z"
+    },
+    {
+      "id": "L-010",
+      "key": "spec_precision_gap::prove each ui criterion through user gestures at the level the test coverage matrix names not only on the state class behind it",
+      "text": "Prove each UI criterion through user gestures at the level the Test Coverage Matrix names, not only on the state class behind it",
+      "signal": "spec_precision_gap",
+      "scope": "web-ui",
+      "status": "candidate",
+      "features": [
+        "002-home-page"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "C59, C63 (web-ui)"
+      ],
+      "created": "2026-10-30T21:16:07Z",
+      "last_seen": "2026-10-30T21:16:07Z"
+    },
+    {
+      "id": "L-011",
+      "key": "gate_fail::read a server rendered change in a browser test with a waiting assertion never a single read right after the action",
+      "text": "Read a server-rendered change in a browser test with a waiting assertion, never a single read right after the action",
+      "signal": "gate_fail",
+      "scope": "browser-tests",
+      "status": "candidate",
+      "features": [
+        "002-home-page"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "C68 ReloadDiscardsChanges (browser-tests)"
+      ],
+      "created": "2026-10-30T21:16:07Z",
+      "last_seen": "2026-10-30T21:16:07Z"
     }
   ]
 }

@@ -61,10 +61,10 @@
 ## Handoff
 
 - **Feature**: home page, `.specs/features/002-home-page`
-- **Phase / Task**: Phase 6 done; all 28 tasks committed; `check_proofs.py` green at 822d8fd (75 pass, `proofs.md`)
+- **Phase / Task**: Feature done and verified: `check_proofs.py --mutations` green at 43e2440 (80 pass, 3 mutations killed), `validate_verification.py` exit 0
 - **Completed**: T1 to T28 (T15 ran before T14: `ILedgerStore.Months(Period)` needs `Period`)
 - **In-progress** (file:line): none
-- **Next step**: feature validation: walk the running page at 1290x902 and 360 px (C72, `**Walked:**` in tasks.md is still `none`), then the Verifier and the screens sub-agent, one fix pass, `check_proofs.py --mutations`, `validate_verification.py`
-- **Blockers**: none. Mid-build notes are in tasks.md `## Handoff` (ADD-01 chevrons settled by the user, `Modal.AutoFocus`, `DayDrawer.Revision`, amount `@bind:get/set`, browser tests wait for the circuit)
+- **Next step**: the user decides on pushing `feat/002-home-page` and opening a PR (nothing pushed yet)
+- **Blockers**: none. Verifier: 6 findings, closed e8902f2 to e5386a7; screens: 7 differences, closed 5f7c028 to 90f4a2c (new criteria HOME-19 to HOME-23), round 2 matches; lessons L-006 to L-011 recorded as candidates
 - **Uncommitted files**: none
 - **Branch**: feat/002-home-page

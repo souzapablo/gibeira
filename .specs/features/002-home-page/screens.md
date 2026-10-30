@@ -1,26 +1,26 @@
 # Home page screens
 
 **Verifier**: independent sub-agent (author != verifier)
-**Round**: 1
+**Round**: 2
 **Pictures**: my own. Playwright Chromium against http://localhost:5196/ at HEAD dfa3ce0, with the window opened at each size and never resized afterwards, taken on 2026-10-30 (today = 30/out). Script: `shoot.cs`, plus `detail.cs` (today row, 2x zoom) and `probe.cs` (computed styles) in this folder.
 **Source**: the design canvas boards `Main.dc.html` (ledger) and `Adicionar.dc.html` (add form). They do not render on their own, so I built the inventories from their markup and inline styles. Each row says which source it follows: **spec** where the spec states the content, and **canvas** for the look (palette, fonts, surfaces, radii, buttons, pills, today highlight, top bar). The departures under `## Differences from the source` are applied: no left panel or view tabs, and the spec's labels.
 
 | Screen | Compared with | Verdict | Finding |
 | --- | --- | --- | --- |
-| `01-ledger--1290x902.png` | `Main.dc.html` + spec HOME-01..17 | diverges | 2 rows differ |
-| `01-ledger--360x800.png` | `Main.dc.html` + spec HOME-01..17 | diverges | 3 rows differ |
-| `01b-ledger-today--1290x902.png` | `Main.dc.html` + spec HOME-15/16 | diverges | 3 rows differ |
-| `01b-ledger-today--360x800.png` | `Main.dc.html` + spec HOME-15/16 | diverges | 4 rows differ |
-| `02-period-dropdown--1290x902.png` | `Main.dc.html` (look) + spec HOME-05 | diverges | 1 row differs |
-| `02-period-dropdown--360x800.png` | `Main.dc.html` (look) + spec HOME-05, HOME-17 | diverges | 2 rows differ |
+| `01-ledger--1290x902.png` | `Main.dc.html` + spec HOME-01..17, HOME-19/20 | matches | round 2: the 2 rows that differed are now same |
+| `01-ledger--360x800.png` | `Main.dc.html` + spec HOME-01..17, HOME-19/20/23 | matches | round 2: the 3 rows that differed are now same |
+| `01b-ledger-today--1290x902.png` | `Main.dc.html` + spec HOME-15/16, HOME-19/20/21 | matches | round 2: the 3 rows that differed are now same |
+| `01b-ledger-today--360x800.png` | `Main.dc.html` + spec HOME-15/16, HOME-19/20/21/23 | matches | round 2: the 4 rows that differed are now same |
+| `02-period-dropdown--1290x902.png` | `Main.dc.html` (look) + spec HOME-05, HOME-22 | matches | round 2: the 1 row that differed is now same |
+| `02-period-dropdown--360x800.png` | `Main.dc.html` (look) + spec HOME-05, HOME-17, HOME-22/23 | matches | round 2: the 2 rows that differed are now same |
 | `03-drawer--1290x902.png` | `Main.dc.html` (look) + spec DAY-01..04 | matches | |
 | `03-drawer--360x800.png` | `Main.dc.html` (look) + spec DAY-01..04, SCR-02 | matches | |
 | `04-drawer-filter--1290x902.png` | `Main.dc.html` (look) + spec DAY-06 | matches | |
 | `04-drawer-filter--360x800.png` | `Main.dc.html` (look) + spec DAY-06 | matches | |
 | `05-drawer-item-menu--1290x902.png` | `Main.dc.html` (look) + spec DAY-04, DAY-11 | matches | |
 | `05-drawer-item-menu--360x800.png` | `Main.dc.html` (look) + spec DAY-04, DAY-11 | matches | |
-| `06-add-modal--1290x902.png` | `Adicionar.dc.html` + spec ADD-01 | diverges | 1 row differs |
-| `06-add-modal--360x800.png` | `Adicionar.dc.html` + spec ADD-01, SCR-01 | diverges | 1 row differs |
+| `06-add-modal--1290x902.png` | `Adicionar.dc.html` + spec ADD-01 | matches | round 2: the 1 row that differed is now same |
+| `06-add-modal--360x800.png` | `Adicionar.dc.html` + spec ADD-01, SCR-01 | matches | round 2: the 1 row that differed is now same |
 | `07-data-popover--1290x902.png` | `Adicionar.dc.html` (look) + spec ADD-05 | matches | |
 | `07-data-popover--360x800.png` | `Adicionar.dc.html` (look) + spec ADD-05 | matches | |
 | `08-type-dropdown--1290x902.png` | `Adicionar.dc.html` (look) + spec ADD-03 | matches | |
@@ -309,3 +309,64 @@ The first month is scrolled to its last rows, so today (30/out) is in view.
 | Period list opens scrolled to the top, checked period hidden | HOME-22: a dropdown opens focused on its first checked option, which scrolls it into view | 90f4a2c - C76 |
 | Period list cut off at 360 px and page scrolls sideways | HOME-23: the period list opens centered under the pill | 90f4a2c - C77 |
 | Modal X drawn bordered on a surface | `IconButton Bare`: no border or ground, muted glyph; the modal's X uses it | 24874df |
+
+## Round 2
+
+**Pictures**: my own, retaken against http://localhost:5196/ serving HEAD 43e2440 (same mock data, today = 30/out). Playwright Chromium, with the window opened at each size and never resized. They are saved under the screens judge's scratchpad `screens\round2\` (script `round2.cs`, which also reads the computed styles quoted below). I reopened only the rows that differed in round 1 and judged them against the same boards, plus spec HOME-19 to HOME-23. Every other row stays as it was in round 1.
+
+### `round2/01-ledger--1290x902.png`
+
+| Element | Result | Picture draws |
+| --- | --- | --- |
+| header kind marks: colored dot before each kind column header (canvas, HOME-19) | same | a 9px dot before `ENTRADAS` #E8B04B, `SAÍDAS` #DF6A51, `DIÁRIOS` #D65DB1, `ECONOMIAS` #37A675, `CARTÃO` #8C7CF0. None before `DIA` or `SALDOS` |
+| dia cell: day number plus weekday abbreviation (canvas, HOME-20) | same | `1 qui`, `2 sex`, `3 sáb`, `4 dom`...: the number right-aligned in Bricolage, the weekday in small subtle text. Weekend dia tint kept |
+
+### `round2/01-ledger--360x800.png`
+
+| Element | Result | Picture draws |
+| --- | --- | --- |
+| period bar: five controls in one centered group, arrows flanking the pill (spec HOME-01, HOME-23, canvas) | same | `<<` `<` `out/2026 - set/2027 ⌄` `>` `>>` on one line from x=14 to 346. The arrows are 40x44 and the pill 156x44. Page scrollWidth is 360 |
+| header kind marks (canvas, HOME-19) | same | a colored dot before `ENTRADAS`, and before `SAÍDAS` at the scroll edge |
+| dia cell weekday (canvas, HOME-20) | same | `1 qui` to `11 dom` |
+
+### `round2/01b-ledger-today--1290x902.png`
+
+| Element | Result | Picture draws |
+| --- | --- | --- |
+| today badge `hoje` (canvas `.hoje`, HOME-21) | same | today's row `30 sex hoje`: an accent pill with #1a1408 text on #E8B04B, 11px/800, 999px radius, after the weekday. Today ground and accent number kept |
+| dia cell weekday (canvas, HOME-20) | same | `19 seg` to `31 sáb` |
+| header kind dots (canvas, HOME-19) | same | dots on the five kind headers |
+
+### `round2/01b-ledger-today--360x800.png`
+
+| Element | Result | Picture draws |
+| --- | --- | --- |
+| period bar in one group with the arrows flanking the pill (HOME-23) | same | all five controls on one line |
+| today badge `hoje` (canvas, HOME-21) | same | `30 sex hoje` with the accent pill, inside the dia cell (badge ends at x=110, cell at x=124) |
+| dia cell weekday (canvas, HOME-20) | same | `21 qua` to `31 sáb` |
+| header kind dots (canvas, HOME-19) | same | dots before `ENTRADAS` and `SAÍDAS` |
+
+### `round2/02-period-dropdown--1290x902.png`
+
+| Element | Result | Picture draws |
+| --- | --- | --- |
+| the shown period `out/2026 - set/2027` checked and in view when the dropdown opens (spec HOME-05, HOME-22) | same | the list opens scrolled (scrollTop 394) so that the checked option sits in the middle (y=333 to 377, list y=175 to 535), with the accent check on the selected ground. `jul/2026` to `jan/2027` are visible, and the rows above and below are clipped by the list's scroll edge. The dropdown is now centered under the pill |
+
+### `round2/02-period-dropdown--360x800.png`
+
+| Element | Result | Picture draws |
+| --- | --- | --- |
+| dropdown inside the window, with no page horizontal scroll (spec HOME-17, HOME-23) | same | the dropdown spans x=60 to 300, centered under the pill. Page scrollWidth is 360 |
+| the shown period checked and in view when the dropdown opens (spec HOME-05, HOME-22) | same | `out/2026 - set/2027` with its check in the middle of the list (y=325 to 369) |
+
+### `round2/06-add-modal--1290x902.png`
+
+| Element | Result | Picture draws |
+| --- | --- | --- |
+| close X: borderless, transparent, 44px round, muted glyph (canvas `.close`) | same | a bare X in #b9b0a1 with a transparent border and no ground, 44x44 with a 999px radius |
+
+### `round2/06-add-modal--360x800.png`
+
+| Element | Result | Picture draws |
+| --- | --- | --- |
+| close X: borderless, transparent, muted glyph (canvas `.close`) | same | the same bare muted X. The modal is 328px wide and the amount field has focus |
