@@ -4,6 +4,7 @@
 **Mutations**: 3 - probed C19, C53, C71
 **Proofs**: `proofs.md` at dfa3ce0
 **Verifier**: independent sub-agent (author != verifier)
+**Status**: all 6 findings closed; proofs rerun at 43e2440: 80 pass, 0 fail, mutations 3 killed
 
 ## Findings
 

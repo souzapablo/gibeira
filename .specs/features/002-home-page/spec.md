@@ -8,10 +8,10 @@ Gibeira has no screen yet: `/` shows the Blazor template heading. The author wan
 
 ## Goals
 
-- [ ] `/` shows the 12-month ledger, the day drawer and the add modal described below, in the canvas look.
-- [ ] Every color, font, radius, shadow and spacing value lives in one tokens file; a test fails on any color literal elsewhere.
-- [ ] Each component in the component table renders on its own in a test, with no dependency on the home page or the mock data.
-- [ ] Adding or deleting an item updates the tables, saldos and drawer in the same session, from an in-memory mock store.
+- [x] `/` shows the 12-month ledger, the day drawer and the add modal described below, in the canvas look.
+- [x] Every color, font, radius, shadow and spacing value lives in one tokens file; a test fails on any color literal elsewhere.
+- [x] Each component in the component table renders on its own in a test, with no dependency on the home page or the mock data.
+- [x] Adding or deleting an item updates the tables, saldos and drawer in the same session, from an in-memory mock store.
 
 ## Out of Scope
 
@@ -328,7 +328,7 @@ The canvas values below bind. Token names are the builder's call; each value has
 | SCR-01 | P1: Screens at each width | Execute | Implemented (T28) |
 | SCR-02 | P1: Screens at each width | Execute | Implemented (T26) |
 
-**Coverage:** 66 total, 0 mapped to tasks, 66 unmapped ⚠️
+**Coverage:** 71 total, 71 mapped to tasks, 0 unmapped
 
 ---
 
@@ -347,5 +347,5 @@ The canvas values below bind. Token names are the builder's call; each value has
 
 ## Success Criteria
 
-- [ ] The running page at 1290×902 and at 360 px wide, with the drawer, the modal and each dropdown and popover open, is judged by the screens sub-agent to match the requirements and the canvas look.
-- [ ] `dotnet build` has 0 warnings and `dotnet test` passes, including the token and component tests.
+- [x] The running page at 1290×902 and at 360 px wide, with the drawer, the modal and each dropdown and popover open, is judged by the screens sub-agent to match the requirements and the canvas look.
+- [x] `dotnet build` has 0 warnings and `dotnet test` passes, including the token and component tests.
