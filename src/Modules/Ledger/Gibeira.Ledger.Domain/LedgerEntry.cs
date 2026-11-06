@@ -41,6 +41,10 @@ public sealed class LedgerEntry : IEquatable<LedgerEntry>
     public static LedgerEntry OneOff(DateOnly date, EntryDetails details, long addOrder) =>
         new(LedgerEntryId.New(), date, details, new EntryOrigin.OneOff(), addOrder);
 
+    // For the rules and plans that create entries of their own.
+    internal static LedgerEntry From(DateOnly date, EntryDetails details, EntryOrigin origin, long addOrder) =>
+        new(LedgerEntryId.New(), date, details, origin, addOrder);
+
     public bool Equals(LedgerEntry? other) => other is not null && Id == other.Id;
 
     public override bool Equals(object? obj) => Equals(obj as LedgerEntry);

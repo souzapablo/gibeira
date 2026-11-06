@@ -242,11 +242,11 @@ T17 → T18 → T19 → T20
 
 **Done when**:
 
-- [ ] `FirstEntryFallsOnFirstDay`, `MonthlyFromDay31ClampsWithoutDrift` (31/01, 28/02, 31/03), `WeeklyStepsSevenDays`, `DailyStepsOneDay` pass
-- [ ] `GeneratedEntryCopiesRuleDetailsAndOrigin` passes: kind, amount, description, card, tags, add order and `Repeat(ruleId, frequency)`
-- [ ] `GeneratingTheSameDateTwiceCreatesNothingNew` and `GeneratingBeforeFirstDayCreatesNothing` pass
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Ledger.Tests/Gibeira.Ledger.Tests.csproj`
-- [ ] Test count: Ledger.Tests 31 tests (no silent deletions)
+- [x] `FirstEntryFallsOnFirstDay`, `MonthlyFromDay31ClampsWithoutDrift` (31/01, 28/02, 31/03), `WeeklyStepsSevenDays`, `DailyStepsOneDay` pass
+- [x] `GeneratedEntryCopiesRuleDetailsAndOrigin` passes: kind, amount, description, card, tags, add order and `Repeat(ruleId, frequency)`
+- [x] `GeneratingTheSameDateTwiceCreatesNothingNew` and `GeneratingBeforeFirstDayCreatesNothing` pass
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Ledger.Tests/Gibeira.Ledger.Tests.csproj`
+- [x] Test count: Ledger.Tests 31 tests (no silent deletions)
 
 **Tests**: unit
 **Gate**: quick
