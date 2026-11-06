@@ -13,11 +13,11 @@ public sealed class DayDrawerTests : BunitContext
     private static readonly DateOnly Tenth = new(2026, 11, 10);
     private static readonly DateOnly Eleventh = new(2026, 11, 11);
 
-    private static readonly DayEntry Streaming = new(Guid.NewGuid(), Kind.Cartao, 39.9m, "streaming", Tenth, "mensalmente");
-    private static readonly DayEntry Padaria = new(Guid.NewGuid(), Kind.Saida, 12.5m, "padaria", Tenth, null);
-    private static readonly DayEntry Geladeira = new(Guid.NewGuid(), Kind.Cartao, 1000m, "geladeira", Tenth, "parcela 2/10");
-    private static readonly DayEntry Mercado = new(Guid.NewGuid(), Kind.Cartao, 230.45m, "mercado", Eleventh, null);
-    private static readonly DayEntry Salario = new(Guid.NewGuid(), Kind.Entrada, 5000m, "salário", Eleventh, "mensalmente");
+    private static readonly DayEntry Streaming = new(Guid.NewGuid(), Kind.CreditCard, 39.9m, "streaming", Tenth, "mensalmente");
+    private static readonly DayEntry Bakery = new(Guid.NewGuid(), Kind.Expense, 12.5m, "padaria", Tenth, null);
+    private static readonly DayEntry Fridge = new(Guid.NewGuid(), Kind.CreditCard, 1000m, "geladeira", Tenth, "parcela 2/10");
+    private static readonly DayEntry Groceries = new(Guid.NewGuid(), Kind.CreditCard, 230.45m, "mercado", Eleventh, null);
+    private static readonly DayEntry Salary = new(Guid.NewGuid(), Kind.Income, 5000m, "salário", Eleventh, "mensalmente");
 
     private DateOnly day = Tenth;
     private Kind? filter;
@@ -25,7 +25,7 @@ public sealed class DayDrawerTests : BunitContext
     private readonly List<DayEntry> removed = [];
 
     public DayDrawerTests() =>
-        Services.AddSingleton<ILedgerStore>(new DayStore([Streaming, Padaria, Geladeira, Mercado, Salario]));
+        Services.AddSingleton<ILedgerStore>(new DayStore([Streaming, Bakery, Fridge, Groceries, Salary]));
 
     private IRenderedComponent<DayDrawer> RenderDrawer() => Render<DayDrawer>(parameters => parameters
         .Bind(p => p.Day, day, value => day = value)
@@ -70,15 +70,15 @@ public sealed class DayDrawerTests : BunitContext
         Assert.All(entries, e => Assert.Equal("10/11", e.QuerySelector(".entry-date")!.TextContent.Trim()));
         Assert.Equal(["mensalmente", null, "parcela 2/10"], entries.Select(e => e.QuerySelector(".entry-repetition")?.TextContent.Trim()));
         Assert.All(entries, e => Assert.Equal("opções", e.QuerySelector("button.icon-button")!.GetAttribute("aria-label")));
-        Assert.Equal([Kind.Cartao, Kind.Saida, Kind.Cartao], drawer.FindComponents<KindIcon>().Select(i => i.Instance.Kind));
-        Assert.Contains("var(--kind-cartao)", entries[0].QuerySelector(".kind-icon")!.GetAttribute("style"));
+        Assert.Equal([Kind.CreditCard, Kind.Expense, Kind.CreditCard], drawer.FindComponents<KindIcon>().Select(i => i.Instance.Kind));
+        Assert.Contains("var(--kind-credit-card)", entries[0].QuerySelector(".kind-icon")!.GetAttribute("style"));
     }
 
     // DAY-05: < and > show the previous or next day with the same filter.
     [Fact]
     public void DrawerArrowsStepDayKeepingFilter()
     {
-        filter = Kind.Cartao;
+        filter = Kind.CreditCard;
         var drawer = RenderDrawer();
         Assert.Equal(["streaming", "geladeira"], Descriptions(drawer));
 
@@ -87,7 +87,7 @@ public sealed class DayDrawerTests : BunitContext
 
         Assert.Equal(Eleventh, day);
         Assert.Equal("11/nov", drawer.Find(".drawer-title").TextContent.Trim());
-        Assert.Equal(Kind.Cartao, filter);
+        Assert.Equal(Kind.CreditCard, filter);
         Assert.Equal("cartão", FilterPill(drawer));
         Assert.Equal(["mercado"], Descriptions(drawer));
 
@@ -105,7 +105,7 @@ public sealed class DayDrawerTests : BunitContext
     [Fact]
     public void DrawerFilterListsKindsWithCurrentChecked()
     {
-        filter = Kind.Economia;
+        filter = Kind.Savings;
         var drawer = RenderDrawer();
         Assert.Equal("economias", FilterPill(drawer));
         Assert.Empty(drawer.FindAll(".dropdown"));
@@ -131,7 +131,7 @@ public sealed class DayDrawerTests : BunitContext
         drawer.FindAll(".dropdown-option")[2].Click();
         Rebind(drawer);
 
-        Assert.Equal(Kind.Saida, filter);
+        Assert.Equal(Kind.Expense, filter);
         Assert.Equal("saídas", FilterPill(drawer));
         Assert.Equal(["padaria"], Descriptions(drawer));
         Assert.Empty(drawer.FindAll(".dropdown"));
@@ -146,9 +146,9 @@ public sealed class DayDrawerTests : BunitContext
 
     // DAY-08: a day with no matching item shows nenhum lançamento.
     [Fact]
-    public void EmptyDayShowsNenhumLancamento()
+    public void EmptyDayShowsNoEntries()
     {
-        filter = Kind.Economia;
+        filter = Kind.Savings;
         var drawer = RenderDrawer();
 
         Assert.Empty(drawer.FindAll(".entry"));
@@ -175,7 +175,7 @@ public sealed class DayDrawerTests : BunitContext
 
     // DAY-11: ⋮ opens a menu with excluir; choosing it raises the entry for removal.
     [Fact]
-    public void ItemMenuOffersExcluir()
+    public void ItemMenuOffersDelete()
     {
         var drawer = RenderDrawer();
         Assert.Empty(drawer.FindAll(".dropdown"));
@@ -188,7 +188,7 @@ public sealed class DayDrawerTests : BunitContext
         Assert.Equal("excluir", option.TextContent.Trim());
 
         option.Click();
-        Assert.Equal([Padaria], removed);
+        Assert.Equal([Bakery], removed);
         Assert.Empty(drawer.FindAll(".dropdown"));
     }
 

@@ -49,14 +49,14 @@ public static class PtBr
 
     public static string KindName(Kind kind) => kind switch
     {
-        Kind.Entrada => "entrada",
-        Kind.Saida => "saída",
-        Kind.Diario => "diário",
-        Kind.Economia => "economia",
-        Kind.Cartao => "cartão",
+        Kind.Income => "entrada",
+        Kind.Expense => "saída",
+        Kind.DailySpending => "diário",
+        Kind.Savings => "economia",
+        Kind.CreditCard => "cartão",
         _ => throw new ArgumentOutOfRangeException(nameof(kind), kind, null),
     };
 
     // The column and filter names; cartão stays singular.
-    public static string KindPlural(Kind kind) => kind == Kind.Cartao ? "cartão" : KindName(kind) + "s";
+    public static string KindPlural(Kind kind) => kind == Kind.CreditCard ? "cartão" : KindName(kind) + "s";
 }

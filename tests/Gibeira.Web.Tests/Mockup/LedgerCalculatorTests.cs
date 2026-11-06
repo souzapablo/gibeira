@@ -17,29 +17,29 @@ public sealed class LedgerCalculatorTests
 
     // HOME-10: saldo(d) = saldo(d-1) + entradas - saídas - diários - economias - cartão, from before the period and across months.
     [Fact]
-    public void SaldoCarriesPreviousDayAcrossMonths()
+    public void BalanceCarriesPreviousDayAcrossMonths()
     {
         Occurrence[] occurrences =
         [
-            On(2026, 9, 15, Kind.Entrada, 1000m),
-            On(2026, 10, 1, Kind.Saida, 200m),
-            On(2026, 10, 31, Kind.Diario, 30m),
-            On(2026, 11, 1, Kind.Economia, 100m),
-            On(2026, 11, 1, Kind.Cartao, 50m),
-            On(2026, 11, 2, Kind.Entrada, 10m),
-            On(2027, 1, 5, Kind.Saida, 1200m),
+            On(2026, 9, 15, Kind.Income, 1000m),
+            On(2026, 10, 1, Kind.Expense, 200m),
+            On(2026, 10, 31, Kind.DailySpending, 30m),
+            On(2026, 11, 1, Kind.Savings, 100m),
+            On(2026, 11, 1, Kind.CreditCard, 50m),
+            On(2026, 11, 2, Kind.Income, 10m),
+            On(2027, 1, 5, Kind.Expense, 1200m),
         ];
 
         var months = LedgerCalculator.Months(occurrences, October, Today);
 
-        Assert.Equal(800m, Row(months, 2026, 10, 1).Saldo);
-        Assert.Equal(800m, Row(months, 2026, 10, 2).Saldo);
-        Assert.Equal(770m, Row(months, 2026, 10, 31).Saldo);
-        Assert.Equal(620m, Row(months, 2026, 11, 1).Saldo);
-        Assert.Equal(630m, Row(months, 2026, 11, 2).Saldo);
-        Assert.Equal(630m, Row(months, 2027, 1, 4).Saldo);
-        Assert.Equal(-570m, Row(months, 2027, 1, 5).Saldo);
-        Assert.Equal(-570m, Row(months, 2027, 9, 30).Saldo);
+        Assert.Equal(800m, Row(months, 2026, 10, 1).Balance);
+        Assert.Equal(800m, Row(months, 2026, 10, 2).Balance);
+        Assert.Equal(770m, Row(months, 2026, 10, 31).Balance);
+        Assert.Equal(620m, Row(months, 2026, 11, 1).Balance);
+        Assert.Equal(630m, Row(months, 2026, 11, 2).Balance);
+        Assert.Equal(630m, Row(months, 2027, 1, 4).Balance);
+        Assert.Equal(-570m, Row(months, 2027, 1, 5).Balance);
+        Assert.Equal(-570m, Row(months, 2027, 9, 30).Balance);
     }
 
     // HOME-08, HOME-13: each cell is the day's sum for its kind, zero when none; the total row sums the month.
@@ -48,25 +48,25 @@ public sealed class LedgerCalculatorTests
     {
         Occurrence[] occurrences =
         [
-            On(2026, 10, 3, Kind.Saida, 120.50m),
-            On(2026, 10, 3, Kind.Saida, 79.50m),
-            On(2026, 10, 20, Kind.Saida, 10m),
-            On(2026, 10, 5, Kind.Entrada, 1189.27m),
-            On(2026, 11, 3, Kind.Saida, 999m),
+            On(2026, 10, 3, Kind.Expense, 120.50m),
+            On(2026, 10, 3, Kind.Expense, 79.50m),
+            On(2026, 10, 20, Kind.Expense, 10m),
+            On(2026, 10, 5, Kind.Income, 1189.27m),
+            On(2026, 11, 3, Kind.Expense, 999m),
         ];
 
         var months = LedgerCalculator.Months(occurrences, October, Today);
         var october = months[0];
 
-        Assert.Equal(200m, Row(months, 2026, 10, 3).Sums[Kind.Saida]);
-        Assert.Equal(0m, Row(months, 2026, 10, 3).Sums[Kind.Entrada]);
+        Assert.Equal(200m, Row(months, 2026, 10, 3).Sums[Kind.Expense]);
+        Assert.Equal(0m, Row(months, 2026, 10, 3).Sums[Kind.Income]);
         Assert.All(october.Days, d => Assert.Equal(Enum.GetValues<Kind>().Length, d.Sums.Count));
-        Assert.Equal(1189.27m, october.Totals[Kind.Entrada]);
-        Assert.Equal(210m, october.Totals[Kind.Saida]);
-        Assert.Equal(0m, october.Totals[Kind.Diario]);
-        Assert.Equal(0m, october.Totals[Kind.Economia]);
-        Assert.Equal(0m, october.Totals[Kind.Cartao]);
-        Assert.Equal(999m, months[1].Totals[Kind.Saida]);
+        Assert.Equal(1189.27m, october.Totals[Kind.Income]);
+        Assert.Equal(210m, october.Totals[Kind.Expense]);
+        Assert.Equal(0m, october.Totals[Kind.DailySpending]);
+        Assert.Equal(0m, october.Totals[Kind.Savings]);
+        Assert.Equal(0m, october.Totals[Kind.CreditCard]);
+        Assert.Equal(999m, months[1].Totals[Kind.Expense]);
     }
 
     // HOME-07: twelve months in the period's order, one row per day.

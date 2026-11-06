@@ -46,7 +46,7 @@ public sealed class AddItemForm(Kind kind, DateOnly date)
 
     public void SetKind(Kind value)
     {
-        if (value != Kind.Cartao)
+        if (value != Kind.CreditCard)
         {
             ChooseCard(null);
         }

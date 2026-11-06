@@ -2,9 +2,9 @@ namespace Gibeira.Web.Ledger;
 
 public enum Kind
 {
-    Entrada,
-    Saida,
-    Diario,
-    Economia,
-    Cartao,
+    Income,
+    Expense,
+    DailySpending,
+    Savings,
+    CreditCard,
 }

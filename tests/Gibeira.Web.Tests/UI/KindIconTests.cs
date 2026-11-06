@@ -10,11 +10,11 @@ public sealed class KindIconTests : BunitContext
     // Arrow in, arrow out, D, E, C, each on its kind color (spec component table).
     public static TheoryData<Kind, string, IconName?, string> Badges => new()
     {
-        { Kind.Entrada, "var(--kind-entrada)", IconName.ArrowIn, "" },
-        { Kind.Saida, "var(--kind-saida)", IconName.ArrowOut, "" },
-        { Kind.Diario, "var(--kind-diario)", null, "D" },
-        { Kind.Economia, "var(--kind-economia)", null, "E" },
-        { Kind.Cartao, "var(--kind-cartao)", null, "C" },
+        { Kind.Income, "var(--kind-income)", IconName.ArrowIn, "" },
+        { Kind.Expense, "var(--kind-expense)", IconName.ArrowOut, "" },
+        { Kind.DailySpending, "var(--kind-daily-spending)", null, "D" },
+        { Kind.Savings, "var(--kind-savings)", null, "E" },
+        { Kind.CreditCard, "var(--kind-credit-card)", null, "C" },
     };
 
     [Theory]

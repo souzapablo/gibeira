@@ -127,7 +127,7 @@ public sealed class HomePageBrowserTests(BrowserFixture fixture) : IClassFixture
         await using var context = await fixture.NewContextAsync(Viewport(width, 800));
         var page = await OpenHomeAsync(context);
 
-        var drawer = await OpenCartaoDrawerAsync(page);
+        var drawer = await OpenCreditCardDrawerAsync(page);
 
         var box = await Box(drawer);
         Assert.Equal(x, box.X);
@@ -140,7 +140,7 @@ public sealed class HomePageBrowserTests(BrowserFixture fixture) : IClassFixture
     {
         await using var context = await fixture.NewContextAsync(Viewport(400, 800));
         var page = await OpenHomeAsync(context);
-        var drawer = await OpenCartaoDrawerAsync(page);
+        var drawer = await OpenCreditCardDrawerAsync(page);
         var entry = drawer.Locator(".entry").First;
         var description = entry.Locator(".entry-description");
         var height = (await Box(entry)).Height;
@@ -226,8 +226,8 @@ public sealed class HomePageBrowserTests(BrowserFixture fixture) : IClassFixture
     {
         await using var context = await fixture.NewContextAsync(Viewport(1290, 902));
         var page = await OpenHomeAsync(context);
-        var entradas = page.Locator(".month").First.Locator("tfoot td.money-cell").First.Locator(".money");
-        var before = (await entradas.InnerTextAsync()).Trim();
+        var incomeTotal = page.Locator(".month").First.Locator("tfoot td.money-cell").First.Locator(".money");
+        var before = (await incomeTotal.InnerTextAsync()).Trim();
 
         // Typed at a person's pace and read with waiting assertions: each answer comes back over the circuit.
         var modal = await OpenModalAsync(page);
@@ -235,12 +235,12 @@ public sealed class HomePageBrowserTests(BrowserFixture fixture) : IClassFixture
         await Assertions.Expect(modal.Locator("input.amount-input")).ToHaveValueAsync("777");
         await modal.Locator(".add-button-slot .button").ClickAsync();
         await modal.WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Detached });
-        await Assertions.Expect(entradas).Not.ToHaveTextAsync(before);
+        await Assertions.Expect(incomeTotal).Not.ToHaveTextAsync(before);
 
         await page.ReloadAsync();
         await WaitForCircuitAsync(page);
 
-        await Assertions.Expect(entradas).ToHaveTextAsync(before);
+        await Assertions.Expect(incomeTotal).ToHaveTextAsync(before);
     }
 
     // SCR-01: at 400 px the modal is the window width minus 16 px each side.
@@ -258,7 +258,7 @@ public sealed class HomePageBrowserTests(BrowserFixture fixture) : IClassFixture
     }
 
     // The 10th of the current month holds the seed's Itaú cartão item.
-    private static async Task<ILocator> OpenCartaoDrawerAsync(IPage page)
+    private static async Task<ILocator> OpenCreditCardDrawerAsync(IPage page)
     {
         var cell = page.Locator(".month").First.Locator("tbody tr").Nth(9).Locator("td.money-cell").Nth(4).Locator("button");
         var drawer = await ClickToOpenAsync(cell, page.Locator(".drawer"));

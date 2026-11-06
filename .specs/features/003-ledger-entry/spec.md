@@ -325,7 +325,7 @@ Code is in English; the Portuguese words appear only on screens (AD-011). The cr
 | MOD-06 | P1: The module replaces the mockup | Tasks | In Tasks |
 | MOD-07 | P1: The module replaces the mockup | Tasks | In Tasks |
 | MOD-08 | P1: The module replaces the mockup | Tasks | In Tasks |
-| MOD-09 | P1: The module replaces the mockup | Tasks | In Tasks |
+| MOD-09 | P1: The module replaces the mockup | T1, T2 | Implementing |
 
 **ID format:** `[CATEGORY]-[NUMBER]`
 

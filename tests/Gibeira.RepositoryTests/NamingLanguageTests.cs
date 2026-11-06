@@ -4,6 +4,19 @@ public sealed class NamingLanguageTests : IDisposable
 {
     private readonly string _root = Path.Combine(Path.GetTempPath(), $"gibeira-naming-{Guid.NewGuid():N}");
 
+    // Code is in English; Portuguese appears only in text users see on screens (MOD-09, AD-011).
+    [Fact]
+    public async Task CodeHasNoPortugueseIdentifiers()
+    {
+        var root = RepositoryRoot.Find();
+        var files = await RepositoryRoot.ListFilesAsync(root, TestContext.Current.CancellationToken);
+
+        var found = PortugueseIdentifiers.Scan(root, files);
+
+        // Every line in the message: Assert.Empty would cut the list short.
+        Assert.True(found.Length == 0, $"Portuguese identifiers at:{Environment.NewLine}{string.Join(Environment.NewLine, found)}");
+    }
+
     // A Portuguese word of the spec's naming table used as an identifier fails the scan, named by file and line (MOD-09).
     // Screen text, string literals and comments are not identifiers.
     [Fact]

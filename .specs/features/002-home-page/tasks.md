@@ -734,19 +734,19 @@ Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj -
 Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*ZeroCellIsMuted"`
 
 **C19** - Each saldo is the previous day's plus entradas minus the other kinds, from the opening balance and across months (HOME-10, AC 10)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*SaldoCarriesPreviousDayAcrossMonths"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*BalanceCarriesPreviousDayAcrossMonths"`
 
 **C20** - A negative amount reads `R$ -477,67` (HOME-11, AC 11)
 Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*NegativeAmountFormatsWithMinusAfterSymbol"`
 
 **C21** - A saldo of zero or more gets the positive tint, a negative one the negative tint (HOME-12, AC 12)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*SaldoCellTintFollowsSign"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*BalanceCellTintFollowsSign"`
 
 **C22** - The total row holds each kind's month sum with its icon and an empty saldos cell (HOME-13, AC 13)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*TotalRowHoldsMonthSumsAndEmptySaldo"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*TotalRowHoldsMonthSumsAndEmptyBalance"`
 
 **C23** - Saturday and Sunday dia cells get the weekend ground (HOME-14, AC 14)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*WeekendDiaCellsAreTinted"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*WeekendDayCellsAreTinted"`
 
 **C24** - Today's row gets the today ground and an accent day number (HOME-15, AC 15)
 Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*TodayRowIsMarked"`
@@ -758,13 +758,13 @@ Proof: `dotnet test --project tests/Gibeira.IntegrationTests/Gibeira.Integration
 Proof: `dotnet test --project tests/Gibeira.IntegrationTests/Gibeira.IntegrationTests.csproj --filter-method "*LedgerScrollsSidewaysWithoutPageScrollAt360"`
 
 **C27** - "adicionar" in the top bar opens the modal with entrada and today's date (HOME-18, AC 18)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*TopBarAddOpensModalWithEntradaAndToday"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*TopBarAddOpensModalWithIncomeAndToday"`
 
 **C28** - A money cell opens the drawer on its day, filtered by its kind (DAY-01, AC 1)
 Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*MoneyCellOpensDrawerFilteredByKind"`
 
 **C29** - A dia cell opens the drawer with `todos` (DAY-02, AC 2)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*DiaCellOpensDrawerWithTodos"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*DayCellOpensDrawerWithAll"`
 
 **C30** - The drawer title reads `10/nov` (DAY-03, AC 3)
 Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*DrawerTitleIsDayAndMonthAbbrev"`
@@ -785,7 +785,7 @@ Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj -
 Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*DrawerFilterShowsOnlyThatKind"`
 
 **C36** - A day with no matching entry shows `nenhum lançamento` (DAY-08, AC 8)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*EmptyDayShowsNenhumLancamento"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*EmptyDayShowsNoEntries"`
 
 **C37** - X and Esc close the drawer (DAY-09, AC 9)
 Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*DrawerClosesOnXAndEsc"`
@@ -794,10 +794,10 @@ Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj -
 Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*DrawerPlusOpensModalWithDayAndKind"`
 
 **C39** - ⋮ opens a menu with `excluir` (DAY-11, AC 11)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*ItemMenuOffersExcluir"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*ItemMenuOffersDelete"`
 
 **C40** - `excluir` removes that occurrence, and the drawer, cell, totals and later saldos update (DAY-12, AC 12)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*ExcluirRemovesOccurrenceAndUpdatesSaldos"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*DeleteRemovesOccurrenceAndUpdatesBalances"`
 
 **C41** - The modal opens with title, X, the six rows, `adicionar entrada` and the amount focused (ADD-01, AC 1)
 Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*AddModalOpensWithRowsAndFocusedAmount"`
@@ -815,19 +815,19 @@ Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj -
 Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*ChoosingTypeUpdatesRowPlaceholderAndButton"`
 
 **C46** - The data popover shows `dd/mm/yyyy` and `<` `>` step one day (ADD-05, AC 5)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*DataPopoverStepsOneDay"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*DatePopoverStepsOneDay"`
 
 **C47** - `salvar` sets the date, shows `dd/mm/yy` on the row and closes the popover (ADD-06, AC 6)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*DataSalvarSetsDateAndCloses"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*DateSaveSetsDateAndCloses"`
 
 **C48** - The repetition row opens `repetir` with the four options and their descriptions, plus `não repete` (ADD-07, AC 7)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*RepetirListsOptionsWithDescriptions"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*RepeatListsOptionsWithDescriptions"`
 
 **C49** - Choosing mensalmente, semanalmente, diariamente or não repete shows it on the row (ADD-08, AC 8)
 Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*ChoosingRepetitionShowsItOnRow"`
 
 **C50** - `parcelado` opens `parcelas` from 2 to 48, starting at 2, and `salvar` shows `parcelado em <N>x` (ADD-09, AC 9)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*ParceladoOpensCountPopoverFrom2To48"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*InstallmentsOpensCountPopoverFrom2To48"`
 
 **C51** - A monthly item repeats on the same day, on the last day when the month is shorter (ADD-10, AC 10)
 Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*MonthlyRepeatsOnSameDayClampedToMonthEnd"`
@@ -839,22 +839,22 @@ Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj -
 Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*InstallmentsSplitWithRemainderOnFirst"`
 
 **C54** - Choosing `cartão` opens the card dropdown with the disabled add-card button, Itaú, Santander and sem cartão (ADD-13, AC 13)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*CartaoOpensCardDropdown"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*CreditCardOpensCardDropdown"`
 
 **C55** - Choosing Itaú on 29/10/2026 opens `vencimento` at 10/11/2026 (ADD-14, AC 14)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*ChoosingCardOpensVencimentoAtFirstDueDate"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*ChoosingCardOpensDueDateAtFirstDueDate"`
 
 **C56** - `>` in `vencimento` shows 10/12/2026 and `<` goes back one month (ADD-15, AC 15)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*VencimentoArrowsStepOneMonth"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*DueDateArrowsStepOneMonth"`
 
 **C57** - `salvar` in `vencimento` sets the date and labels the row `vencimento` (ADD-16, AC 16)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*VencimentoSalvarSetsDateAndRelabelsRow"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*DueDateSaveSetsDateAndRelabelsRow"`
 
 **C58** - `sem cartão` keeps the row labeled `data` and opens no popover (ADD-17, AC 17)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*SemCartaoOpensNoVencimento"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*NoCardOpensNoDueDate"`
 
 **C59** - Leaving `cartão` clears the card and relabels the row `data` (ADD-18, AC 18)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*LeavingCartaoClearsCard"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*LeavingCreditCardClearsCard"`
 
 **C60** - The tags dropdown checks several, and the row shows them joined by `, `, or `tags` when none (ADD-19, AC 19)
 Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*TagsDropdownChecksSeveral"`
@@ -878,7 +878,7 @@ Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj -
 Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*PopoverClosesOnEscAndOutsideKeepingValue"`
 
 **C67** - The seed gives every kind a non-zero day in the current month and a negative saldo within 12 months (MOCK-01, AC 1)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*SeedHasEveryKindThisMonthAndANegativeSaldo"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*SeedHasEveryKindThisMonthAndANegativeBalance"`
 
 **C68** - An item added before a reload is gone after it (MOCK-02, AC 2)
 Proof: `dotnet test --project tests/Gibeira.IntegrationTests/Gibeira.IntegrationTests.csproj --filter-method "*ReloadDiscardsChanges"`
@@ -899,10 +899,10 @@ Proof: walk - open `/` at both widths, open a cartão cell, the add modal, each 
 Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*KindHeadersStartWithTheirDot"`
 
 **C74** - December 2026's dia cells read `ter`, `qua`, ... after the day number (HOME-20, AC 20)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*DiaCellShowsWeekdayAfterDayNumber"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*DayCellShowsWeekdayAfterDayNumber"`
 
 **C75** - Only today's dia cell ends with the `hoje` badge (HOME-21, AC 21)
-Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*TodayRowShowsHojeBadge"`
+Proof: `dotnet test --project tests/Gibeira.Web.Tests/Gibeira.Web.Tests.csproj --filter-method "*TodayRowShowsTodayBadge"`
 
 **C76** - The period list opens with the checked period, the 13th of 25, focused and in view, at 1290 and 360 px (HOME-22, AC 22)
 Proof: `dotnet test --project tests/Gibeira.IntegrationTests/Gibeira.IntegrationTests.csproj --filter-method "*PeriodDropdownOpensWithCheckedPeriodInView"`

@@ -97,11 +97,11 @@
 
     private static readonly DropdownOption<string>[] RepetitionOptions =
     [
-        new("mensal", "mensalmente", "repete o mesmo valor mensalmente"),
-        new("semanal", "semanalmente", "repete o mesmo valor semanalmente"),
-        new("diario", "diariamente", "repete o mesmo valor diariamente"),
-        new("parcelado", "parcelado", "divide o valor pelo número de parcelas"),
-        new("nenhuma", "não repete"),
+        new("monthly", "mensalmente", "repete o mesmo valor mensalmente"),
+        new("weekly", "semanalmente", "repete o mesmo valor semanalmente"),
+        new("daily", "diariamente", "repete o mesmo valor diariamente"),
+        new("installments", "parcelado", "divide o valor pelo número de parcelas"),
+        new("none", "não repete"),
     ];
 
     private ElementReference amount;
@@ -137,7 +137,7 @@
     private void ChooseKind(Kind kind)
     {
         Form.SetKind(kind);
-        open = kind == Kind.Cartao ? Picker.Card : Picker.None;
+        open = kind == Kind.CreditCard ? Picker.Card : Picker.None;
     }
 
     // The card list's values are card names; this one is sem cartão.
@@ -186,16 +186,16 @@
 
     private static string RepetitionKey(Repetition repetition) => repetition switch
     {
-        Repetition.Monthly => "mensal",
-        Repetition.Weekly => "semanal",
-        Repetition.Daily => "diario",
-        Repetition.Installments => "parcelado",
-        _ => "nenhuma",
+        Repetition.Monthly => "monthly",
+        Repetition.Weekly => "weekly",
+        Repetition.Daily => "daily",
+        Repetition.Installments => "installments",
+        _ => "none",
     };
 
     private void ChooseRepetition(string key)
     {
-        if (key == "parcelado")
+        if (key == "installments")
         {
             draftCount = Form.Repetition is Repetition.Installments(var count) ? count : 2;
             open = Picker.Installments;
@@ -204,9 +204,9 @@
 
         Form.Repetition = key switch
         {
-            "mensal" => new Repetition.Monthly(),
-            "semanal" => new Repetition.Weekly(),
-            "diario" => new Repetition.Daily(),
+            "monthly" => new Repetition.Monthly(),
+            "weekly" => new Repetition.Weekly(),
+            "daily" => new Repetition.Daily(),
             _ => new Repetition.None(),
         };
         Close();

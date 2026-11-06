@@ -6,7 +6,7 @@ namespace Gibeira.Web.Tests.Mockup;
 public sealed class ScheduleTests
 {
     private static LedgerItem Item(decimal amount, DateOnly date, Repetition repetition) =>
-        new(Guid.NewGuid(), 1, new NewItem(Kind.Saida, amount, "aluguel", date, repetition, null, []));
+        new(Guid.NewGuid(), 1, new NewItem(Kind.Expense, amount, "aluguel", date, repetition, null, []));
 
     // ADD-10: the same day every month, the month's last day when that day does not exist.
     [Theory]

@@ -40,8 +40,8 @@
                                 </button>
                             </td>
                         }
-                        <td class="@(row.Saldo < 0 ? "saldo-cell saldo-cell--negative" : "saldo-cell saldo-cell--positive")">
-                            <Money Value="row.Saldo" />
+                        <td class="@(row.Balance < 0 ? "balance-cell balance-cell--negative" : "balance-cell balance-cell--positive")">
+                            <Money Value="row.Balance" />
                         </td>
                     </tr>
                 }
@@ -59,7 +59,7 @@
                             </span>
                         </td>
                     }
-                    <td class="saldo-cell"></td>
+                    <td class="balance-cell"></td>
                 </tr>
             </tfoot>
         </table>

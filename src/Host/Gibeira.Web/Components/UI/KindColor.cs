@@ -7,11 +7,11 @@ public static class KindColor
     // The token that holds a kind's color, as a CSS value.
     public static string Var(Kind kind) => kind switch
     {
-        Kind.Entrada => "var(--kind-entrada)",
-        Kind.Saida => "var(--kind-saida)",
-        Kind.Diario => "var(--kind-diario)",
-        Kind.Economia => "var(--kind-economia)",
-        Kind.Cartao => "var(--kind-cartao)",
+        Kind.Income => "var(--kind-income)",
+        Kind.Expense => "var(--kind-expense)",
+        Kind.DailySpending => "var(--kind-daily-spending)",
+        Kind.Savings => "var(--kind-savings)",
+        Kind.CreditCard => "var(--kind-credit-card)",
         _ => throw new ArgumentOutOfRangeException(nameof(kind), kind, null),
     };
 }

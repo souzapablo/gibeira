@@ -7,7 +7,7 @@
 
 @* The top bar, the period bar and the twelve months of the period side by side (HOME-01). *@
 <div class="home">
-    <TopBar OnAdd="() => OpenModal(Kind.Entrada, today)" />
+    <TopBar OnAdd="() => OpenModal(Kind.Income, today)" />
     <PeriodBar @bind-Period="period" Today="today" />
     <main class="ledger" aria-label="saldos">
         @foreach (var month in Store.Months(period))
@@ -18,7 +18,7 @@
     @if (drawerOpen)
     {
         <DayDrawer @bind-Day="drawerDay" @bind-Filter="drawerFilter" Revision="revision" OnClose="() => drawerOpen = false"
-                   OnAdd="() => OpenModal(drawerFilter ?? Kind.Entrada, drawerDay)" OnRemove="Remove" />
+                   OnAdd="() => OpenModal(drawerFilter ?? Kind.Income, drawerDay)" OnRemove="Remove" />
     }
     @if (form is not null)
     {

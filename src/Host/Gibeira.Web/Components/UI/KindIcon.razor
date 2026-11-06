@@ -2,19 +2,19 @@
 <span class="kind-icon" style="background: @(Muted ? "var(--text-zero)" : KindColor.Var(Kind))" aria-hidden="true">
     @switch (Kind)
     {
-        case Kind.Entrada:
+        case Kind.Income:
             <Icon Name="IconName.ArrowIn" Size="12" />
             break;
-        case Kind.Saida:
+        case Kind.Expense:
             <Icon Name="IconName.ArrowOut" Size="12" />
             break;
-        case Kind.Diario:
+        case Kind.DailySpending:
             <span class="kind-letter">D</span>
             break;
-        case Kind.Economia:
+        case Kind.Savings:
             <span class="kind-letter">E</span>
             break;
-        case Kind.Cartao:
+        case Kind.CreditCard:
             <span class="kind-letter">C</span>
             break;
     }

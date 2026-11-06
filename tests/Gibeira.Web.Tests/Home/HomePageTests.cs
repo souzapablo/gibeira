@@ -60,7 +60,7 @@ public sealed class HomePageTests : BunitContext
         var october = home.FindAll(".month")[0];
         var third = october.QuerySelectorAll("tbody tr")[2];
         Assert.Equal("R$ 4.321,00", third.QuerySelectorAll("td.money-cell")[3].QuerySelector(".money")!.TextContent.Trim());
-        Assert.Equal("R$ -12,34", third.QuerySelector("td.saldo-cell")!.TextContent.Trim());
+        Assert.Equal("R$ -12,34", third.QuerySelector("td.balance-cell")!.TextContent.Trim());
         Assert.Equal("R$ 98.765,43", october.QuerySelectorAll("tfoot td.money-cell")[0].QuerySelector(".money")!.TextContent.Trim());
     }
 
@@ -71,13 +71,13 @@ public sealed class HomePageTests : BunitContext
         var home = RenderHome();
         Assert.Empty(home.FindAll(".drawer"));
 
-        MoneyCell(home, 0, 10, Kind.Cartao).Click();
+        MoneyCell(home, 0, 10, Kind.CreditCard).Click();
 
         Assert.Equal("10/out", home.Find(".drawer-title").TextContent.Trim());
         Assert.Equal("cartão", home.Find(".filter-pill").TextContent.Trim());
         Assert.Equal(["mercado do mês"], Descriptions(home));
 
-        MoneyCell(home, 0, 6, Kind.Economia).Click();
+        MoneyCell(home, 0, 6, Kind.Savings).Click();
 
         Assert.Single(home.FindAll(".drawer"));
         Assert.Equal("6/out", home.Find(".drawer-title").TextContent.Trim());
@@ -87,10 +87,10 @@ public sealed class HomePageTests : BunitContext
 
     // DAY-02: a dia cell opens the drawer with todos.
     [Fact]
-    public void DiaCellOpensDrawerWithTodos()
+    public void DayCellOpensDrawerWithAll()
     {
         var home = RenderHome();
-        MoneyCell(home, 0, 10, Kind.Cartao).Click();
+        MoneyCell(home, 0, 10, Kind.CreditCard).Click();
 
         Row(home, 0, 6).QuerySelector(".day-cell button")!.Click();
 
@@ -101,32 +101,32 @@ public sealed class HomePageTests : BunitContext
 
     // DAY-12: excluir removes that occurrence only; the drawer, the cell, the totals and every later saldo update.
     [Fact]
-    public void ExcluirRemovesOccurrenceAndUpdatesSaldos()
+    public void DeleteRemovesOccurrenceAndUpdatesBalances()
     {
         var home = RenderHome();
-        var saldoTenth = Saldo(home, 0, 10);
-        var saldoEleventh = Saldo(home, 0, 11);
-        var saldoNextMonth = Saldo(home, 1, 1);
-        var saldoNinth = Saldo(home, 0, 9);
-        Assert.Equal("R$ 1.427,67", TotalCell(home, 0, Kind.Cartao));
-        MoneyCell(home, 0, 10, Kind.Cartao).Click();
+        var balanceTenth = Balance(home, 0, 10);
+        var balanceEleventh = Balance(home, 0, 11);
+        var balanceNextMonth = Balance(home, 1, 1);
+        var balanceNinth = Balance(home, 0, 9);
+        Assert.Equal("R$ 1.427,67", TotalCell(home, 0, Kind.CreditCard));
+        MoneyCell(home, 0, 10, Kind.CreditCard).Click();
 
         home.Find(".entry button[aria-label='opções']").Click();
         home.Find(".entry .dropdown-option").Click();
 
         Assert.Equal("nenhum lançamento", home.Find(".entries-empty").TextContent.Trim());
-        Assert.Equal("R$ 0,00", MoneyCell(home, 0, 10, Kind.Cartao).QuerySelector(".money")!.TextContent.Trim());
-        Assert.Equal("R$ 477,67", TotalCell(home, 0, Kind.Cartao));
-        Assert.Equal(saldoTenth + 950m, Saldo(home, 0, 10));
-        Assert.Equal(saldoEleventh + 950m, Saldo(home, 0, 11));
-        Assert.Equal(saldoNextMonth + 950m, Saldo(home, 1, 1));
-        Assert.Equal(saldoNinth, Saldo(home, 0, 9));
-        Assert.Equal("R$ 950,00", MoneyCell(home, 1, 10, Kind.Cartao).QuerySelector(".money")!.TextContent.Trim());
+        Assert.Equal("R$ 0,00", MoneyCell(home, 0, 10, Kind.CreditCard).QuerySelector(".money")!.TextContent.Trim());
+        Assert.Equal("R$ 477,67", TotalCell(home, 0, Kind.CreditCard));
+        Assert.Equal(balanceTenth + 950m, Balance(home, 0, 10));
+        Assert.Equal(balanceEleventh + 950m, Balance(home, 0, 11));
+        Assert.Equal(balanceNextMonth + 950m, Balance(home, 1, 1));
+        Assert.Equal(balanceNinth, Balance(home, 0, 9));
+        Assert.Equal("R$ 950,00", MoneyCell(home, 1, 10, Kind.CreditCard).QuerySelector(".money")!.TextContent.Trim());
     }
 
     // HOME-18: adicionar in the top bar opens the modal on entrada and today.
     [Fact]
-    public void TopBarAddOpensModalWithEntradaAndToday()
+    public void TopBarAddOpensModalWithIncomeAndToday()
     {
         var home = RenderHome();
         Assert.Empty(home.FindAll(".modal"));
@@ -144,7 +144,7 @@ public sealed class HomePageTests : BunitContext
     public void DrawerPlusOpensModalWithDayAndKind()
     {
         var home = RenderHome();
-        MoneyCell(home, 0, 10, Kind.Cartao).Click();
+        MoneyCell(home, 0, 10, Kind.CreditCard).Click();
 
         home.Find(".drawer-header button[aria-label='adicionar']").Click();
 
@@ -165,11 +165,11 @@ public sealed class HomePageTests : BunitContext
     public void AddingItemUpdatesTablesAndOpenDrawer()
     {
         var home = RenderHome();
-        var saidaTwelfth = MoneyValue(MoneyCell(home, 0, 12, Kind.Saida));
-        var saidaTotal = TotalCell(home, 0, Kind.Saida);
-        var saldoEleventh = Saldo(home, 0, 11);
-        var saldoTwelfth = Saldo(home, 0, 12);
-        var saldoNextMonth = Saldo(home, 1, 1);
+        var expenseTwelfth = MoneyValue(MoneyCell(home, 0, 12, Kind.Expense));
+        var expenseTotal = TotalCell(home, 0, Kind.Expense);
+        var balanceEleventh = Balance(home, 0, 11);
+        var balanceTwelfth = Balance(home, 0, 12);
+        var balanceNextMonth = Balance(home, 1, 1);
         Row(home, 0, 12).QuerySelector(".day-cell button")!.Click();
         Assert.Equal(["dia a dia"], Descriptions(home));
 
@@ -182,11 +182,11 @@ public sealed class HomePageTests : BunitContext
 
         Assert.Empty(home.FindAll(".modal"));
         Assert.Equal(["dia a dia", "farmácia"], Descriptions(home));
-        Assert.Equal(saidaTwelfth + 100m, MoneyValue(MoneyCell(home, 0, 12, Kind.Saida)));
-        Assert.Equal(ParseMoney(saidaTotal) + 100m, ParseMoney(TotalCell(home, 0, Kind.Saida)));
-        Assert.Equal(saldoEleventh, Saldo(home, 0, 11));
-        Assert.Equal(saldoTwelfth - 100m, Saldo(home, 0, 12));
-        Assert.Equal(saldoNextMonth - 100m, Saldo(home, 1, 1));
+        Assert.Equal(expenseTwelfth + 100m, MoneyValue(MoneyCell(home, 0, 12, Kind.Expense)));
+        Assert.Equal(ParseMoney(expenseTotal) + 100m, ParseMoney(TotalCell(home, 0, Kind.Expense)));
+        Assert.Equal(balanceEleventh, Balance(home, 0, 11));
+        Assert.Equal(balanceTwelfth - 100m, Balance(home, 0, 12));
+        Assert.Equal(balanceNextMonth - 100m, Balance(home, 1, 1));
     }
 
     // ADD-22 through the page: an item added with no description is listed in the drawer under its type's name.
@@ -211,7 +211,7 @@ public sealed class HomePageTests : BunitContext
     {
         var store = new ReentrantStore(new InMemoryLedgerStore(new FixedTime(Today)));
         var home = RenderHome(store);
-        var entradaTotal = ParseMoney(TotalCell(home, 0, Kind.Entrada));
+        var incomeTotal = ParseMoney(TotalCell(home, 0, Kind.Income));
         home.Find(".top-bar .button").Click();
         home.Find(".modal input.amount-input").Input("250");
         var button = AddButton(home);
@@ -221,7 +221,7 @@ public sealed class HomePageTests : BunitContext
 
         Assert.Equal(1, store.Adds);
         Assert.Empty(home.FindAll(".modal"));
-        Assert.Equal(entradaTotal + 250m, ParseMoney(TotalCell(home, 0, Kind.Entrada)));
+        Assert.Equal(incomeTotal + 250m, ParseMoney(TotalCell(home, 0, Kind.Income)));
     }
 
     // UI-06: with the drawer, the modal and a popover open, every icon-only control has a pt-BR label and every
@@ -232,7 +232,7 @@ public sealed class HomePageTests : BunitContext
         string[] ptBrLabels =
             ["12 meses antes", "mês anterior", "mês seguinte", "12 meses depois", "fechar", "dia anterior", "dia seguinte", "adicionar", "opções", "anterior", "próximo"];
         var home = RenderHome();
-        MoneyCell(home, 0, 10, Kind.Cartao).Click();
+        MoneyCell(home, 0, 10, Kind.CreditCard).Click();
         home.Find(".drawer-header button[aria-label='adicionar']").Click();
         home.FindAll(".modal .field-row")[3].Click();
 
@@ -278,8 +278,8 @@ public sealed class HomePageTests : BunitContext
     private static string TotalCell(IRenderedComponent<Gibeira.Web.Components.Pages.Home> home, int month, Kind kind) =>
         home.FindAll(".month")[month].QuerySelectorAll("tfoot td.money-cell")[(int)kind].QuerySelector(".money")!.TextContent.Trim();
 
-    private static decimal Saldo(IRenderedComponent<Gibeira.Web.Components.Pages.Home> home, int month, int day) =>
-        ParseMoney(Row(home, month, day).QuerySelector("td.saldo-cell")!.TextContent.Trim());
+    private static decimal Balance(IRenderedComponent<Gibeira.Web.Components.Pages.Home> home, int month, int day) =>
+        ParseMoney(Row(home, month, day).QuerySelector("td.balance-cell")!.TextContent.Trim());
 
     private static string[] Descriptions(IRenderedComponent<Gibeira.Web.Components.Pages.Home> home) =>
         home.FindAll(".entry-description").Select(d => d.TextContent.Trim()).ToArray();
@@ -331,10 +331,10 @@ public sealed class HomePageTests : BunitContext
             {
                 var days = Enumerable.Range(1, DateTime.DaysInMonth(month.Year, month.Month)).Select(day =>
                 {
-                    var sums = Kinds.ToDictionary(k => k, k => day == 3 && k == Kind.Economia ? 4321m : 0m);
+                    var sums = Kinds.ToDictionary(k => k, k => day == 3 && k == Kind.Savings ? 4321m : 0m);
                     return new DayRow(new DateOnly(month.Year, month.Month, day), sums, day == 3 ? -12.34m : 0m, false, false);
                 }).ToList();
-                var totals = Kinds.ToDictionary(k => k, k => k == Kind.Entrada ? 98765.43m : 0m);
+                var totals = Kinds.ToDictionary(k => k, k => k == Kind.Income ? 98765.43m : 0m);
                 return new MonthLedger(month, days, totals);
             }).ToList();
         }

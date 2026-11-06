@@ -107,10 +107,10 @@ T17 → T18 → T19 → T20
 
 **Done when**:
 
-- [ ] `CodeHasNoPortugueseIdentifiers` passes over `src/` and `tests/`
-- [ ] Every Web.Tests, IntegrationTests and ArchitectureTests test that passed before still passes, under its English name, with its assertions unchanged
-- [ ] Gate check passes: `dotnet test --solution Gibeira.slnx`
-- [ ] Test count: same totals as before plus `CodeHasNoPortugueseIdentifiers` (no silent deletions)
+- [x] `CodeHasNoPortugueseIdentifiers` passes over `src/` and `tests/`
+- [x] Every Web.Tests, IntegrationTests and ArchitectureTests test that passed before still passes, under its English name, with its assertions unchanged
+- [x] Gate check passes: `dotnet test --solution Gibeira.slnx`
+- [x] Test count: solution 324 → 325, the new one `CodeHasNoPortugueseIdentifiers`; no test attribute removed (no silent deletions)
 
 **Tests**: unit
 **Gate**: full
@@ -706,6 +706,7 @@ Proof: `dotnet test --project tests/Gibeira.RepositoryTests/Gibeira.RepositoryTe
 The feature's live state, written as it happens - a compaction gives no warning.
 
 **Settled mid-build:** none
+**T2 notes:** AD-011 covers every identifier, so T2 also renamed Portuguese names outside the naming table (`Excluir`, `Nenhum`, `Salvar`, `Hoje`, `Todos`, `Padaria`, `Geladeira`, the modal keys `parcelado`→`installments`, `nenhuma`→`none`). Spec 002's `tasks.md` proof filters now name the renamed tests. Running the full solution once had all 17 integration tests fail on Aspire's orchestrator startup check (timeout) while RepositoryTests ran; run alone they pass
 **Dispatched:** none
 **Walked:** none
 
