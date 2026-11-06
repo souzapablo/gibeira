@@ -265,11 +265,11 @@ T17 → T18 → T19 → T20
 
 **Done when**:
 
-- [ ] `PlanCreatesOneEntryPerMonthClamped` (from day 31) and `PlanOfOneHundredInThreeSplitsWithRemainderOnFirst` pass
-- [ ] `PartsShareOnePlanIdAndNumberOneToN` passes
-- [ ] `PartCountOutsideTwoToFortyEightIsRefused` (1 and 49) and `AmountBelowOneCentPerPartIsRefused` pass
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Ledger.Tests/Gibeira.Ledger.Tests.csproj`
-- [ ] Test count: Ledger.Tests 36 tests (no silent deletions)
+- [x] `PlanCreatesOneEntryPerMonthClamped` (from day 31) and `PlanOfOneHundredInThreeSplitsWithRemainderOnFirst` pass
+- [x] `PartsShareOnePlanIdAndNumberOneToN` passes
+- [x] `PartCountOutsideTwoToFortyEightIsRefused` (1 and 49) and `AmountBelowOneCentPerPartIsRefused` pass
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Ledger.Tests/Gibeira.Ledger.Tests.csproj`
+- [x] Test count: Ledger.Tests 36 tests (no silent deletions)
 
 **Tests**: unit
 **Gate**: quick

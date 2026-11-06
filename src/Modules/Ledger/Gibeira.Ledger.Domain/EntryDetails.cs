@@ -50,4 +50,7 @@ public sealed class EntryDetails
 
         return new EntryDetails(kind, money, description, cardId, Array.AsReadOnly(given));
     }
+
+    // The same details with another valid amount, for one part of a split.
+    internal EntryDetails WithAmount(Money amount) => new(Kind, amount, Description, CardId, Tags);
 }
