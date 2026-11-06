@@ -58,6 +58,38 @@
 - **Date**: 2026-10-30
 - **Status**: active
 
+### AD-008 (active)
+- **Decision**: A LedgerEntry is one complete record of one day's money movement (day, type, amount, description, card, tags, origin). A RecurringRule aggregate creates the LedgerEntries of an endless repetition on demand, up to the last date read, and its generated range only moves forward. Parcelado creates its N LedgerEntries at once, with no rule.
+- **Reason**: User: "I want the transaction to have all information. The day, type, amount etc". Asked how a salary repeating monthly with no end date should work, the user chose "One per day, on demand (Recommended)".
+- **Trade-off**: Reading can create records; a repetition has two aggregates to keep in step until persistence settles how they save together.
+- **Scope**: `src/Modules/Ledger`; feature 003-ledger-entry
+- **Date**: 2026-11-05
+- **Status**: active
+
+### AD-009 (active)
+- **Decision**: Every cartão LedgerEntry names a card and every other type has none. `sem cartão` leaves the add modal, replacing ADD-13 and ADD-17 of spec 002.
+- **Reason**: Asked "Can a Transaction of type cartão have no card?", the user chose "Cartão requires a card" over the recommended "Card is optional".
+- **Trade-off**: The add button stays disabled on cartão until a card is chosen.
+- **Scope**: `src/Modules/Ledger`, `src/Host/Gibeira.Web/Components/Home/AddItemModal.razor`; feature 003-ledger-entry
+- **Date**: 2026-11-05
+- **Status**: active
+
+### AD-010 (active)
+- **Decision**: The entity is named `LedgerEntry` in code, in the `Gibeira.Ledger` module. Screens keep the word `lançamento`.
+- **Reason**: `LedgerEntry` is the closest match for `lançamento`, and it also fits records that are only projected. A bare `Entry` reads like the screen's `entrada`, and the user chose: "Yeah, we can go with LedgerEntry".
+- **Trade-off**: Longer than `Entry`, and banking apps usually say "transaction".
+- **Scope**: `src/Modules/Ledger`; feature 003-ledger-entry
+- **Date**: 2026-11-05
+- **Status**: active
+
+### AD-011 (active)
+- **Decision**: Every code identifier is in English, in new and existing code: types, enum values, members, test names, CSS classes, CSS tokens and internal keys. Portuguese appears only in text users see on screens, including sample data shown on the page. Spec 003's naming table maps each screen word to its code name.
+- **Reason**: User: "do not use portuguese on the code, only for screens that users will face".
+- **Trade-off**: Code and screens use different words for one concept. AD-005's labels stay on screens.
+- **Scope**: all of `src/` and `tests/`; proven by a naming test
+- **Date**: 2026-11-05
+- **Status**: active
+
 ## Handoff
 
 - **Feature**: home page, `.specs/features/002-home-page`
