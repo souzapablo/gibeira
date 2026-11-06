@@ -151,11 +151,11 @@ T17 → T18 → T19 → T20
 
 **Done when**:
 
-- [ ] `MoneyRefusesZeroAndNegative`, `MoneyRefusesAboveMax`, `MoneyAcceptsMax`, `MoneyRefusesThreeDecimals` pass
-- [ ] `SplitGivesFirstPartTheRemainder` (100,00 in 3 → 33,34, 33,33, 33,33) and `SplitPartsSumToTheAmount` pass
-- [ ] `CanSplitNeedsOneCentPerPart` passes: 0,02 in 2 is allowed, 0,01 in 2 is not
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Ledger.Tests/Gibeira.Ledger.Tests.csproj`
-- [ ] Test count: Ledger.Tests 7 tests (no silent deletions)
+- [x] `MoneyRefusesZeroAndNegative`, `MoneyRefusesAboveMax`, `MoneyAcceptsMax`, `MoneyRefusesThreeDecimals` pass
+- [x] `SplitGivesFirstPartTheRemainder` (100,00 in 3 → 33,34, 33,33, 33,33) and `SplitPartsSumToTheAmount` pass
+- [x] `CanSplitNeedsOneCentPerPart` passes: 0,02 in 2 is allowed, 0,01 in 2 is not
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Ledger.Tests/Gibeira.Ledger.Tests.csproj`
+- [x] Test count: Ledger.Tests 7 tests (no silent deletions)
 
 **Tests**: unit
 **Gate**: quick
