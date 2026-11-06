@@ -103,11 +103,11 @@ public sealed class PtBrTests
 
     // ADD-03 lists the singular names; HOME-07 and DAY-06 the plural ones.
     [Theory]
-    [InlineData(Kind.Entrada, "entrada", "entradas")]
-    [InlineData(Kind.Saida, "saída", "saídas")]
-    [InlineData(Kind.Diario, "diário", "diários")]
-    [InlineData(Kind.Economia, "economia", "economias")]
-    [InlineData(Kind.Cartao, "cartão", "cartão")]
+    [InlineData(Kind.Income, "entrada", "entradas")]
+    [InlineData(Kind.Expense, "saída", "saídas")]
+    [InlineData(Kind.DailySpending, "diário", "diários")]
+    [InlineData(Kind.Savings, "economia", "economias")]
+    [InlineData(Kind.CreditCard, "cartão", "cartão")]
     public void KindNamesAreSingularAndPlural(Kind kind, string singular, string plural)
     {
         Assert.Equal(singular, PtBr.KindName(kind));

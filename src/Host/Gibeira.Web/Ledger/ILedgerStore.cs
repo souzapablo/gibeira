@@ -50,7 +50,7 @@ public sealed record NewItem(
 public sealed record DayRow(
     DateOnly Date,
     IReadOnlyDictionary<Kind, decimal> Sums,
-    decimal Saldo,
+    decimal Balance,
     bool IsWeekend,
     bool IsToday);
 

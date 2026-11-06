@@ -19,14 +19,14 @@ public sealed class AddItemFormTests
 
     // ADD-04: the type's name is the placeholder and the button reads adicionar <type>.
     [Theory]
-    [InlineData(Kind.Entrada, "entrada", "adicionar entrada")]
-    [InlineData(Kind.Saida, "saída", "adicionar saída")]
-    [InlineData(Kind.Diario, "diário", "adicionar diário")]
-    [InlineData(Kind.Economia, "economia", "adicionar economia")]
-    [InlineData(Kind.Cartao, "cartão", "adicionar cartão")]
+    [InlineData(Kind.Income, "entrada", "adicionar entrada")]
+    [InlineData(Kind.Expense, "saída", "adicionar saída")]
+    [InlineData(Kind.DailySpending, "diário", "adicionar diário")]
+    [InlineData(Kind.Savings, "economia", "adicionar economia")]
+    [InlineData(Kind.CreditCard, "cartão", "adicionar cartão")]
     public void ChoosingTypeSetsPlaceholderAndButtonLabel(Kind kind, string placeholder, string button)
     {
-        var form = new AddItemForm(Kind.Entrada, Today);
+        var form = new AddItemForm(Kind.Income, Today);
 
         form.SetKind(kind);
 
@@ -39,7 +39,7 @@ public sealed class AddItemFormTests
     [Fact]
     public void FormOpensEmptyWithTheGivenKindAndDate()
     {
-        var form = new AddItemForm(Kind.Entrada, Today);
+        var form = new AddItemForm(Kind.Income, Today);
 
         Assert.Equal("", form.AmountText);
         Assert.Equal("", form.Description);
@@ -55,16 +55,16 @@ public sealed class AddItemFormTests
     [MemberData(nameof(Repetitions))]
     public void RepetitionLabelFollowsChoice(Repetition repetition, string label)
     {
-        var form = new AddItemForm(Kind.Saida, Today) { Repetition = repetition };
+        var form = new AddItemForm(Kind.Expense, Today) { Repetition = repetition };
 
         Assert.Equal(label, form.RepetitionLabel);
     }
 
     // ADD-16: salvar in vencimento sets the date and relabels the row.
     [Fact]
-    public void DueDateRelabelsDataRowAsVencimento()
+    public void DueDateRelabelsDateRowAsDueDate()
     {
-        var form = new AddItemForm(Kind.Cartao, Today);
+        var form = new AddItemForm(Kind.CreditCard, Today);
 
         form.ChooseCard(Itau);
         Assert.Equal("data", form.DateLabel);
@@ -78,9 +78,9 @@ public sealed class AddItemFormTests
 
     // ADD-17: sem cartão keeps the row labeled data.
     [Fact]
-    public void SemCartaoKeepsDataLabel()
+    public void NoCardKeepsDateLabel()
     {
-        var form = new AddItemForm(Kind.Cartao, Today);
+        var form = new AddItemForm(Kind.CreditCard, Today);
 
         form.ChooseCard(null);
 
@@ -91,17 +91,17 @@ public sealed class AddItemFormTests
 
     // ADD-18: leaving cartão clears the card and labels the row data again.
     [Fact]
-    public void LeavingCartaoClearsCard()
+    public void LeavingCreditCardClearsCard()
     {
-        var form = new AddItemForm(Kind.Cartao, Today);
+        var form = new AddItemForm(Kind.CreditCard, Today);
         form.ChooseCard(Itau);
         form.SetDueDate(new DateOnly(2026, 11, 10));
 
-        form.SetKind(Kind.Cartao);
+        form.SetKind(Kind.CreditCard);
         Assert.Equal(Itau, form.Card);
         Assert.Equal("vencimento", form.DateLabel);
 
-        form.SetKind(Kind.Saida);
+        form.SetKind(Kind.Expense);
 
         Assert.Null(form.Card);
         Assert.Equal("data", form.DateLabel);
@@ -111,7 +111,7 @@ public sealed class AddItemFormTests
     [Fact]
     public void TagsLabelJoinsCheckedNames()
     {
-        var form = new AddItemForm(Kind.Saida, Today);
+        var form = new AddItemForm(Kind.Expense, Today);
 
         form.ToggleTag("casa");
         form.ToggleTag("mercado");
@@ -130,7 +130,7 @@ public sealed class AddItemFormTests
     [Fact]
     public void TypingKeepsTheTextTheAmountRuleRejects()
     {
-        var form = new AddItemForm(Kind.Entrada, Today);
+        var form = new AddItemForm(Kind.Income, Today);
 
         form.Type("12,3");
         form.Type("12,3a");
@@ -149,7 +149,7 @@ public sealed class AddItemFormTests
     [InlineData("100", true)]
     public void AddButtonDisabledWhileAmountZeroOrEmpty(string amount, bool canSubmit)
     {
-        var form = new AddItemForm(Kind.Entrada, Today);
+        var form = new AddItemForm(Kind.Income, Today);
 
         form.Type(amount);
 
@@ -162,9 +162,9 @@ public sealed class AddItemFormTests
 
     // ADD-22: an empty description is saved as the type's name.
     [Theory]
-    [InlineData(Kind.Saida, "", "saída")]
-    [InlineData(Kind.Cartao, "   ", "cartão")]
-    [InlineData(Kind.Diario, "padaria", "padaria")]
+    [InlineData(Kind.Expense, "", "saída")]
+    [InlineData(Kind.CreditCard, "   ", "cartão")]
+    [InlineData(Kind.DailySpending, "padaria", "padaria")]
     public void EmptyDescriptionSavesTypeName(Kind kind, string description, string saved)
     {
         var form = new AddItemForm(kind, Today) { Description = description };
@@ -177,8 +177,8 @@ public sealed class AddItemFormTests
     [Fact]
     public void SubmitReturnsItemOnce()
     {
-        var form = new AddItemForm(Kind.Entrada, Today);
-        form.SetKind(Kind.Cartao);
+        var form = new AddItemForm(Kind.Income, Today);
+        form.SetKind(Kind.CreditCard);
         form.Type("1189,27");
         form.Description = "mercado";
         form.ChooseCard(Itau);
@@ -189,7 +189,7 @@ public sealed class AddItemFormTests
         var item = form.Submit();
 
         Assert.NotNull(item);
-        Assert.Equal(Kind.Cartao, item.Kind);
+        Assert.Equal(Kind.CreditCard, item.Kind);
         Assert.Equal(1189.27m, item.Amount);
         Assert.Equal("mercado", item.Description);
         Assert.Equal(new DateOnly(2026, 11, 10), item.Date);

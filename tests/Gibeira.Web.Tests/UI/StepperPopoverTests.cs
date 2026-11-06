@@ -34,9 +34,9 @@ public sealed class StepperPopoverTests : BunitContext
         popover.Render(parameters => parameters.Add(p => p.Value, new DateOnly(2026, 12, 10)));
         Assert.Equal("10/12/2026", popover.Find(".stepper-value").TextContent);
 
-        var salvar = popover.Find("button.button--light");
-        Assert.Equal("salvar", salvar.TextContent.Trim());
-        salvar.Click();
+        var save = popover.Find("button.button--light");
+        Assert.Equal("salvar", save.TextContent.Trim());
+        save.Click();
         Assert.Equal(1, saves);
         Assert.Equal(0, closes);
     }

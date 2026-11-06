@@ -169,19 +169,19 @@ tfoot .day-cell {
     color: var(--accent);
 }
 
-.saldo-cell {
+.balance-cell {
     min-width: 170px;
     padding: 0 14px;
     font-weight: 700;
 }
 
-.saldo-cell--positive,
-.day-row--today .saldo-cell--positive {
-    background: var(--saldo-positive);
+.balance-cell--positive,
+.day-row--today .balance-cell--positive {
+    background: var(--balance-positive);
 }
 
-.saldo-cell--negative,
-.day-row--today .saldo-cell--negative {
-    background: var(--saldo-negative);
+.balance-cell--negative,
+.day-row--today .balance-cell--negative {
+    background: var(--balance-negative);
     color: var(--text-negative);
 }

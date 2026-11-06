@@ -19,15 +19,15 @@ public static class MockSeed
 
         return
         [
-            new(Kind.Entrada, 1000m, "saldo inicial", opening, new Repetition.None(), null, []),
-            Monthly(Kind.Saida, 1800m, "aluguel", 1, null, "casa"),
-            Monthly(Kind.Entrada, 5200m, "salário", 5),
-            Monthly(Kind.Economia, 400m, "reserva", 6),
-            Monthly(Kind.Cartao, 477.67m, "assinaturas", 6, "Santander", "lazer"),
-            Monthly(Kind.Cartao, 950m, "mercado do mês", 10, "Itaú", "mercado"),
-            Monthly(Kind.Saida, 119.90m, "internet", 15, null, "casa"),
-            Monthly(Kind.Saida, 189.27m, "luz", 20, null, "casa"),
-            new(Kind.Diario, 40m, "dia a dia", opening, new Repetition.Daily(), null, []),
+            new(Kind.Income, 1000m, "saldo inicial", opening, new Repetition.None(), null, []),
+            Monthly(Kind.Expense, 1800m, "aluguel", 1, null, "casa"),
+            Monthly(Kind.Income, 5200m, "salário", 5),
+            Monthly(Kind.Savings, 400m, "reserva", 6),
+            Monthly(Kind.CreditCard, 477.67m, "assinaturas", 6, "Santander", "lazer"),
+            Monthly(Kind.CreditCard, 950m, "mercado do mês", 10, "Itaú", "mercado"),
+            Monthly(Kind.Expense, 119.90m, "internet", 15, null, "casa"),
+            Monthly(Kind.Expense, 189.27m, "luz", 20, null, "casa"),
+            new(Kind.DailySpending, 40m, "dia a dia", opening, new Repetition.Daily(), null, []),
         ];
     }
 }

@@ -25,7 +25,7 @@ public sealed class AddItemModalTests : BunitContext
         Services.AddSingleton<ILedgerStore>(new InMemoryLedgerStore(time));
     }
 
-    private IRenderedComponent<AddItemModal> RenderModal(Kind kind = Kind.Entrada) => Render<AddItemModal>(parameters => parameters
+    private IRenderedComponent<AddItemModal> RenderModal(Kind kind = Kind.Income) => Render<AddItemModal>(parameters => parameters
         .Add(p => p.Form, new AddItemForm(kind, Today))
         .Add(p => p.OnAdd, item => added.Add(item))
         .Add(p => p.OnClose, () => closes++));
@@ -100,7 +100,7 @@ public sealed class AddItemModalTests : BunitContext
     [Fact]
     public void TypeRowListsKindsWithCurrentChecked()
     {
-        var modal = RenderModal(Kind.Diario);
+        var modal = RenderModal(Kind.DailySpending);
 
         FieldRow(modal, 1).Click();
 
@@ -120,21 +120,21 @@ public sealed class AddItemModalTests : BunitContext
 
         Assert.Empty(modal.FindAll(".dropdown"));
         Assert.Equal("saída", TypeName(modal));
-        Assert.Contains("var(--kind-saida)", FieldRow(modal, 1).QuerySelector(".kind-icon")!.GetAttribute("style"));
+        Assert.Contains("var(--kind-expense)", FieldRow(modal, 1).QuerySelector(".kind-icon")!.GetAttribute("style"));
         Assert.Equal("saída", FieldRow(modal, 2).QuerySelector("input")!.GetAttribute("placeholder"));
         var button = modal.Find(".add-button-slot .button");
         Assert.Equal("adicionar saída", button.TextContent.Trim());
         Assert.Contains("button--kind", button.ClassList);
-        Assert.Contains("var(--kind-saida)", button.GetAttribute("style"));
+        Assert.Contains("var(--kind-expense)", button.GetAttribute("style"));
 
         ChooseType(modal, "economia");
         Assert.Equal("adicionar economia", modal.Find(".add-button-slot .button").TextContent.Trim());
-        Assert.Contains("var(--kind-economia)", modal.Find(".add-button-slot .button").GetAttribute("style"));
+        Assert.Contains("var(--kind-savings)", modal.Find(".add-button-slot .button").GetAttribute("style"));
     }
 
     // ADD-05: the data popover shows dd/mm/yyyy between < and >, each one day, and salvar.
     [Fact]
-    public void DataPopoverStepsOneDay()
+    public void DatePopoverStepsOneDay()
     {
         var modal = RenderModal();
 
@@ -154,7 +154,7 @@ public sealed class AddItemModalTests : BunitContext
 
     // ADD-06: salvar sets the date, shows it as dd/mm/yy and closes the popover.
     [Fact]
-    public void DataSalvarSetsDateAndCloses()
+    public void DateSaveSetsDateAndCloses()
     {
         var modal = RenderModal();
         FieldRow(modal, 3).Click();
@@ -169,7 +169,7 @@ public sealed class AddItemModalTests : BunitContext
 
     // ADD-07: repetir lists the four options with their descriptions and não repete, the current one checked.
     [Fact]
-    public void RepetirListsOptionsWithDescriptions()
+    public void RepeatListsOptionsWithDescriptions()
     {
         var modal = RenderModal();
 
@@ -210,7 +210,7 @@ public sealed class AddItemModalTests : BunitContext
 
     // ADD-09: parcelado opens parcelas from 2 to 48, starting at 2; salvar shows parcelado em <N>x.
     [Fact]
-    public void ParceladoOpensCountPopoverFrom2To48()
+    public void InstallmentsOpensCountPopoverFrom2To48()
     {
         var modal = RenderModal();
         FieldRow(modal, 4).Click();
@@ -241,7 +241,7 @@ public sealed class AddItemModalTests : BunitContext
 
     // ADD-13: choosing cartão opens the card list: header cartão with a disabled add-card button, Itaú, Santander, sem cartão.
     [Fact]
-    public void CartaoOpensCardDropdown()
+    public void CreditCardOpensCardDropdown()
     {
         var modal = RenderModal();
 
@@ -259,7 +259,7 @@ public sealed class AddItemModalTests : BunitContext
 
     // ADD-14: Itaú on 29/10/2026 opens vencimento at 10/11/2026.
     [Fact]
-    public void ChoosingCardOpensVencimentoAtFirstDueDate()
+    public void ChoosingCardOpensDueDateAtFirstDueDate()
     {
         var modal = RenderModal();
         ChooseType(modal, "cartão");
@@ -274,7 +274,7 @@ public sealed class AddItemModalTests : BunitContext
 
     // ADD-15: > in vencimento goes to 10/12/2026 and < goes back a month.
     [Fact]
-    public void VencimentoArrowsStepOneMonth()
+    public void DueDateArrowsStepOneMonth()
     {
         var modal = RenderModal();
         ChooseType(modal, "cartão");
@@ -290,7 +290,7 @@ public sealed class AddItemModalTests : BunitContext
 
     // ADD-16: salvar in vencimento sets the date and labels the row vencimento.
     [Fact]
-    public void VencimentoSalvarSetsDateAndRelabelsRow()
+    public void DueDateSaveSetsDateAndRelabelsRow()
     {
         var modal = RenderModal();
         ChooseType(modal, "cartão");
@@ -308,7 +308,7 @@ public sealed class AddItemModalTests : BunitContext
 
     // ADD-17: sem cartão keeps the row labeled data and opens no popover.
     [Fact]
-    public void SemCartaoOpensNoVencimento()
+    public void NoCardOpensNoDueDate()
     {
         var modal = RenderModal();
         ChooseType(modal, "cartão");
@@ -323,7 +323,7 @@ public sealed class AddItemModalTests : BunitContext
 
     // ADD-18 through the modal: leaving cartão after a vencimento relabels the row data and saves no card.
     [Fact]
-    public void ModalLeavingCartaoClearsCard()
+    public void ModalLeavingCreditCardClearsCard()
     {
         var modal = RenderModal();
         modal.Find("input.amount-input").Input("100");
@@ -336,7 +336,7 @@ public sealed class AddItemModalTests : BunitContext
 
         Assert.Equal("data", FieldRow(modal, 3).QuerySelector(".field-row-label")!.TextContent.Trim());
         modal.Find(".add-button-slot .button").Click();
-        Assert.Equal(Kind.Saida, added.Single().Kind);
+        Assert.Equal(Kind.Expense, added.Single().Kind);
         Assert.Null(added.Single().Card);
     }
 

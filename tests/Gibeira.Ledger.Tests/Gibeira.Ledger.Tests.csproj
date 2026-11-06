@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.v3.mtp-v2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Modules\Ledger\Gibeira.Ledger.Domain\Gibeira.Ledger.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Ledger\Gibeira.Ledger.Application\Gibeira.Ledger.Application.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Ledger\Gibeira.Ledger.Infrastructure\Gibeira.Ledger.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+</Project>

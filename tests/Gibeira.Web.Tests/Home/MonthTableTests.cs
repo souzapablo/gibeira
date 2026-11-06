@@ -10,7 +10,7 @@ public sealed class MonthTableTests : BunitContext
 {
     private static readonly DateOnly December = new(2026, 12, 1);
 
-    private static readonly Kind[] Kinds = [Kind.Entrada, Kind.Saida, Kind.Diario, Kind.Economia, Kind.Cartao];
+    private static readonly Kind[] Kinds = [Kind.Income, Kind.Expense, Kind.DailySpending, Kind.Savings, Kind.CreditCard];
 
     // December 2026: an entrada of 1.189,27 on the 10th, a saldo that turns negative on the 15th and is zero on the 20th.
     private static MonthLedger Ledger(DateOnly? today = null)
@@ -21,21 +21,21 @@ public sealed class MonthTableTests : BunitContext
             var sums = Kinds.ToDictionary(kind => kind, _ => 0m);
             if (day == 10)
             {
-                sums[Kind.Entrada] = 1189.27m;
-                sums[Kind.Cartao] = 250m;
+                sums[Kind.Income] = 1189.27m;
+                sums[Kind.CreditCard] = 250m;
             }
 
-            var saldo = day switch { < 15 => 500m, 20 => 0m, _ => -477.67m };
-            return new DayRow(date, sums, saldo, date.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday, date == today);
+            var balance = day switch { < 15 => 500m, 20 => 0m, _ => -477.67m };
+            return new DayRow(date, sums, balance, date.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday, date == today);
         }).ToList();
 
         var totals = new Dictionary<Kind, decimal>
         {
-            [Kind.Entrada] = 15500m,
-            [Kind.Saida] = 3210.5m,
-            [Kind.Diario] = 0m,
-            [Kind.Economia] = 800m,
-            [Kind.Cartao] = 1189.27m,
+            [Kind.Income] = 15500m,
+            [Kind.Expense] = 3210.5m,
+            [Kind.DailySpending] = 0m,
+            [Kind.Savings] = 800m,
+            [Kind.CreditCard] = 1189.27m,
         };
         return new MonthLedger(December, days, totals);
     }
@@ -88,39 +88,39 @@ public sealed class MonthTableTests : BunitContext
         var table = RenderTable();
         var row = Row(table, 10);
 
-        var saida = row.QuerySelectorAll("td.money-cell")[1];
-        Assert.Equal("R$ 0,00", saida.QuerySelector(".money")!.TextContent.Trim());
-        Assert.Contains("var(--text-zero)", saida.QuerySelector(".money")!.GetAttribute("style"));
-        Assert.Contains("var(--text-zero)", saida.QuerySelector(".kind-icon")!.GetAttribute("style"));
+        var expense = row.QuerySelectorAll("td.money-cell")[1];
+        Assert.Equal("R$ 0,00", expense.QuerySelector(".money")!.TextContent.Trim());
+        Assert.Contains("var(--text-zero)", expense.QuerySelector(".money")!.GetAttribute("style"));
+        Assert.Contains("var(--text-zero)", expense.QuerySelector(".kind-icon")!.GetAttribute("style"));
 
-        var entrada = row.QuerySelectorAll("td.money-cell")[0];
-        Assert.DoesNotContain("var(--text-zero)", entrada.QuerySelector(".money")!.GetAttribute("style") ?? "");
-        Assert.Contains("var(--kind-entrada)", entrada.QuerySelector(".kind-icon")!.GetAttribute("style"));
+        var income = row.QuerySelectorAll("td.money-cell")[0];
+        Assert.DoesNotContain("var(--text-zero)", income.QuerySelector(".money")!.GetAttribute("style") ?? "");
+        Assert.Contains("var(--kind-income)", income.QuerySelector(".kind-icon")!.GetAttribute("style"));
     }
 
     // HOME-12 (AD-003): a saldo of zero or more gets the positive tint, a negative one the negative tint.
     [Fact]
-    public void SaldoCellTintFollowsSign()
+    public void BalanceCellTintFollowsSign()
     {
         var table = RenderTable();
 
-        var positive = Row(table, 1).QuerySelector("td.saldo-cell")!;
-        Assert.Contains("saldo-cell--positive", positive.ClassList);
+        var positive = Row(table, 1).QuerySelector("td.balance-cell")!;
+        Assert.Contains("balance-cell--positive", positive.ClassList);
         Assert.Equal("R$ 500,00", positive.TextContent.Trim());
 
-        var zero = Row(table, 20).QuerySelector("td.saldo-cell")!;
-        Assert.Contains("saldo-cell--positive", zero.ClassList);
-        Assert.DoesNotContain("saldo-cell--negative", zero.ClassList);
+        var zero = Row(table, 20).QuerySelector("td.balance-cell")!;
+        Assert.Contains("balance-cell--positive", zero.ClassList);
+        Assert.DoesNotContain("balance-cell--negative", zero.ClassList);
 
-        var negative = Row(table, 15).QuerySelector("td.saldo-cell")!;
-        Assert.Contains("saldo-cell--negative", negative.ClassList);
-        Assert.DoesNotContain("saldo-cell--positive", negative.ClassList);
+        var negative = Row(table, 15).QuerySelector("td.balance-cell")!;
+        Assert.Contains("balance-cell--negative", negative.ClassList);
+        Assert.DoesNotContain("balance-cell--positive", negative.ClassList);
         Assert.Equal("R$ -477,67", negative.TextContent.Trim());
     }
 
     // HOME-13: the total row holds each kind's month sum with its icon, and an empty saldos cell.
     [Fact]
-    public void TotalRowHoldsMonthSumsAndEmptySaldo()
+    public void TotalRowHoldsMonthSumsAndEmptyBalance()
     {
         var table = RenderTable();
 
@@ -139,7 +139,7 @@ public sealed class MonthTableTests : BunitContext
 
     // HOME-14: Saturday and Sunday dia cells get the weekend ground. 5 and 6 December 2026 are a Saturday and a Sunday.
     [Fact]
-    public void WeekendDiaCellsAreTinted()
+    public void WeekendDayCellsAreTinted()
     {
         var table = RenderTable();
 
@@ -177,7 +177,7 @@ public sealed class MonthTableTests : BunitContext
 
     // HOME-20: each dia cell shows the pt-BR weekday after the day number; December 2026 starts on a terça.
     [Fact]
-    public void DiaCellShowsWeekdayAfterDayNumber()
+    public void DayCellShowsWeekdayAfterDayNumber()
     {
         var table = RenderTable();
         string[] week = ["ter", "qua", "qui", "sex", "sáb", "dom", "seg"];
@@ -189,7 +189,7 @@ public sealed class MonthTableTests : BunitContext
 
     // HOME-21: today's dia cell ends with the hoje badge; no other row has one.
     [Fact]
-    public void TodayRowShowsHojeBadge()
+    public void TodayRowShowsTodayBadge()
     {
         var table = RenderTable(today: new DateOnly(2026, 12, 10));
 

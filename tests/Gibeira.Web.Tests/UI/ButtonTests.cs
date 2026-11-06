@@ -24,8 +24,8 @@ public sealed class ButtonTests : BunitContext
     }
 
     [Theory]
-    [InlineData(Kind.Entrada, "var(--kind-entrada)")]
-    [InlineData(Kind.Cartao, "var(--kind-cartao)")]
+    [InlineData(Kind.Income, "var(--kind-income)")]
+    [InlineData(Kind.CreditCard, "var(--kind-credit-card)")]
     public void KindButtonTakesItsKindColor(Kind kind, string color)
     {
         var button = Render<Button>(parameters => parameters

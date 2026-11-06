@@ -10,9 +10,9 @@ public sealed class DropdownTests : BunitContext
 {
     private static readonly DropdownOption<string>[] Repetitions =
     [
-        new("mensal", "mensalmente", "repete o mesmo valor mensalmente"),
-        new("semanal", "semanalmente", "repete o mesmo valor semanalmente"),
-        new("nenhuma", "não repete"),
+        new("monthly", "mensalmente", "repete o mesmo valor mensalmente"),
+        new("weekly", "semanalmente", "repete o mesmo valor semanalmente"),
+        new("none", "não repete"),
     ];
 
     private static readonly DropdownOption<string>[] Tags = [new("café", "café"), new("mercado", "mercado"), new("ônibus", "ônibus")];
@@ -27,7 +27,7 @@ public sealed class DropdownTests : BunitContext
         var dropdown = Render<Dropdown<string>>(parameters => parameters
             .Add(p => p.Header, "repetir")
             .Add(p => p.Options, options)
-            .Add(p => p.Selected, ["semanal"]));
+            .Add(p => p.Selected, ["weekly"]));
 
         var buttons = dropdown.FindAll(".dropdown-option");
         Assert.Equal(["mensalmente", "semanalmente", "não repete"], buttons.Select(b => b.QuerySelector(".dropdown-label")!.TextContent));
@@ -90,7 +90,7 @@ public sealed class DropdownTests : BunitContext
         var dropdown = Render<Dropdown<string>>(parameters => parameters
             .Add(p => p.Header, "repetir")
             .Add(p => p.Options, Repetitions)
-            .Add(p => p.Selected, ["mensal"])
+            .Add(p => p.Selected, ["monthly"])
             .Add(p => p.OnChoose, value => chosen.Add(value))
             .Add(p => p.OnClose, () => closes++));
 
@@ -107,7 +107,7 @@ public sealed class DropdownTests : BunitContext
         Assert.Empty(chosen);
 
         dropdown.FindAll(".dropdown-option")[1].Click();
-        Assert.Equal(["semanal"], chosen);
+        Assert.Equal(["weekly"], chosen);
         Assert.Equal(2, closes);
     }
 
@@ -136,7 +136,7 @@ public sealed class DropdownTests : BunitContext
         var dropdown = Render<Dropdown<string>>(parameters => parameters
             .Add(p => p.Header, "repetir")
             .Add(p => p.Options, Repetitions)
-            .Add(p => p.Selected, ["semanal"]));
+            .Add(p => p.Selected, ["weekly"]));
 
         var target = (ElementReference)JSInterop.VerifyFocusAsyncInvoke().Arguments[0]!;
         Assert.Equal(dropdown.Find(".dropdown-option--selected").GetAttribute("blazor:elementReference"), target.Id);

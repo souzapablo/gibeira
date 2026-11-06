@@ -74,7 +74,7 @@ public sealed class ModalTests : BunitContext
         {
             builder.OpenComponent<Dropdown<string>>(0);
             builder.AddComponentParameter(1, nameof(Dropdown<string>.Header), "repetir");
-            builder.AddComponentParameter(2, nameof(Dropdown<string>.Options), new[] { new DropdownOption<string>("nenhuma", "não repete") });
+            builder.AddComponentParameter(2, nameof(Dropdown<string>.Options), new[] { new DropdownOption<string>("none", "não repete") });
             builder.AddComponentParameter(3, nameof(Dropdown<string>.OnClose), EventCallback.Factory.Create(this, () => popoverCloses++));
             builder.CloseComponent();
             builder.OpenComponent<StepperPopover<int>>(4);

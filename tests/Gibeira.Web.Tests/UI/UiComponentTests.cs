@@ -11,12 +11,12 @@ public sealed class UiComponentTests
     private static readonly Dictionary<string, Func<BunitContext, string>> Renderers = new()
     {
         ["Icon"] = context => context.Render<Icon>(parameters => parameters.Add(p => p.Name, IconName.Plus)).Markup,
-        ["KindIcon"] = context => context.Render<KindIcon>(parameters => parameters.Add(p => p.Kind, Kind.Cartao)).Markup,
+        ["KindIcon"] = context => context.Render<KindIcon>(parameters => parameters.Add(p => p.Kind, Kind.CreditCard)).Markup,
         ["Money"] = context => context.Render<Money>(parameters => parameters.Add(p => p.Value, 1189.27m)).Markup,
         ["Button"] = context => context.Render<Button>(parameters => parameters.Add(p => p.Variant, ButtonVariant.Primary).AddChildContent("salvar")).Markup,
         ["IconButton"] = context => context.Render<IconButton>(parameters => parameters.Add(p => p.Icon, IconName.Close).Add(p => p.Label, "fechar")).Markup,
         ["Dropdown"] = context => context.Render<Dropdown<string>>(parameters => parameters
-            .Add(p => p.Header, "repetir").Add(p => p.Options, [new DropdownOption<string>("nenhuma", "não repete")])).Markup,
+            .Add(p => p.Header, "repetir").Add(p => p.Options, [new DropdownOption<string>("none", "não repete")])).Markup,
         ["StepperPopover"] = context => context.Render<StepperPopover<int>>(parameters => parameters
             .Add(p => p.Header, "parcelas").Add(p => p.Value, 2).Add(p => p.Format, count => $"{count}x")).Markup,
         ["Modal"] = context => context.Render<Modal>(parameters => parameters.Add(p => p.Title, "adicionar").AddChildContent("linhas")).Markup,

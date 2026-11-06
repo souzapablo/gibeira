@@ -47,15 +47,15 @@
     --accent-hover: #f3c76f;
 
     /* Kinds */
-    --kind-entrada: var(--accent);
-    --kind-saida: #df6a51;
-    --kind-diario: #d65db1;
-    --kind-economia: #37a675;
-    --kind-cartao: #8c7cf0;
+    --kind-income: var(--accent);
+    --kind-expense: #df6a51;
+    --kind-daily-spending: #d65db1;
+    --kind-savings: #37a675;
+    --kind-credit-card: #8c7cf0;
 
     /* Saldo tints: a muted economia or saída, not a solid fill (AD-003) */
-    --saldo-positive: color-mix(in srgb, var(--kind-economia) 14%, transparent);
-    --saldo-negative: color-mix(in srgb, var(--kind-saida) 16%, transparent);
+    --balance-positive: color-mix(in srgb, var(--kind-savings) 14%, transparent);
+    --balance-negative: color-mix(in srgb, var(--kind-expense) 16%, transparent);
 
     /* Fonts */
     --font-display: "Bricolage Grotesque", system-ui, sans-serif;

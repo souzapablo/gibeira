@@ -16,7 +16,7 @@ public sealed class FieldRowTests : BunitContext
             .Add(p => p.Icon, builder =>
             {
                 builder.OpenComponent<KindIcon>(0);
-                builder.AddComponentParameter(1, nameof(KindIcon.Kind), Kind.Cartao);
+                builder.AddComponentParameter(1, nameof(KindIcon.Kind), Kind.CreditCard);
                 builder.CloseComponent();
             })
             .Add(p => p.Label, "vencimento")
@@ -27,7 +27,7 @@ public sealed class FieldRowTests : BunitContext
         var button = row.Find("button.field-row");
         Assert.Equal("vencimento", button.QuerySelector(".field-row-label")!.TextContent);
         Assert.Equal("10/11/26", button.QuerySelector(".field-row-value")!.TextContent);
-        Assert.Equal(Kind.Cartao, row.FindComponent<KindIcon>().Instance.Kind);
+        Assert.Equal(Kind.CreditCard, row.FindComponent<KindIcon>().Instance.Kind);
         Assert.Equal(IconName.ChevronRight, Assert.Single(row.FindComponents<Icon>()).Instance.Name);
 
         button.Click();
