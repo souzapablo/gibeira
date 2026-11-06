@@ -86,9 +86,9 @@ T17 → T18 → T19 → T20
 
 **Done when**:
 
-- [ ] `PortugueseIdentifierIsReportedWithFileAndLine` passes: sample `.cs`, `.razor` and `.css` text holding `Kind.Cartao`, `class="saldo-cell"` and `--kind-entrada` is reported with each file and line, while `"saldo"` in a string literal, a comment and markup text `entrada` are not
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.RepositoryTests/Gibeira.RepositoryTests.csproj`
-- [ ] Test count: RepositoryTests grows by 1 (no silent deletions)
+- [x] `PortugueseIdentifierIsReportedWithFileAndLine` passes: sample `.cs`, `.razor` and `.css` text holding `Kind.Cartao`, `class="saldo-cell"` and `--kind-entrada` is reported with each file and line, while `"saldo"` in a string literal, a comment and markup text `entrada` are not
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.RepositoryTests/Gibeira.RepositoryTests.csproj`
+- [x] Test count: RepositoryTests 36 → 37 (no silent deletions)
 
 **Tests**: unit
 **Gate**: quick
