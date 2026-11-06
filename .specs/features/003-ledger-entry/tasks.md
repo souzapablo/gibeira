@@ -174,10 +174,10 @@ T17 → T18 → T19 → T20
 
 **Done when**:
 
-- [ ] `BlankDescriptionIsRefused` (empty and spaces), `CreditCardWithoutCardIsRefused`, `CardOnOtherKindIsRefused` (each of the four other kinds), `BlankTagIsRefused`, `RepeatedTagIsRefused` pass, each throwing `LedgerRuleException`
-- [ ] `TagsKeepTheirGivenOrder` passes
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Ledger.Tests/Gibeira.Ledger.Tests.csproj`
-- [ ] Test count: Ledger.Tests 13 tests (no silent deletions)
+- [x] `BlankDescriptionIsRefused` (empty and spaces), `CreditCardWithoutCardIsRefused`, `CardOnOtherKindIsRefused` (each of the four other kinds), `BlankTagIsRefused`, `RepeatedTagIsRefused` pass, each throwing `LedgerRuleException`
+- [x] `TagsKeepTheirGivenOrder` passes
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Ledger.Tests/Gibeira.Ledger.Tests.csproj`
+- [x] Test count: Ledger.Tests 13 tests (no silent deletions)
 
 **Tests**: unit
 **Gate**: quick
