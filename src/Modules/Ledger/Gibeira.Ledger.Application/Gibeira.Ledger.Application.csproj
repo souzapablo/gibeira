@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gibeira.Ledger.Domain\Gibeira.Ledger.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

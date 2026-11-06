@@ -34,6 +34,26 @@ public sealed class StructureTests
     }
 
     [Fact]
+    public async Task LedgerModuleHasThreeLayerProjects()
+    {
+        string[] projects =
+        [
+            "src/Modules/Ledger/Gibeira.Ledger.Domain/Gibeira.Ledger.Domain.csproj",
+            "src/Modules/Ledger/Gibeira.Ledger.Application/Gibeira.Ledger.Application.csproj",
+            "src/Modules/Ledger/Gibeira.Ledger.Infrastructure/Gibeira.Ledger.Infrastructure.csproj",
+        ];
+
+        var files = await RepositoryRoot.ListFilesAsync(Root, TestContext.Current.CancellationToken);
+        var solutionProjects = SolutionProjects();
+
+        Assert.All(projects, project =>
+        {
+            Assert.Contains(project, files);
+            Assert.Contains(project, solutionProjects);
+        });
+    }
+
+    [Fact]
     public async Task EveryProjectTargetsNet10WithNullableAndWarningsAsErrors()
     {
         var cancellationToken = TestContext.Current.CancellationToken;

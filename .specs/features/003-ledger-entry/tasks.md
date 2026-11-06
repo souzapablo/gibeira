@@ -129,10 +129,10 @@ T17 → T18 → T19 → T20
 
 **Done when**:
 
-- [ ] `LedgerModuleHasThreeLayerProjects` passes: the three projects exist under `src/Modules/Ledger/` and are in `Gibeira.slnx`
-- [ ] Every `*HoldsOnSolution` architecture test passes with the module loaded, and `EveryProjectTargetsNet10WithNullableAndWarningsAsErrors` still passes
-- [ ] Gate check passes: `dotnet test --solution Gibeira.slnx`
-- [ ] Test count: RepositoryTests grows by 1 (no silent deletions)
+- [x] `LedgerModuleHasThreeLayerProjects` passes: the three projects exist under `src/Modules/Ledger/` and are in `Gibeira.slnx`
+- [x] Every `*HoldsOnSolution` architecture test passes with the module loaded, and `EveryProjectTargetsNet10WithNullableAndWarningsAsErrors` still passes
+- [x] Gate check passes: `dotnet test --solution Gibeira.slnx`
+- [x] Test count: RepositoryTests grows by 1 (no silent deletions)
 
 **Tests**: unit
 **Gate**: full
@@ -707,6 +707,7 @@ The feature's live state, written as it happens - a compaction gives no warning.
 
 **Settled mid-build:** none
 **T2 notes:** AD-011 covers every identifier, so T2 also renamed Portuguese names outside the naming table (`Excluir`, `Nenhum`, `Salvar`, `Hoje`, `Todos`, `Padaria`, `Geladeira`, the modal keys `parcelado`→`installments`, `nenhuma`→`none`). Spec 002's `tasks.md` proof filters now name the renamed tests. Running the full solution once had all 17 integration tests fail on Aspire's orchestrator startup check (timeout) while RepositoryTests ran; run alone they pass
+**T3 notes:** the T3 gate ended with MTP exit code 8 only because `Gibeira.Ledger.Tests` held no test yet (326 passed, 0 failed); T4 adds its first tests. The template was installed with `dotnet new install ./templates/module` as `CONTRIBUTING.md` says
 **Dispatched:** none
 **Walked:** none
 
