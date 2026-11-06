@@ -220,10 +220,10 @@ T17 → T18 → T19 → T20
 
 **Done when**:
 
-- [ ] `CardReadsBackIdNameAndDueDay`, `DueDayOutsideMonthIsRefused` (0 and 32), `BlankCardNameIsRefused` pass
-- [ ] `FirstDueDateOnOrAfter` (Itaú day 10 from 29/10/2026 → 10/11/2026), `DueDateStepsByMonth` (→ 10/12/2026) and `DueDayClampsToMonthLength` (day 31 in February) pass
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Ledger.Tests/Gibeira.Ledger.Tests.csproj`
-- [ ] Test count: Ledger.Tests 24 tests (no silent deletions)
+- [x] `CardReadsBackIdNameAndDueDay`, `DueDayOutsideMonthIsRefused` (0 and 32), `BlankCardNameIsRefused` pass
+- [x] `FirstDueDateOnOrAfter` (Itaú day 10 from 29/10/2026 → 10/11/2026), `DueDateStepsByMonth` (→ 10/12/2026) and `DueDayClampsToMonthLength` (day 31 in February) pass
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Ledger.Tests/Gibeira.Ledger.Tests.csproj`
+- [x] Test count: Ledger.Tests 24 tests (no silent deletions)
 
 **Tests**: unit
 **Gate**: quick
