@@ -48,6 +48,6 @@ public sealed class EntryDetails
             throw new LedgerRuleException($"The tag '{repeated.Key.Name}' is given twice.");
         }
 
-        return new EntryDetails(kind, money, description, cardId, given);
+        return new EntryDetails(kind, money, description, cardId, Array.AsReadOnly(given));
     }
 }

@@ -188,7 +188,7 @@ T17 → T18 → T19 → T20
 
 ### T6: LedgerEntry aggregate
 
-**What**: `LedgerEntry` with `EntryOrigin` (`Single`, `Repeat`, `Installment`), equal by id only, with no setter or mutating method, `BalanceEffect` signed by kind, and `Single(date, details, addOrder)`.
+**What**: `LedgerEntry` with `EntryOrigin` (`OneOff`, `Repeat`, `Installment`), equal by id only, with no setter or mutating method, `BalanceEffect` signed by kind, and `OneOff(date, details, addOrder)`.
 **Where**: `src/Modules/Ledger/Gibeira.Ledger.Domain/LedgerEntry.cs`
 **Depends on**: T5
 **Reuses**: The nested sealed records of `Repetition` in `src/Host/Gibeira.Web/Ledger/ILedgerStore.cs`
@@ -196,12 +196,12 @@ T17 → T18 → T19 → T20
 
 **Done when**:
 
-- [ ] `EntryReadsBackComplete` passes: id, day, kind, amount, description, card id on cartão, tags and a single origin
-- [ ] `EntriesAreEqualOnlyByIdentity` passes: two entries with equal values and different ids differ; the same entry equals itself
-- [ ] `EntryHasNoMutatingMember` passes: by reflection, no public setter, no public non-readonly field and no public method other than queries
-- [ ] `IncomeAddsToBalance` and `OtherKindsSubtractFromBalance` (four kinds) pass
-- [ ] Gate check passes: `dotnet test --project tests/Gibeira.Ledger.Tests/Gibeira.Ledger.Tests.csproj`
-- [ ] Test count: Ledger.Tests 18 tests (no silent deletions)
+- [x] `EntryReadsBackComplete` passes: id, day, kind, amount, description, card id on cartão, tags and a single origin
+- [x] `EntriesAreEqualOnlyByIdentity` passes: two entries with equal values and different ids differ; the same entry equals itself
+- [x] `EntryHasNoMutatingMember` passes: by reflection, no public setter, no public non-readonly field and no public method other than queries
+- [x] `IncomeAddsToBalance` and `OtherKindsSubtractFromBalance` (four kinds) pass
+- [x] Gate check passes: `dotnet test --project tests/Gibeira.Ledger.Tests/Gibeira.Ledger.Tests.csproj`
+- [x] Test count: Ledger.Tests 18 tests (no silent deletions)
 
 **Tests**: unit
 **Gate**: quick
@@ -708,6 +708,7 @@ The feature's live state, written as it happens - a compaction gives no warning.
 **Settled mid-build:** none
 **T2 notes:** AD-011 covers every identifier, so T2 also renamed Portuguese names outside the naming table (`Excluir`, `Nenhum`, `Salvar`, `Hoje`, `Todos`, `Padaria`, `Geladeira`, the modal keys `parcelado`→`installments`, `nenhuma`→`none`). Spec 002's `tasks.md` proof filters now name the renamed tests. Running the full solution once had all 17 integration tests fail on Aspire's orchestrator startup check (timeout) while RepositoryTests ran; run alone they pass
 **T3 notes:** the T3 gate ended with MTP exit code 8 only because `Gibeira.Ledger.Tests` held no test yet (326 passed, 0 failed); T4 adds its first tests. The template was installed with `dotnet new install ./templates/module` as `CONTRIBUTING.md` says
+**T6 notes:** the design's `EntryOrigin.Single` and `LedgerEntry.Single` are named `OneOff`: the analyzers refuse `Single` (CA1720, CA1716, it is `System.Single`) and the repo suppresses no analyzer. design.md says `OneOff` too
 **Dispatched:** none
 **Walked:** none
 

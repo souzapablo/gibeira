@@ -37,7 +37,7 @@ sequenceDiagram
     Note over A,D: refused here: nothing is stored
     A->>M: Find the card, NextAddOrder
     alt não repete
-        A->>D: LedgerEntry.Single(...)
+        A->>D: LedgerEntry.OneOff(...)
         A->>M: Add entry
     else mensalmente, semanalmente, diariamente
         A->>D: RecurringRule.Create(...)
@@ -148,7 +148,7 @@ public sealed class EntryDetails
 
 public abstract record EntryOrigin
 {
-    public sealed record Single : EntryOrigin;
+    public sealed record OneOff : EntryOrigin;
     public sealed record Repeat(RecurringRuleId RuleId, Frequency Frequency) : EntryOrigin;
     public sealed record Installment(InstallmentPlanId PlanId, int Number, int Count) : EntryOrigin;
 }
@@ -168,7 +168,7 @@ public sealed class LedgerEntry : IEquatable<LedgerEntry>
 
     public decimal BalanceEffect { get; }         // + for Income, - for every other kind
 
-    public static LedgerEntry Single(DateOnly date, EntryDetails details, long addOrder);
+    public static LedgerEntry OneOff(DateOnly date, EntryDetails details, long addOrder);
     internal static LedgerEntry From(DateOnly date, EntryDetails details, EntryOrigin origin, long addOrder);
 }
 
